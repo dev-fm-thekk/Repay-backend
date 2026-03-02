@@ -3,6 +3,7 @@ import { SiweMessage, generateNonce } from 'siwe';
 import jwt from 'jsonwebtoken';
 import { env } from '../config/env.js';
 import asyncHandler from 'express-async-handler';
+import logger from '../utils/logger.js';
 
 const router = Router();
 
@@ -53,7 +54,7 @@ router.post('/verify', asyncHandler(async (req: Request, res: Response) => {
     });
 
   } catch (err: any) {
-    console.error('[Auth Verify Error]:', err);
+    logger.error(`[Auth Verify Error]: ${err.stack || err}`);
     res.status(401).json({ 
       error: 'Verification failed', 
       details: err.message || String(err) 

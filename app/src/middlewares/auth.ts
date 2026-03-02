@@ -1,6 +1,7 @@
 import { Request, Response, NextFunction } from 'express';
 import jwt from 'jsonwebtoken';
 import { env } from '../config/env.js';
+import logger from '../utils/logger.js';
 
 export interface AuthRequest extends Request {
   user?: {
@@ -33,7 +34,7 @@ export const authenticate = (req: AuthRequest, res: Response, next: NextFunction
     req.user = { address: decoded.address, type: 'user' };
     next();
   } catch (err: any) {
-    console.error('[Auth Middleware Error]:', err.message);
+    logger.error(`[Auth Middleware Error]: ${err.message}`);
     return res.status(401).json({ error: 'Unauthorized: Invalid token', details: err.message });
   }
 };
