@@ -75,7 +75,7 @@ const artifactsDir = path.join(process.cwd(), "artifacts");
 
 if (!fs.existsSync(artifactsDir)) {
   fs.mkdirSync(artifactsDir);
-}
+}  
 
 const existingVersions = fs
   .readdirSync(artifactsDir)
