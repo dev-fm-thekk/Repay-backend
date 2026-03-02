@@ -8,9 +8,19 @@
   "devDependencies": {
     "@nomicfoundation/hardhat-ignition": "^3.0.8",
     "@nomicfoundation/hardhat-toolbox-viem": "^5.0.2",
-    "@types/node": "^22.8.5",
+    "@types/cors": "^2.8.19",
+    "@types/express": "^5.0.6",
+    "@types/jsonwebtoken": "^9.0.10",
+    "@types/node": "^25.3.3",
+    "cors": "^2.8.6",
+    "dotenv": "^17.3.1",
+    "ethers": "^6.16.0",
+    "express": "^5.2.1",
+    "express-async-handler": "^1.2.0",
     "forge-std": "foundry-rs/forge-std#v1.9.4",
     "hardhat": "^3.1.10",
+    "jsonwebtoken": "^9.0.3",
+    "siwe": "^3.0.0",
     "typescript": "~5.8.0",
     "viem": "^2.43.0"
   },
@@ -20,6 +30,8 @@
     "deploy-local": "bunx hardhat run scripts/deploy.ts --network localhost",
     "deploy-sepolia": "bunx hardhat run scripts/deploy.ts --network sepolia",
     "compile": "bunx hardhat compile",
-    "compile:forge": "forge build"
+        "compile:forge": "forge build",
+    "start:app": "bun --watch app/src/server.ts"
+
   }
 }
