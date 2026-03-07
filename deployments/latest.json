@@ -1,0 +1,18 @@
+{
+  "network": "sepolia",
+  "deployedAt": "2026-03-07T14:25:20.857Z",
+  "deployer": "0xA87fd5C0EE110cEAA1939C01C1D8623ac4417A2f",
+  "contracts": {
+    "ProductRegistry": "0x60f4bdc6f200b51f94ae7f54d8f0a77d8f3e012e",
+    "EcoToken": "0x6d597ae3933eddad07b3f46671a060b498ba0f3a",
+    "TicketNFT": "0xea82cf138c096bcb5552ced5a80ecf79fe097b1d",
+    "NFTMarketPlace": "0x4689c54289fc08bb42623f88a3f4aaa92ece2029",
+    "SmartBin": "0x0a6169b22defa6832b860c5139441b3e95bacd11",
+    "MaterialAuction": "0xc01ad37803f21bc31fba5d417779072ab1e436cf"
+  },
+  "initializationTx": {
+    "registerBinHash": "0x439d952de681efe88570c8a225f7167f91f0b8d6ad1b94720b70646bf51feabf",
+    "registerOracleHash": "0x9733844c570210454d33b8dedea7f737f6f7c3b21e807318f3fd369df5bf40ba",
+    "grantRoleHash": "0x265aca7b6aa1cc52cd948202ddfc9692dd48dacd39c0aebe63fe0b09992cdb58"
+  }
+}

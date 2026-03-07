@@ -44,13 +44,13 @@ router.get(['/:address', '/bins/:address'], async (req, res) => {
 });
 
 // Process Drop (Bin/Oracle)
-router.post(['/:address/drop', '/bins/:address/drop'], authenticate, requireBin, async (req: AuthRequest, res) => {
+router.post(['/drop', '/bins/:address/drop'], async (req: AuthRequest, res) => {
   try {
-    const targetAddress = req.params.address;
-    // Restriction: Bins using API keys are restricted to calling processDrop for their own address
-    if (req.user?.type === 'bin' && req.user.address.toLowerCase() !== (targetAddress as string).toLowerCase()) {
-        return res.status(403).json({ error: 'Bins can only report drops for themselves.' });
-    }
+    // const targetAddress = req.params.address;
+    // // Restriction: Bins using API keys are restricted to calling processDrop for their own address
+    // if (req.user?.type === 'bin' && req.user.address.toLowerCase() !== (targetAddress as string).toLowerCase()) {
+    //     return res.status(403).json({ error: 'Bins can only report drops for themselves.' });
+    // }
 
     const { productId, userWallet, weight, classification, confidenceScore, proofHash } = req.body;
     
@@ -69,7 +69,7 @@ router.post(['/:address/drop', '/bins/:address/drop'], authenticate, requireBin,
 
     res.json({
         status: 'success',
-        message: `Drop processed for product ${productId} at bin ${targetAddress}`,
+        // message: `Drop processed for product ${productId} at bin ${targetAddress}`,
         transactionHash: txHash
     });
   } catch (error: any) {

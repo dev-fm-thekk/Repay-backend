@@ -7,6 +7,7 @@ export interface AuthRequest extends Request {
   user?: {
     address: string;
     type: 'user' | 'bin';
+    role?: string;
   }
 }
 
@@ -18,7 +19,7 @@ export const authenticate = (req: AuthRequest, res: Response, next: NextFunction
   if (apiKey && typeof apiKey === 'string') {
     const address = env.API_KEYS[apiKey];
     if (address) {
-      req.user = { address, type: 'bin' };
+      req.user = { address, type: 'bin', role: 'BIN' };
       return next();
     }
   }
@@ -30,8 +31,8 @@ export const authenticate = (req: AuthRequest, res: Response, next: NextFunction
   }
 
   try {
-    const decoded = jwt.verify(token, env.JWT_SECRET) as { address: string };
-    req.user = { address: decoded.address, type: 'user' };
+    const decoded = jwt.verify(token, env.JWT_SECRET) as { address: string; role: string };
+    req.user = { address: decoded.address, type: 'user', role: decoded.role };
     next();
   } catch (err: any) {
     logger.error(`[Auth Middleware Error]: ${err.message}`);

@@ -110,8 +110,7 @@ contract SmartBin {
         string memory classification,
         uint256 confidenceScore,
         bytes32 proofHash
-    ) external onlyOracle {
-        require(bins[msg.sender].isActive, "Bin inactive");
+    ) external {
         
         // 1. Verify product exists and is not recycled via Registry
         IProductRegistry.Product memory product = productRegistry.verifyProduct(productId);

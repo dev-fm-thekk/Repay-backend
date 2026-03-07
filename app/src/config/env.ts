@@ -8,7 +8,7 @@ export const env = {
   PORT: process.env.PORT || 8000,
   JWT_SECRET: process.env.JWT_SECRET || 'fallback-secret',
   SESSION_SECRET: process.env.SESSION_SECRET || 'fallback-siwe-secret',
-  RPC_URL: process.env.RPC_URL || 'http://localhost:8545',
+  RPC_URL: process.env.SEPOLIA_RPC_URL || 'http://localhost:8545',
   CONTRACTS: {
     ECO_TOKEN: process.env.ECO_TOKEN_ADDRESS || '0xe7f1725e7734ce288f8367e1bb143e90bb3f0512',
     SMARTBIN: process.env.SMARTBIN_ADDRESS || '0xdc64a140aa3e981100a9beca4e685f962f0cf6c9',

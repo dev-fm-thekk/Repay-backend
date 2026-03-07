@@ -1,5 +1,5 @@
 import { createPublicClient, http, parseAbi, Address, keccak256, stringToBytes, createWalletClient } from 'viem';
-import { hardhat } from 'viem/chains';
+import { hardhat, sepolia } from 'viem/chains';
 import { privateKeyToAccount } from 'viem/accounts';
 import { env } from '../config/env.js';
 import logger from '../utils/logger.js';
@@ -66,14 +66,14 @@ export class ContractService {
 
   constructor() {
     this.client = createPublicClient({
-      chain: hardhat,
+      chain: sepolia,
       transport: http(env.RPC_URL),
     });
 
     this.adminAccount = privateKeyToAccount(env.ADMIN_PRIVATE_KEY as Address);
     this.walletClient = createWalletClient({
       account: this.adminAccount,
-      chain: hardhat,
+      chain: sepolia,
       transport: http(env.RPC_URL),
     });
   }
@@ -303,12 +303,19 @@ export class ContractService {
   }
 
   async processDropTransaction(productId: bigint, user: string, weight: bigint, classification: string, confidenceScore: bigint, proofHash: string) {
-     return await this.walletClient.writeContract({
+    const txn = await this.walletClient.writeContract({
       address: env.CONTRACTS.SMARTBIN as Address,
       abi: SMART_BIN_ABI,
       functionName: 'processDrop',
       args: [productId, user as Address, weight, classification, confidenceScore, proofHash as `0x${string}`],
+      gas: 500000n
     });
+
+    const receipt = await this.client.waitForTransactionReceipt({ hash: txn });
+    if (!receipt) return {
+      error: "Transaction failed"
+    }
+    return receipt;
   }
 
   async registerRecyclerTransaction(recyclerAddress: string) {
@@ -322,20 +329,32 @@ export class ContractService {
 
   async configureRouteTransaction(routeId: string, mode: number, zone: string, standardCost: bigint, premiumCost: bigint, validity: bigint) {
     return await this.walletClient.writeContract({
-        address: env.CONTRACTS.TICKETS as Address,
-        abi: TICKET_NFT_ABI,
-        functionName: 'configureRoute',
-        args: [routeId, mode, zone, standardCost, premiumCost, validity],
+      address: env.CONTRACTS.TICKETS as Address,
+      abi: TICKET_NFT_ABI,
+      functionName: 'configureRoute',
+      args: [routeId, mode, zone, standardCost, premiumCost, validity],
     });
   }
 
   async updateTransitAuthorityTransaction(newAuthority: string) {
     return await this.walletClient.writeContract({
-        address: env.CONTRACTS.TICKETS as Address,
-        abi: TICKET_NFT_ABI,
-        functionName: 'updateTransitAuthority',
-        args: [newAuthority as Address],
+      address: env.CONTRACTS.TICKETS as Address,
+      abi: TICKET_NFT_ABI,
+      functionName: 'updateTransitAuthority',
+      args: [newAuthority as Address],
     });
+  }
+
+  async getPrimaryRole(address: string): Promise<string> {
+    if (await this.isAdmin(address)) return 'ADMIN';
+    if (await this.isGovernment(address)) return 'GOVERNMENT';
+    if (await this.isTransitAuthority(address)) return 'TRANSIT_AUTHORITY';
+    if (await this.isAIOracle(address)) return 'AI_ORACLE';
+    if (await this.isMinter(address)) return 'MINTER';
+    if (await this.isVerifiedRecycler(address)) return 'RECYCLER';
+    if (await this.isVerifiedCompany(address)) return 'COMPANY';
+    if (await this.isRegisteredBin(address)) return 'BIN';
+    return 'USER';
   }
 }
 

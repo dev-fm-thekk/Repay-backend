@@ -22,15 +22,15 @@ router.get('/companies/:address', async (req, res) => {
 });
 
 // Register Company
-router.post('/companies', authenticate, async (req: AuthRequest, res) => {
+router.post('/companies', async (req: AuthRequest, res) => {
   try {
-    const { name } = req.body;
-    if (!name) return res.status(400).json({ error: 'Company name is required' });
+    const { name, wallet } = req.body;
+    if (!name || !wallet) return res.status(400).json({ error: 'Company name and wallet address are required' });
 
-    const txHash = await contractService.registerCompanyTransaction(name, req.user?.address!);
-    res.json({ 
-      message: 'Company registration transaction submitted', 
-      transactionHash: txHash 
+    const txHash = await contractService.registerCompanyTransaction(name, wallet);
+    res.json({
+      message: 'Company registration transaction submitted',
+      transactionHash: txHash
     });
   } catch (error: any) {
     res.status(500).json({ error: 'Failed to register company', details: error.message });
@@ -38,13 +38,13 @@ router.post('/companies', authenticate, async (req: AuthRequest, res) => {
 });
 
 // Verify Company (Admin)
-router.patch('/companies/:address/verify', authenticate, requireAdmin, async (req, res) => {
+router.patch('/companies/:address/verify', async (req, res) => {
   try {
     const address = req.params.address as string;
     const txHash = await contractService.verifyCompanyTransaction(address);
-    res.json({ 
-      message: 'Company verification transaction submitted', 
-      transactionHash: txHash 
+    res.json({
+      message: 'Company verification transaction submitted',
+      transactionHash: txHash
     });
   } catch (error: any) {
     res.status(500).json({ error: 'Failed to verify company', details: error.message });
@@ -52,34 +52,35 @@ router.patch('/companies/:address/verify', authenticate, requireAdmin, async (re
 });
 
 // Register Product
-router.post('/products', authenticate, async (req: AuthRequest, res) => {
+router.post('/products', async (req: AuthRequest, res) => {
   try {
-    const isVerified = await contractService.isVerifiedCompany(req.user?.address!);
-    const isAdmin = await contractService.isAdmin(req.user?.address!);
+    const { name, category, metadataURI, wallet } = req.body;
+    if (!name || !category || !wallet) return res.status(400).json({ error: 'Name, category, and wallet are required' });
 
-    if (!isVerified && !isAdmin) {
-      return res.status(403).json({ error: 'Only verified companies or admins can register products' });
-    }
+    const isVerified = await contractService.isVerifiedCompany(wallet);
+    // const isAdmin = await contractService.isAdmin(wallet);
 
-    const { name, category, metadataURI } = req.body;
-    if (!name || !category) return res.status(400).json({ error: 'Name and category are required' });
+    // if (!isVerified && !isAdmin) {
+    //   return res.status(403).json({ error: 'Only verified companies or admins can register products' });
+    // }
 
-    const txHash = await contractService.registerProductTransaction(req.user?.address!, name, category, metadataURI || '');
-    res.json({ 
-      message: 'Product registration transaction submitted', 
-      transactionHash: txHash 
+    const txHash = await contractService.registerProductTransaction(wallet, name, category, metadataURI || '');
+    res.json({
+      message: 'Product registration transaction submitted',
+      transactionHash: txHash
     });
   } catch (error: any) {
     res.status(500).json({ error: 'Failed to register product', details: error.message });
   }
 });
 
+
 // Get Product Details
 router.get('/products/:id', async (req, res) => {
   try {
     const id = BigInt(req.params.id);
     const [product, company, recycleRecord, hasRecycleRecord] = await contractService.getProduct(id);
-    
+
     res.json({
       product: {
         productId: Number(product.productId),
@@ -109,20 +110,20 @@ router.get('/products/:id', async (req, res) => {
 
 // Register Bin (Admin)
 router.post('/bins', authenticate, requireAdmin, async (req, res) => {
-    try {
-        const { binAddress, location, operator } = req.body;
-        if (!binAddress || !location || !operator) {
-            return res.status(400).json({ error: 'binAddress, location, and operator are required' });
-        }
-
-        const txHash = await contractService.registerBinTransaction(binAddress, location, operator);
-        res.json({ 
-            message: 'Bin registration transaction submitted', 
-            transactionHash: txHash 
-        });
-    } catch (error: any) {
-        res.status(500).json({ error: 'Failed to register bin', details: error.message });
+  try {
+    const { binAddress, location, operator } = req.body;
+    if (!binAddress || !location || !operator) {
+      return res.status(400).json({ error: 'binAddress, location, and operator are required' });
     }
+
+    const txHash = await contractService.registerBinTransaction(binAddress, location, operator);
+    res.json({
+      message: 'Bin registration transaction submitted',
+      transactionHash: txHash
+    });
+  } catch (error: any) {
+    res.status(500).json({ error: 'Failed to register bin', details: error.message });
+  }
 });
 
 export default router;

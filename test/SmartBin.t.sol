@@ -6,29 +6,34 @@ import "../contracts/SmartBin.sol";
 import "../contracts/ProductRegistry.sol";
 import "../contracts/EcoToken.sol";
 
-contract SmartBinTest is Test {
+/**
+ * @title SmartBinDebug
+ * @dev Replicates the production-like scenario for user wallet 0x18422192C052F4b70D1303FA4E5E3d84B9805556
+ *      to debug why processDrop reverts.
+ */
+contract SmartBinDebug is Test {
     SmartBin public smartBin;
     ProductRegistry public registry;
     EcoToken public token;
 
-    address public admin;
-    address public oracle;
-    address public government;
-    address public bin1;
-    address public user1;
+    // YOUR WALLET
+    address public userWallet = 0x18422192C052F4b70D1303FA4E5E3d84B9805556;
+
+    // SYSTEM ROLES
+    address public admin = 0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266; // Hardhat 0
+    address public oracle = address(this); // The test contract will act as Oracle
+    address public government = address(0xDEAD);
+    address public company = 0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266; // Admin address acting as company
 
     function setUp() public {
-        admin = address(this);
-        oracle = makeAddr("oracle");
-        government = makeAddr("government");
-        bin1 = makeAddr("bin1");
-        user1 = makeAddr("user1");
+        vm.label(userWallet, "USER_WALLET");
+        vm.label(admin, "ADMIN");
+        vm.label(company, "COMPANY");
 
-        // 1. Deploy Registry and Token
+        // 1. Deploy contracts (as admin)
+        vm.startPrank(admin);
         registry = new ProductRegistry();
         token = new EcoToken();
-
-        // 2. Deploy SmartBin
         smartBin = new SmartBin(
             address(registry),
             address(token),
@@ -36,70 +41,91 @@ contract SmartBinTest is Test {
             government
         );
 
-        // 3. Setup Permissions
+        // 2. Setup Permissions (System-Level)
+        // A. SmartBin must be allowed to update registry
         registry.registerBin(address(smartBin));
+
+        // B. SmartBin must be allowed to mint EcoTokens
         token.addMinter(address(smartBin));
 
-        // Register the bin instance in the SmartBin contract
-        smartBin.registerBin(bin1, "New York Sector 4", makeAddr("operator"));
+        // C. The Oracle address must be registered as a Bin Node itself
+        // because SmartBin checks bins[msg.sender].isActive in processDrop
+        smartBin.registerBin(oracle, "Primary Node", address(this));
+
+        // D. Setup Company
+        registry.registerCompany("Soda Corp", company);
+        registry.verifyCompany(company);
+        vm.stopPrank();
+
+        // 3. Register Product (as verified company)
+        vm.prank(company);
+        registry.registerProduct(
+            company,
+            "Real Soda Can",
+            "metal-can",
+            "ipfs://real-soda-metadata"
+        );
     }
 
-    function testFullDropProcess() public {
-        // Register a dummy product in Registry
-        vm.prank(admin);
-        registry.registerCompany("Coca Corp", address(0x123));
-        registry.verifyCompany(address(0x123));
-        vm.prank(address(0x123));
-        uint256 productId = registry.registerProduct(
-            address(0x123),
-            "Coke Can",
-            "metal",
-            "ipfs://uri"
+    /**
+     * @notice Test a full drop process with real data
+     */
+    function testSuccessfulDropForUser() public {
+        uint256 productId = 1; // First product registered
+        uint256 weight = 2500; // 2.5kg
+        string memory classification = "metal-can"; // Valid rate from EcoToken
+        uint256 confidence = 100;
+        bytes32 proofHash = keccak256(
+            abi.encodePacked("DROP-PROOF-123", block.timestamp)
         );
 
-        uint256 weight = 350;
-        string memory material = "metal-can";
-        uint256 confidence = 98;
-        bytes32 proof = keccak256("valid-proof");
+        // Initial Balance
+        uint256 balanceBefore = token.balanceOf(userWallet);
+        console.log("Initial Balance: %s", balanceBefore);
 
-        // Register the oracle as a bin as well so it can report drops
-        smartBin.registerBin(oracle, "AI Oracle Hub", makeAddr("oracle-operator"));
-
-        // AI Oracle triggers the process from the bin's address context
-        vm.prank(oracle);
-        // Note: In your SmartBin.sol, the sender MUST be the bin's address
-        // to pass the bins[msg.sender].isActive check.
-        // Cleanup any previous pranks before setting balance
-        vm.stopPrank(); 
-        vm.deal(bin1, 1 ether);
-
-        // Simulate call coming from bin via Oracle
-        vm.expectEmit(true, true, false, false);
-        emit SmartBin.MaterialDropped(1, productId, user1, material, 0);
-
+        // Act - Call from Oracle
         vm.prank(oracle);
         smartBin.processDrop(
             productId,
-            user1,
+            userWallet,
             weight,
-            material,
+            classification,
             confidence,
-            proof
+            proofHash
         );
-        // Verify state
-        (, , , , uint256 totalWeight, uint256 totalTokens) = smartBin.bins(
-            oracle
-        );
-        // Note: Based on your code, bins[msg.sender] uses the oracle address as key if oracle calls it.
-        // You might want to change SmartBin.sol to pass binAddress as an argument if oracle calls it.
 
-        assertGt(token.balanceOf(user1), 0);
+        // Assert
+        uint256 balanceAfter = token.balanceOf(userWallet);
+        console.log("Final Balance: %s", balanceAfter);
+
+        assertGt(
+            balanceAfter,
+            balanceBefore,
+            "User should have received tokens"
+        );
+
+        // Calculate Expected Reward: (weight * rate * confidence%) / 10000
+        // rate for "metal-can" = 12 * 10**18 / 100 (from EcoToken.sol)
+        // weight = 2500
+        // confidence = 100
+        // reward = (2500 * (0.12 * 10**18) * 100) / 10000
+        // reward = 3 * 10**18 (3 ECO)
+        assertEq(
+            balanceAfter,
+            3 * 10 ** 18,
+            "Should have received exactly 3 ECO"
+        );
     }
-    function test_RevertIf_InactiveBin() public {
-        // Match the exact string from your contract error
-        vm.expectRevert("Bin inactive");
 
-        vm.prank(oracle);
-        smartBin.processDrop(101, user1, 100, "glass", 100, bytes32(0));
+    /**
+     * @notice This will fail if the registry isn't configured
+     */
+    function testDuplicateDrop() public {
+        vm.startPrank(oracle);
+        smartBin.processDrop(1, userWallet, 1000, "metal-can", 100, bytes32(0));
+
+        vm.expectRevert("Already recycled");
+        smartBin.processDrop(1, userWallet, 1000, "metal-can", 100, bytes32(0));
+        vm.stopPrank();
     }
 }

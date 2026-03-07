@@ -6,8 +6,8 @@ This document outlines the REST API design for interacting with the Repay smart 
 `https://api.repay.network/v1`
 
 ## Authentication
-The platform uses **Sign-In with Ethereum (SIWE)** to authenticate wallets.
-- **Flow**: Nonce -> Signature -> JWT
+The platform uses **Wallet Signature Authentication** to verify identities and issue JWTs.
+- **Flow**: Signature -> JWT (with role)
 - **Full Guide**: [Authentication Documentation](./auth.md)
 - **Headers**:
   - `Authorization: Bearer <jwt_token>`

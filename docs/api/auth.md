@@ -4,45 +4,32 @@ Repay utilizes a Web3-first authentication flow based on **Sign-In with Ethereum
 
 ## 1. Authentication Flow (SIWE)
 
-### Step 1: Request Nonce
-To prevent replay attacks, the client must first fetch a temporary nonce from the server.
-- **Endpoint**: `GET /auth/nonce`
-- **Response**:
-  ```json
-  {
-    "nonce": "XyZ123..."
-  }
-  ```
+## 1. Authentication Flow (Simple Signature)
 
-### Step 2: Sign Message
-The client signs a message using their wallet (e.g., MetaMask, WalletConnect). The message should follow the EIP-4361 standard.
+### Step 1: Sign Message
+The client signs a simple message logic using their wallet. 
+**Message Format**: `Login to Repay Network with address: <WALLET_ADDRESS>`
+
+Example:
 ```text
-repay.network wants you to sign in with your Ethereum account:
-0xYourWalletAddress
-
-Sign in to the Repay decentralised recycling platform.
-
-URI: https://repay.network
-Version: 1
-Chain ID: 1
-Nonce: XyZ123...
-Issued At: 2024-03-01T23:45:00Z
+Login to Repay Network with address: 0xYourWalletAddress
 ```
 
-### Step 3: Verify Signature & Issue JWT
-The client sends the signed message and signature to the server.
-- **Endpoint**: `POST /auth/verify`
+### Step 2: Login & Issue JWT
+The client sends the wallet address and the signature to the server.
+- **Endpoint**: `POST /auth/login`
 - **Payload**:
   ```json
   {
-    "message": "...",
+    "address": "0x...",
     "signature": "0x..."
   }
   ```
 - **Response**:
   ```json
   {
-    "token": "eyKj...", // JWT
+    "token": "eyKj...", // JWT containing address and role
+    "role": "USER",     // ADMIN, GOVERNMENT, COMPANY, etc.
     "expiresAt": "2024-03-02T23:45:00Z"
   }
   ```

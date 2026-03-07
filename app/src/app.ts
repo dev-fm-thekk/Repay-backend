@@ -1,5 +1,11 @@
 import express from 'express';
 import cors from 'cors';
+
+// BigInt JSON Serialization Fix
+(BigInt.prototype as any).toJSON = function () {
+  return this.toString();
+};
+
 import { authenticate, AuthRequest } from './middlewares/auth.js';
 import authRoutes from './routes/auth.js';
 import registryRoutes from './routes/registry.js';
