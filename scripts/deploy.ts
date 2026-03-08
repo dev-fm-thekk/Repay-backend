@@ -2,69 +2,62 @@ import { network } from "hardhat";
 import fs from "fs";
 import path from "path";
 
-const { viem, networkName } = await network.connect();
-const client = await viem.getPublicClient();
+async function main() {
+  const { viem, networkName } = await network.connect();
 
-// --- Updated Logging: Start ---
-console.log(`\n🚀 Starting deployment on network: ${networkName}`);
-console.log(`--------------------------------------------------`);
-// --- End Logging ---
+  console.log(`\n🚀 Starting deployment on network: ${networkName}`);
+  console.log(`--------------------------------------------------`);
 
-const contracts = [
-  "EcoToken",
-  "MaterialAuction",
-  "NFTMarketPlace",
-  "ProductRegistry",
-  "SmartBin",
-  "TicketNFT",
-];
+  // Only deploy RewardToken for now as per the user's setup
+  const contractsToDeploy = [
+    { name: "RewardToken", args: [] }
+  ];
 
-const deployedContracts = await Promise.all(
-  contracts.map(async (contractName) => {
-    // --- Updated Logging: Per Contract ---
-    console.log(`📦 Deploying ${contractName}...`);
-    // --- End Logging ---
+  const deployedContracts = [];
 
-    const deployment = await viem.deployContract(contractName);
+  for (const contract of contractsToDeploy) {
+    console.log(`📦 Deploying ${contract.name}...`);
+    try {
+      const deployment = await viem.deployContract(contract.name, contract.args);
+      console.log(`✅ Deployed ${contract.name} at: ${deployment.address}`);
 
-    return {
-      name: contractName,
-      address: deployment.address,
-      abi: deployment.abi,
-    };
-  })
-);
+      deployedContracts.push({
+        name: contract.name,
+        address: deployment.address,
+        abi: deployment.abi,
+      });
+    } catch (error: any) {
+      console.error(`❌ Failed to deploy ${contract.name}:`, error.message);
+    }
+  }
 
-const artifactsDir = path.join(process.cwd(), "artifacts");
+  // Handle artifact saving
+  const artifactsDir = path.join(process.cwd(), "deployment_logs");
+  if (!fs.existsSync(artifactsDir)) {
+    fs.mkdirSync(artifactsDir);
+  }
 
-if (!fs.existsSync(artifactsDir)) {
-  fs.mkdirSync(artifactsDir);
+  const timestamp = new Date().toISOString().replace(/[:.]/g, "-");
+  const outputFile = path.join(artifactsDir, `deploy-${networkName}-${timestamp}.json`);
+
+  const deploymentMetadata = {
+    network: networkName,
+    deployedAt: new Date().toISOString(),
+    contracts: deployedContracts,
+  };
+
+  fs.writeFileSync(outputFile, JSON.stringify(deploymentMetadata, null, 2));
+
+  console.log(`\n✅ Deployment Job Finished!`);
+  console.log(`--------------------------------------------------`);
+  console.table(deployedContracts.map(c => ({ Contract: c.name, Address: c.address })));
+  console.log(`📂 Metadata saved to: ${outputFile}`);
+  console.log(`--------------------------------------------------\n`);
 }
 
-const existingVersions = fs
-  .readdirSync(artifactsDir)
-  .filter((file) => /^v\d+\.json$/.test(file))
-  .map((file) => parseInt(file.match(/^v(\d+)\.json$/)?.[1] || "0"));
-
-const nextVersion = existingVersions.length
-  ? Math.max(...existingVersions) + 1
-  : 1;
-
-const outputFile = path.join(artifactsDir, `v${nextVersion}.json`);
-
-const deploymentMetadata = {
-  version: `v${nextVersion}`,
-  network: networkName,
-  deployedAt: new Date().toISOString(),
-  contracts: deployedContracts,
-};
-
-fs.writeFileSync(outputFile, JSON.stringify(deploymentMetadata, null, 2));
-
-// --- Updated Logging: Success Summary ---
-console.log(`\n✅ Deployment Successful!`);
-console.log(`--------------------------------------------------`);
-console.table(deployedContracts.map(c => ({ Contract: c.name, Address: c.address })));
-console.log(`📂 Metadata saved to: artifacts/v${nextVersion}.json`);
-console.log(`--------------------------------------------------\n`);
-// --- End Logging ---
+main()
+  .then(() => process.exit(0))
+  .catch((error) => {
+    console.error(error);
+    process.exit(1);
+  });
