@@ -4,10 +4,9 @@ import path from "path";
 import dotenv from "dotenv";
 import { privateKeyToAccount } from "viem/accounts";
 import { Hex, http, createWalletClient, createPublicClient, defineChain } from "viem";
-import { localhost } from "viem/chains";
+import { hardhat, localhost } from "viem/chains";
 
 import RewardTokenArtifact from "../artifacts/contracts/reward.sol/RewardToken.json";
-import { hardhatChain } from "../utils/types.js";
 
 dotenv.config({ path: ".env.app" });
 
@@ -34,7 +33,7 @@ async function main() {
 
   const walletClient = createWalletClient({
     account,
-    chain: hardhatChain,
+    chain: hardhat,
     transport: http("http://127.0.0.1:8545/"),
   });
 
