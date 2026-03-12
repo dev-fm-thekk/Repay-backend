@@ -2,48 +2,56 @@
 
 Interface for `TicketNFT.sol`. Manages NFT-based public transport ticketing.
 
-## Configuration
+## 1. Ticket Discovery
 
-### Configure Route (Admin)
-- **Endpoint**: `POST /tickets/routes`
-- **Payload**:
-  ```json
-  {
-    "routeId": "METRO_L1",
-    "mode": "METRO",
-    "zone": "ZONE_A",
-    "standardCostECO": "50000000000000000000",
-    "premiumCostECO": "100000000000000000000",
-    "validityDuration": 3600
-  }
-  ```
+### Get Ticket Details
+- **Endpoint**: `GET /ticket/:tokenId`
+- **Response**: Ticket metadata including serviceId, status, and owner.
 
-## Ticketing
+### Get User's Tickets
+- **Endpoint**: `GET /ticket/holder/:address`
+- **Response**: List of `tokenIds` owned by the address.
+
+### Get Tickets by Service
+- **Endpoint**: `GET /ticket/service/:serviceId`
+- **Response**: All tickets issued for a specific transport service.
+
+---
+
+## 2. Purchase Flow
 
 ### Purchase Ticket
-- **Endpoint**: `POST /tickets/purchase`
+Purchase an NFT ticket for a specific service using RWDR tokens.
+- **Endpoint**: `POST /ticket/purchase`
+- **Auth Required**: `USER`, `AGENCY`, or `ADMIN`
 - **Payload**:
   ```json
   {
-    "routeId": "METRO_L1",
-    "class": "STANDARD",
-    "travelDate": 1740864000
+    "serviceId": 1,
+    "metadataURI": "ipfs://optional-custom-metadata",
+    "private_key": "0x..." // User's private key for transaction signing
   }
   ```
+- **Prerequisite**: User must have approved the `TicketNFT` contract to spend the required `RWDR` amount beforehand.
 
-### Get User Tickets
-- **Endpoint**: `GET /tickets/user/:address`
+---
 
-### Validate Ticket (Transit Authority)
-- **Endpoint**: `GET /tickets/:id/validate`
-- **Query Params**: `stationId=STN_001`
+## 3. Validation (Gate Check)
 
-### Use Ticket (Transit Authority)
-Marks the NFT as used upon entry.
-- **Endpoint**: `POST /tickets/:id/use`
+### Validate Ticket
+Marks a ticket as `USED`. Can only be performed by the agency that owns the service.
+- **Endpoint**: `POST /ticket/:tokenId/validate`
+- **Auth Required**: `AGENCY` (owner of the service) or `ADMIN`
 - **Payload**:
   ```json
   {
-    "stationId": "STN_001"
+    "operator_private_key": "0x..." // Private key of the agency operator
   }
   ```
+
+---
+
+## 4. Ticket Statuses
+- `0` (VALID): Freshly purchased, ready for use.
+- `1` (USED): Already scanned at a gate.
+- `2` (EXPIRED): Validity period has passed.

@@ -261,3 +261,341 @@ export const RewardTokenAbi = [
         "type": "function"
     }
 ] as const;
+
+export const AgencyRegistryAbi = [
+    // ── Read ──────────────────────────────────────────────────────────────────
+    {
+        "inputs": [],
+        "name": "totalAgencies",
+        "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [{ "internalType": "uint256", "name": "id", "type": "uint256" }],
+        "name": "getAgency",
+        "outputs": [
+            {
+                "components": [
+                    { "internalType": "uint256", "name": "id", "type": "uint256" },
+                    { "internalType": "string", "name": "name", "type": "string" },
+                    { "internalType": "string", "name": "shortCode", "type": "string" },
+                    { "internalType": "uint8", "name": "transport", "type": "uint8" },
+                    { "internalType": "address", "name": "wallet", "type": "address" },
+                    { "internalType": "uint8", "name": "status", "type": "uint8" },
+                    { "internalType": "uint256", "name": "registeredAt", "type": "uint256" },
+                    { "internalType": "string", "name": "metadataURI", "type": "string" }
+                ],
+                "internalType": "struct AgencyRegistry.Agency",
+                "name": "",
+                "type": "tuple"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [{ "internalType": "address", "name": "wallet", "type": "address" }],
+        "name": "getAgencyByWallet",
+        "outputs": [
+            {
+                "components": [
+                    { "internalType": "uint256", "name": "id", "type": "uint256" },
+                    { "internalType": "string", "name": "name", "type": "string" },
+                    { "internalType": "string", "name": "shortCode", "type": "string" },
+                    { "internalType": "uint8", "name": "transport", "type": "uint8" },
+                    { "internalType": "address", "name": "wallet", "type": "address" },
+                    { "internalType": "uint8", "name": "status", "type": "uint8" },
+                    { "internalType": "uint256", "name": "registeredAt", "type": "uint256" },
+                    { "internalType": "string", "name": "metadataURI", "type": "string" }
+                ],
+                "internalType": "struct AgencyRegistry.Agency",
+                "name": "",
+                "type": "tuple"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [{ "internalType": "address", "name": "wallet", "type": "address" }],
+        "name": "isActiveAgency",
+        "outputs": [{ "internalType": "bool", "name": "", "type": "bool" }],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [{ "internalType": "address", "name": "", "type": "address" }],
+        "name": "agencyIdByWallet",
+        "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    // ── Write ─────────────────────────────────────────────────────────────────
+    {
+        "inputs": [
+            { "internalType": "string", "name": "name", "type": "string" },
+            { "internalType": "string", "name": "shortCode", "type": "string" },
+            { "internalType": "uint8", "name": "transport", "type": "uint8" },
+            { "internalType": "address", "name": "wallet", "type": "address" },
+            { "internalType": "string", "name": "metadataURI", "type": "string" }
+        ],
+        "name": "registerAgency",
+        "outputs": [{ "internalType": "uint256", "name": "id", "type": "uint256" }],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            { "internalType": "uint256", "name": "id", "type": "uint256" },
+            { "internalType": "uint8", "name": "status", "type": "uint8" }
+        ],
+        "name": "setAgencyStatus",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            { "internalType": "uint256", "name": "id", "type": "uint256" },
+            { "internalType": "address", "name": "newWallet", "type": "address" }
+        ],
+        "name": "updateAgencyWallet",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            { "internalType": "uint256", "name": "id", "type": "uint256" },
+            { "internalType": "string", "name": "metadataURI", "type": "string" }
+        ],
+        "name": "updateAgencyMetadata",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    }
+] as const;
+
+export const ServiceRegistryAbi = [
+    // ── Read ──────────────────────────────────────────────────────────────────
+    {
+        "inputs": [],
+        "name": "totalServices",
+        "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [{ "internalType": "uint256", "name": "serviceId", "type": "uint256" }],
+        "name": "getService",
+        "outputs": [
+            {
+                "components": [
+                    { "internalType": "uint256", "name": "id", "type": "uint256" },
+                    { "internalType": "uint256", "name": "agencyId", "type": "uint256" },
+                    { "internalType": "string", "name": "name", "type": "string" },
+                    { "internalType": "string", "name": "route", "type": "string" },
+                    { "internalType": "uint256", "name": "tokenPrice", "type": "uint256" },
+                    { "internalType": "uint256", "name": "maxSupply", "type": "uint256" },
+                    { "internalType": "uint256", "name": "totalIssued", "type": "uint256" },
+                    { "internalType": "uint8", "name": "status", "type": "uint8" },
+                    { "internalType": "uint256", "name": "createdAt", "type": "uint256" },
+                    { "internalType": "string", "name": "metadataURI", "type": "string" }
+                ],
+                "internalType": "struct ServiceRegistry.Service",
+                "name": "",
+                "type": "tuple"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [{ "internalType": "uint256", "name": "serviceId", "type": "uint256" }],
+        "name": "getPrice",
+        "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [{ "internalType": "uint256", "name": "serviceId", "type": "uint256" }],
+        "name": "isAvailable",
+        "outputs": [{ "internalType": "bool", "name": "", "type": "bool" }],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [{ "internalType": "uint256", "name": "agencyId", "type": "uint256" }],
+        "name": "getAgencyServices",
+        "outputs": [{ "internalType": "uint256[]", "name": "", "type": "uint256[]" }],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    // ── Write ─────────────────────────────────────────────────────────────────
+    {
+        "inputs": [
+            { "internalType": "string", "name": "name", "type": "string" },
+            { "internalType": "string", "name": "route", "type": "string" },
+            { "internalType": "uint256", "name": "tokenPrice", "type": "uint256" },
+            { "internalType": "uint256", "name": "maxSupply", "type": "uint256" },
+            { "internalType": "string", "name": "metadataURI", "type": "string" }
+        ],
+        "name": "createService",
+        "outputs": [{ "internalType": "uint256", "name": "serviceId", "type": "uint256" }],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            { "internalType": "uint256", "name": "serviceId", "type": "uint256" },
+            { "internalType": "uint8", "name": "status", "type": "uint8" }
+        ],
+        "name": "setServiceStatus",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            { "internalType": "uint256", "name": "serviceId", "type": "uint256" },
+            { "internalType": "uint256", "name": "newPrice", "type": "uint256" }
+        ],
+        "name": "updatePrice",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            { "internalType": "uint256", "name": "serviceId", "type": "uint256" },
+            { "internalType": "uint256", "name": "newMaxSupply", "type": "uint256" }
+        ],
+        "name": "updateMaxSupply",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [{ "internalType": "address", "name": "_ticketContract", "type": "address" }],
+        "name": "setTicketContract",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    }
+] as const;
+
+export const TicketNFTAbi = [
+    // ── Read ──────────────────────────────────────────────────────────────────
+    {
+        "inputs": [],
+        "name": "defaultValidityPeriod",
+        "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [{ "internalType": "uint256", "name": "tokenId", "type": "uint256" }],
+        "name": "getTicket",
+        "outputs": [
+            {
+                "components": [
+                    { "internalType": "uint256", "name": "tokenId", "type": "uint256" },
+                    { "internalType": "uint256", "name": "serviceId", "type": "uint256" },
+                    { "internalType": "uint256", "name": "agencyId", "type": "uint256" },
+                    { "internalType": "address", "name": "holder", "type": "address" },
+                    { "internalType": "uint256", "name": "tokensPaid", "type": "uint256" },
+                    { "internalType": "uint256", "name": "issuedAt", "type": "uint256" },
+                    { "internalType": "uint256", "name": "expiresAt", "type": "uint256" },
+                    { "internalType": "uint8", "name": "status", "type": "uint8" },
+                    { "internalType": "bytes32", "name": "validationHash", "type": "bytes32" }
+                ],
+                "internalType": "struct TicketNFT.TicketMetadata",
+                "name": "",
+                "type": "tuple"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [{ "internalType": "uint256", "name": "tokenId", "type": "uint256" }],
+        "name": "getTicketStatus",
+        "outputs": [{ "internalType": "uint8", "name": "", "type": "uint8" }],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [{ "internalType": "uint256", "name": "tokenId", "type": "uint256" }],
+        "name": "isTicketValid",
+        "outputs": [{ "internalType": "bool", "name": "", "type": "bool" }],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [{ "internalType": "address", "name": "holder", "type": "address" }],
+        "name": "getHolderTickets",
+        "outputs": [{ "internalType": "uint256[]", "name": "", "type": "uint256[]" }],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    // ── Write ─────────────────────────────────────────────────────────────────
+    {
+        "inputs": [
+            { "internalType": "uint256", "name": "serviceId", "type": "uint256" },
+            { "internalType": "string", "name": "metadataURI", "type": "string" }
+        ],
+        "name": "purchaseTicket",
+        "outputs": [{ "internalType": "uint256", "name": "tokenId", "type": "uint256" }],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [{ "internalType": "uint256", "name": "tokenId", "type": "uint256" }],
+        "name": "validateTicket",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [{ "internalType": "uint256", "name": "tokenId", "type": "uint256" }],
+        "name": "expireTicket",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [{ "internalType": "uint256", "name": "periodSeconds", "type": "uint256" }],
+        "name": "setDefaultValidityPeriod",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    // ── Events ────────────────────────────────────────────────────────────────
+    {
+        "anonymous": false,
+        "inputs": [
+            { "indexed": true, "internalType": "uint256", "name": "tokenId", "type": "uint256" },
+            { "indexed": true, "internalType": "uint256", "name": "serviceId", "type": "uint256" },
+            { "indexed": true, "internalType": "uint256", "name": "agencyId", "type": "uint256" },
+            { "indexed": false, "internalType": "address", "name": "holder", "type": "address" },
+            { "indexed": false, "internalType": "uint256", "name": "tokensPaid", "type": "uint256" },
+            { "indexed": false, "internalType": "uint256", "name": "issuedAt", "type": "uint256" },
+            { "indexed": false, "internalType": "uint256", "name": "expiresAt", "type": "uint256" }
+        ],
+        "name": "TicketPurchased",
+        "type": "event"
+    },
+    {
+        "anonymous": false,
+        "inputs": [
+            { "indexed": true, "internalType": "uint256", "name": "tokenId", "type": "uint256" },
+            { "indexed": true, "internalType": "uint256", "name": "serviceId", "type": "uint256" },
+            { "indexed": false, "internalType": "address", "name": "validator", "type": "address" },
+            { "indexed": false, "internalType": "bytes32", "name": "validationHash", "type": "bytes32" },
+            { "indexed": false, "internalType": "uint256", "name": "validatedAt", "type": "uint256" }
+        ],
+        "name": "TicketValidated",
+        "type": "event"
+    }
+] as const;

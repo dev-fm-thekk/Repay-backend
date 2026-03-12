@@ -1,6 +1,6 @@
 # Authentication & Authorization
 
-Repay utilizes a Web3-first authentication flow based on **Sign-In with Ethereum (SIWE)**. This ensures that users are authenticated by their crypto-wallets without passwords, and their identity is verified against the blockchain.
+Repay utilizes a Web3-first authentication flow based on **Sign-In with Ethereum (SIWE)**. This ensures that users are authenticated by their crypto-wallets without passwords, and their identity is verified cryptographically.
 
 ## 1. Authentication Flow (SIWE)
 
@@ -15,35 +15,32 @@ To prevent replay attacks, the client must first fetch a temporary nonce from th
   ```
 
 ### Step 2: Sign Message
-The client signs a message using their wallet (e.g., MetaMask, WalletConnect). The message should follow the EIP-4361 standard.
+The client signs a message using their wallet (e.g., MetaMask). The message must follow the EIP-4361 standard.
 ```text
-repay.network wants you to sign in with your Ethereum account:
-0xYourWalletAddress
-
-Sign in to the Repay decentralised recycling platform.
-
-URI: https://repay.network
-Version: 1
-Chain ID: 1
-Nonce: XyZ123...
-Issued At: 2024-03-01T23:45:00Z
+domain: localhost
+address: 0xYourWalletAddress
+statement: Sign in with Ethereum to Repay
+uri: http://localhost
+version: 1
+chainId: 31337
+nonce: XyZ123...
+issuedAt: 2024-03-01T23:45:00Z
 ```
 
-### Step 3: Verify Signature & Issue JWT
+### Step 3: Verify & Login
 The client sends the signed message and signature to the server.
-- **Endpoint**: `POST /auth/verify`
+- **Endpoint**: `POST /auth/login`
 - **Payload**:
   ```json
   {
-    "message": "...",
+    "message": { ...siweObject... },
     "signature": "0x..."
   }
   ```
 - **Response**:
   ```json
   {
-    "token": "eyKj...", // JWT
-    "expiresAt": "2024-03-02T23:45:00Z"
+    "token": "eyKj..." // JWT
   }
   ```
 
@@ -51,15 +48,16 @@ The client sends the signed message and signature to the server.
 
 ## 2. Authorization (RBAC)
 
-Once authenticated, the API checks the user's wallet address against roles defined in the smart contracts.
+Once authenticated via JWT, the API middleware determines the user's role by checking their wallet address against the platform's state.
 
-### Role Mapping
-The JWT claims will include the user's wallet address. The middleware then checks:
-- **Admin Role**: Verified via `EcoToken.hasRole(ADMIN_ROLE, address)`.
-- **Minter Role**: Verified via `EcoToken.hasRole(MINTER_ROLE, address)`.
-- **Government**: Verified if `address == MarketPlace.governmentWallet()`.
-- **AI Oracle**: Verified if `address == SmartBin.aiOracle()`.
-- **Verified Recycler**: Verified via `MaterialAuction.verifiedRecyclers(address)`.
+### Role Mapping (Live Check)
+The `authenticate` middleware attaches a `role` to the request object:
+- **ADMIN**: Wallet address matches the `ADMIN_PRIVATE_KEY` configuration.
+- **AGENCY**: Wallet address is registered and marked as active in the `AgencyRegistry` contract (`isActiveAgency(address) == true`).
+- **USER**: Default role for any address that successfully logins via SIWE but is not an Admin or Agency.
+
+### Role Enforcement
+Routes are protected by the `authorize([Role])` middleware. If a user's role is not in the allowed list, the API returns `403 Forbidden`.
 
 ### Header Usage
 For all protected endpoints:
@@ -67,16 +65,17 @@ For all protected endpoints:
 
 ---
 
-## 3. IoT / Smart Bin Authentication
+## 3. Blockchain Execution Security
 
-For stationary IoT devices like Smart Bins:
-1.  **Hardware-Bound Wallets**: Highly secure bins may have a local secure enclave (HSM) to sign transactions directly.
-2.  **API Keys (Alternative)**: For simpler deployments, bins can be issued a long-lived API Key linked to their registered address in the `SmartBin` contract.
-    - **Header**: `X-API-Key: <key>`
-    - **Endpoint Restriction**: Bins using API keys are restricted to calling `processDrop` for their own registered address.
+For operations that execute smart contract functions on behalf of the user (e.g., `purchaseTicket`), the API requires an additional security layer:
+
+1.  **Private Key Required**: The client must send the `private_key` of their wallet in the request body.
+2.  **Validation**: The API derives the wallet address from the provided private key and ensures it matches the address stored in the JWT session.
+3.  **Scoped Execution**: If validated, the API uses that private key to sign and broadcast the specific blockchain transaction.
 
 ---
 
 ## 4. Error Handling
-- `401 Unauthorized`: No token provided or token expired.
-- `403 Forbidden`: Authenticated, but lacking the required blockchain role (e.g., trying to call admin functions as a regular user).
+- `401 Unauthorized`: No JWT provided, token malformed, or session expired.
+- `403 Forbidden`: Authenticated, but lacking the required role (e.g., a simple USER trying to register an agency).
+- `400 Bad Request`: Validation error or missing `private_key` for execution.

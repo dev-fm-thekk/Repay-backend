@@ -1,160 +1,77 @@
-# Repay Backend - Smart Contracts
+# Repay Backend - Governance & Transport Ecosystem
 
-A blockchain-based recycling incentive platform with smart contracts for product tracking, waste management, and eco-token rewards.
+A blockchain-powered platform for government transport agencies, service management, and incentive-based rewards. The system utilizes ERC20 tokens for rewards and ERC721 NFTs for transit tickets, all secured by a Web3-first REST API.
 
-## Architecture
+## Core Architecture
 
-The system consists of 6 main smart contracts:
+The system is built on four primary smart contracts:
 
-1. **EcoToken (ERC20)** - Reward token minted when users recycle
-2. **ProductRegistry** - Central registry for products and companies
-3. **SmartBin** - Coordinates waste processing with AI classification
-4. **TicketNFT (ERC721)** - Transit ticket NFTs purchased with EcoTokens
-5. **MaterialAuction** - Government-controlled auctions for collected materials
-6. **NFTMarketPlace** - Trading platform for EcoTokens and government services
+1.  **RewardToken (RWDR)**: An ERC20 token used to incentivize eco-friendly behavior.
+2.  **AgencyRegistry**: A governance contract where the platform administrator registers government transport agencies (e.g., Metro, Bus Authorities).
+3.  **ServiceRegistry**: Allows registered agencies to define and manage transport services (routes, price in RWDR, supply).
+4.  **TicketNFT**: Handles the minting, purchasing, and validation of NFT-based transit tickets.
+
+## Backend API
+
+The project includes a Node.js/Express server that serves as a bridge between the blockchain and frontend/mobile applications.
+
+### Key Features:
+- **SIWE Authentication**: Sign-In with Ethereum for secure, wallet-based logins.
+- **RBAC (Role-Based Access Control)**: Permission system (`ADMIN`, `AGENCY`, `USER`) determined by on-chain state.
+- **Contract Security**: Sensitive blockchain operations require a transient private key validation against the authenticated session.
+- **Viem Integration**: High-performance, type-safe blockchain interactions.
 
 ## Technology Stack
 
-- **Solidity ^0.8.20**
-- **OpenZeppelin Contracts ^5.0.0** - Battle-tested ERC20/ERC721 implementations
-- **Foundry/Forge** - Testing framework
-- **Hardhat** - Development environment
+- **Solidity ^0.8.28**
+- **Smarter Contracts**: OpenZeppelin v5.0
+- **Blockchain Environment**: Hardhat & Local Node
+- **Server**: Node.js, Express, Bun
+- **Authentication**: SIWE (Sign-In with Ethereum), JWT
+- **Blockchain Interface**: Viem
 
-## Installation
+## Installation & Setup
 
 ```bash
 # Install dependencies
-npm install
-
-# Or with bun
 bun install
+
+# Start local hardhat node
+npx hardhat node
+
+# Deploy contracts to local network
+npm run deploy-local
+
+# Start the API server
+bun run server
 ```
+
+## API Documentation
+
+- **[Overview](./docs/api/overview.md)**: Design principles and base configurations.
+- **[Authentication](./docs/api/auth.md)**: SIWE flow and role mapping.
+- **[Agencies & Services](./docs/api/registry.md)**: Registration and service management.
+- **[Transit Tickets](./docs/api/tickets.md)**: Purchase and validation flow.
+- **[Rewards](./docs/api/rewards.md)**: Token balance and history.
 
 ## Testing
 
-```bash
-# Run Forge tests
-forge test
-
-# Or use npm script
-npm run test:forge
-
-# Run with verbosity
-forge test -vvv
-
-# Test specific contract
-forge test --match-contract EcoTokenTest
-```
-
-## Compilation
+The project uses a combination of Hardhat tests for contracts and Bun for API E2E testing.
 
 ```bash
-# Compile with Forge
-forge build
+# Run Contract Tests
+npx hardhat test
 
-# Or use npm script
-npm run compile:forge
+# Run API E2E Tests
+bun test test/api.test.ts
 ```
 
-## Contract Overview
+## Security Design
 
-### EcoToken.sol
-- ERC20 token with OpenZeppelin implementation
-- Role-based access control (ADMIN_ROLE, MINTER_ROLE)
-- Custom reward calculation based on material type and AI confidence
-- Tracks total minted and burned tokens
-
-### ProductRegistry.sol
-- Company registration and verification
-- Product lifecycle tracking
-- Recycle status management
-- Integration with SmartBin for updates
-
-### SmartBin.sol
-- Oracle-based AI classification system
-- Waste drop recording
-- Material batch notifications for government
-- Integration with ProductRegistry and EcoToken
-
-### TicketNFT.sol
-- ERC721 NFT tickets with OpenZeppelin implementation
-- Route configuration for different transit modes
-- Time-bound validation system
-- Standard and Premium ticket classes
-
-### MaterialAuction.sol
-- Government-controlled batch auctions
-- ETH bidding with automatic refunds
-- CollectionReceiptNFT (ERC721) for winners
-- Material collection tracking
-
-### NFTMarketPlace.sol
-- ECO token listing and trading
-- Government service redemption
-- GovtServiceNFT (ERC721) vouchers
-- Platform fee system
-
-## Key Features
-
-### OpenZeppelin Integration
-All token standards (ERC20, ERC721) use OpenZeppelin's audited implementations:
-- Enhanced security and best practices
-- Gas-optimized operations
-- Standard compliance
-- Reentrancy protection
-
-### Access Control
-- Role-based permissions using OpenZeppelin AccessControl
-- Admin roles for system management
-- Minter roles for authorized contracts
-- Government wallet for auctions
-
-### Oracle Integration
-- AI classification oracle for waste identification
-- Request-fulfill pattern for async processing
-- Confidence scoring for reward calculation
-
-## Configuration Files
-
-### foundry.toml
-```toml
-[profile.default]
-src = "contracts"
-out = "out"
-libs = ["node_modules", "lib"]
-test = "test"
-solc = "0.8.20"
-```
-
-### remappings.txt
-```
-@openzeppelin/contracts/=node_modules/@openzeppelin/contracts/
-forge-std/=node_modules/forge-std/src/
-```
-
-## Development Workflow
-
-1. **Write Contracts** - Follow algorithms in `docs/algorithms/`
-2. **Write Tests** - Comprehensive test coverage for each contract
-3. **Compile** - `forge build`
-4. **Test** - `forge test`
-5. **Deploy** - Use Hardhat scripts or Foundry scripts
-
-## Testing Best Practices
-
-- Each contract has comprehensive test coverage
-- Tests use Foundry's `vm` cheatcodes for state manipulation
-- Event emission testing with `vm.expectEmit`
-- Access control verification
-- Edge case and error condition testing
-
-## Security Considerations
-
-- OpenZeppelin contracts provide battle-tested security
-- Role-based access control prevents unauthorized actions
-- Oracle pattern prevents manipulation of AI classifications
-- Escrow mechanisms in marketplace and auction contracts
-- Comprehensive test coverage for all critical paths
+1.  **Wallet-Only Identity**: No passwords or traditional accounts; identity is proven via cryptographic signatures.
+2.  **On-Chain Roles**: Roles are not stored in a database but fetched directly from the registry contracts.
+3.  **Private Key Enforcement**: Operations that move funds (like purchasing a ticket) require the user's private key to be passed to the API, where it is validated against the authenticated session before execution.
+4.  **Soul-Bound Tickets**: Transit NFTs are non-transferable to prevent secondary market abuse.
 
 ## License
 

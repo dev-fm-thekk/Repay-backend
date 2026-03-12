@@ -27,16 +27,16 @@ contract ServiceRegistry is Ownable {
     }
 
     struct Service {
-        uint256       id;
-        uint256       agencyId;        // agency that owns this service
-        string        name;            // human-readable ticket name
-        string        route;           // origin → destination (or zone)
-        uint256       tokenPrice;      // RWDR tokens required (18-decimal)
-        uint256       maxSupply;       // 0 = unlimited
-        uint256       totalIssued;     // tickets minted so far
+        uint256 id;
+        uint256 agencyId; // agency that owns this service
+        string name; // human-readable ticket name
+        string route; // origin → destination (or zone)
+        uint256 tokenPrice; // RWDR tokens required (18-decimal)
+        uint256 maxSupply; // 0 = unlimited
+        uint256 totalIssued; // tickets minted so far
         ServiceStatus status;
-        uint256       createdAt;
-        string        metadataURI;     // off-chain schedule / route info
+        uint256 createdAt;
+        string metadataURI; // off-chain schedule / route info
     }
 
     // ── State ─────────────────────────────────────────────────────────────────
@@ -58,23 +58,30 @@ contract ServiceRegistry is Ownable {
     event ServiceCreated(
         uint256 indexed serviceId,
         uint256 indexed agencyId,
-        string  name,
-        string  route,
+        string name,
+        string route,
         uint256 tokenPrice,
         uint256 maxSupply
     );
 
-    event ServiceStatusChanged(uint256 indexed serviceId, ServiceStatus newStatus);
+    event ServiceStatusChanged(
+        uint256 indexed serviceId,
+        ServiceStatus newStatus
+    );
     event ServicePriceUpdated(uint256 indexed serviceId, uint256 newPrice);
     event ServiceSupplyUpdated(uint256 indexed serviceId, uint256 newMaxSupply);
     event TicketIssued(uint256 indexed serviceId, uint256 newTotalIssued);
+    event Log(address indexed sender, string message);
 
     // ── Modifiers ─────────────────────────────────────────────────────────────
 
     modifier onlyServiceAgency(uint256 serviceId) {
         uint256 aid = agencyRegistry.agencyIdByWallet(msg.sender);
-        require(aid != 0,                            "ServiceRegistry: not an agency");
-        require(services[serviceId].agencyId == aid, "ServiceRegistry: not service owner");
+        require(aid != 0, "ServiceRegistry: not an agency");
+        require(
+            services[serviceId].agencyId == aid,
+            "ServiceRegistry: not service owner"
+        );
         _;
     }
 
@@ -89,7 +96,10 @@ contract ServiceRegistry is Ownable {
     // ── Constructor ───────────────────────────────────────────────────────────
 
     constructor(address agencyRegistryAddress) Ownable(msg.sender) {
-        require(agencyRegistryAddress != address(0), "ServiceRegistry: zero address");
+        require(
+            agencyRegistryAddress != address(0),
+            "ServiceRegistry: zero address"
+        );
         agencyRegistry = AgencyRegistry(agencyRegistryAddress);
     }
 
@@ -107,51 +117,61 @@ contract ServiceRegistry is Ownable {
     function createService(
         string calldata name,
         string calldata route,
-        uint256         tokenPrice,
-        uint256         maxSupply,
+        uint256 tokenPrice,
+        uint256 maxSupply,
         string calldata metadataURI
     ) external returns (uint256 serviceId) {
         require(
             agencyRegistry.isActiveAgency(msg.sender),
             "ServiceRegistry: caller is not an active agency"
         );
-        require(bytes(name).length > 0,  "ServiceRegistry: empty name");
-        require(tokenPrice > 0,          "ServiceRegistry: price must be > 0");
+        require(bytes(name).length > 0, "ServiceRegistry: empty name");
+        require(tokenPrice > 0, "ServiceRegistry: price must be > 0");
 
         uint256 agencyId = agencyRegistry.agencyIdByWallet(msg.sender);
-        serviceId        = _nextServiceId++;
+        serviceId = _nextServiceId++;
 
         services[serviceId] = Service({
-            id:           serviceId,
-            agencyId:     agencyId,
-            name:         name,
-            route:        route,
-            tokenPrice:   tokenPrice,
-            maxSupply:    maxSupply,
-            totalIssued:  0,
-            status:       ServiceStatus.ACTIVE,
-            createdAt:    block.timestamp,
-            metadataURI:  metadataURI
+            id: serviceId,
+            agencyId: agencyId,
+            name: name,
+            route: route,
+            tokenPrice: tokenPrice,
+            maxSupply: maxSupply,
+            totalIssued: 0,
+            status: ServiceStatus.ACTIVE,
+            createdAt: block.timestamp,
+            metadataURI: metadataURI
         });
 
         agencyServices[agencyId].push(serviceId);
         totalServices++;
 
-        emit ServiceCreated(serviceId, agencyId, name, route, tokenPrice, maxSupply);
+        emit ServiceCreated(
+            serviceId,
+            agencyId,
+            name,
+            route,
+            tokenPrice,
+            maxSupply
+        );
     }
 
     /**
      * @notice Activate or deactivate a service (agency operator or platform owner).
      */
-    function setServiceStatus(uint256 serviceId, ServiceStatus status)
-        external
-        serviceExists(serviceId)
-    {
+    function setServiceStatus(
+        uint256 serviceId,
+        ServiceStatus status
+    ) external serviceExists(serviceId) {
         uint256 aid = agencyRegistry.agencyIdByWallet(msg.sender);
         bool isAgencyOp = (aid != 0 && services[serviceId].agencyId == aid);
         bool isPlatformOwner = (msg.sender == owner());
 
-        require(isAgencyOp || isPlatformOwner, "ServiceRegistry: not authorised");
+        require(
+            isAgencyOp || isPlatformOwner,
+            "ServiceRegistry: not authorised"
+        );
 
         services[serviceId].status = status;
         emit ServiceStatusChanged(serviceId, status);
@@ -160,11 +180,10 @@ contract ServiceRegistry is Ownable {
     /**
      * @notice Update the RWDR token price of a service (agency operator only).
      */
-    function updatePrice(uint256 serviceId, uint256 newPrice)
-        external
-        serviceExists(serviceId)
-        onlyServiceAgency(serviceId)
-    {
+    function updatePrice(
+        uint256 serviceId,
+        uint256 newPrice
+    ) external serviceExists(serviceId) onlyServiceAgency(serviceId) {
         require(newPrice > 0, "ServiceRegistry: price must be > 0");
         services[serviceId].tokenPrice = newPrice;
         emit ServicePriceUpdated(serviceId, newPrice);
@@ -174,13 +193,13 @@ contract ServiceRegistry is Ownable {
      * @notice Update the maximum supply cap (agency operator only).
      *         New cap must be >= tickets already issued (or 0 for unlimited).
      */
-    function updateMaxSupply(uint256 serviceId, uint256 newMaxSupply)
-        external
-        serviceExists(serviceId)
-        onlyServiceAgency(serviceId)
-    {
+    function updateMaxSupply(
+        uint256 serviceId,
+        uint256 newMaxSupply
+    ) external serviceExists(serviceId) onlyServiceAgency(serviceId) {
         require(
-            newMaxSupply == 0 || newMaxSupply >= services[serviceId].totalIssued,
+            newMaxSupply == 0 ||
+                newMaxSupply >= services[serviceId].totalIssued,
             "ServiceRegistry: cap below issued count"
         );
         services[serviceId].maxSupply = newMaxSupply;
@@ -204,16 +223,21 @@ contract ServiceRegistry is Ownable {
      * @dev Called by Ticket.sol after a successful mint.
      *      Increments totalIssued and validates supply cap.
      */
-    function recordIssuance(uint256 serviceId)
-        external
-        serviceExists(serviceId)
-        returns (uint256 tokenPrice)
-    {
-        require(msg.sender == ticketContract, "ServiceRegistry: caller not ticket contract");
+    function recordIssuance(
+        uint256 serviceId
+    ) external serviceExists(serviceId) returns (uint256 tokenPrice) {
+        
+        require(
+            msg.sender == ticketContract,
+            "ServiceRegistry: caller not ticket contract"
+        );
 
         Service storage svc = services[serviceId];
 
-        require(svc.status == ServiceStatus.ACTIVE, "ServiceRegistry: service inactive");
+        require(
+            svc.status == ServiceStatus.ACTIVE,
+            "ServiceRegistry: service inactive"
+        );
         require(
             svc.maxSupply == 0 || svc.totalIssued < svc.maxSupply,
             "ServiceRegistry: supply exhausted"
@@ -230,23 +254,18 @@ contract ServiceRegistry is Ownable {
     /**
      * @notice Returns all service ids belonging to an agency.
      */
-    function getAgencyServices(uint256 agencyId)
-        external
-        view
-        returns (uint256[] memory)
-    {
+    function getAgencyServices(
+        uint256 agencyId
+    ) external view returns (uint256[] memory) {
         return agencyServices[agencyId];
     }
 
     /**
      * @notice Convenience: get token price for a given service.
      */
-    function getPrice(uint256 serviceId)
-        external
-        view
-        serviceExists(serviceId)
-        returns (uint256)
-    {
+    function getPrice(
+        uint256 serviceId
+    ) external view serviceExists(serviceId) returns (uint256) {
         return services[serviceId].tokenPrice;
     }
 
@@ -256,8 +275,9 @@ contract ServiceRegistry is Ownable {
     function isAvailable(uint256 serviceId) external view returns (bool) {
         if (services[serviceId].id != serviceId) return false;
         Service storage svc = services[serviceId];
-        if (svc.status != ServiceStatus.ACTIVE)  return false;
-        if (svc.maxSupply != 0 && svc.totalIssued >= svc.maxSupply) return false;
+        if (svc.status != ServiceStatus.ACTIVE) return false;
+        if (svc.maxSupply != 0 && svc.totalIssued >= svc.maxSupply)
+            return false;
         return true;
     }
 
@@ -267,12 +287,9 @@ contract ServiceRegistry is Ownable {
      *         complete struct in a single call (public mappings with string fields
      *         return tuples, not structs, when called from other contracts).
      */
-    function getService(uint256 serviceId)
-        external
-        view
-        serviceExists(serviceId)
-        returns (Service memory)
-    {
+    function getService(
+        uint256 serviceId
+    ) external view serviceExists(serviceId) returns (Service memory) {
         return services[serviceId];
     }
 }
