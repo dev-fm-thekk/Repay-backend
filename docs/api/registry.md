@@ -1,61 +1,76 @@
-# Product Registry API
+# Agency & Service Registry API
 
-Interface for `ProductRegistry.sol`. Manages company verification and product registration.
+Interfaces for `AgencyRegistry.sol` and `ServiceRegistry.sol`. Manages government transport agencies and their associated transit services.
 
-## Companies
+## 1. Agency Management (Admin Only)
 
-### Register Company
-Register a new company for verification.
-- **Endpoint**: `POST /registry/companies`
-- **Auth**: Wallet Signature
+### Register Agency
+- **Endpoint**: `POST /agency/register`
+- **Auth**: `ADMIN`
 - **Payload**:
   ```json
   {
-    "name": "EcoCorp Inc.",
-    "wallet": "0x..."
-  }
-  ```
-
-### Get Company Info
-- **Endpoint**: `GET /registry/companies/:address`
-
-### Verify Company (Admin)
-- **Endpoint**: `PATCH /registry/companies/:address/verify`
-- **Auth**: Admin Role
-
-## Products
-
-### Register Product
-- **Endpoint**: `POST /registry/products`
-- **Auth**: Verified Company or Admin
-- **Payload**:
-  ```json
-  {
-    "companyWallet": "0x...",
-    "name": "Recyclable Bottle",
-    "category": "Plastic",
+    "name": "City Metro",
+    "shortCode": "METRO",
+    "transport": 1, // 0=BUS, 1=METRO, 2=TRAIN
+    "wallet": "0xAgencyOperatorWallet",
     "metadataURI": "ipfs://..."
   }
   ```
 
-### Get Product Details
-Fetches product info, company details, and recycling history.
-- **Endpoint**: `GET /registry/products/:id`
-- **Response**:
+### Update Agency Status
+- **Endpoint**: `PUT /agency/:id/status`
+- **Payload**: `{ "status": 1 }` // 0=INACTIVE, 1=ACTIVE
+
+---
+
+## 2. Agency Discovery
+
+### Search by Wallet
+- **Endpoint**: `GET /agency/wallet/:address`
+- **Response**: Full agency details if the address is a registered operator.
+
+### Check Active Status
+- **Endpoint**: `GET /agency/active/:address`
+- **Response**: `{ "isActive": true/false }`
+
+---
+
+## 3. Service Management
+
+### Create Service
+Agencies can create multiple services (routes) for their transport network.
+- **Endpoint**: `POST /service/create`
+- **Auth**: `AGENCY` or `ADMIN`
+- **Payload**:
   ```json
   {
-    "productId": 1,
-    "name": "...",
-    "category": "...",
-    "isRecycled": false,
-    "company": { ... },
-    "recycleRecord": { ... }
+    "name": "Orange Line-Express",
+    "route": "Downtown -> Airport",
+    "tokenPrice": "2.5", // Price in RWDR
+    "maxSupply": 5000,   // 0 for unlimited
+    "metadataURI": "ipfs://...",
+    "agency_private_key": "0x..." // Required to sign on-chain record
   }
   ```
 
-## Bins
+### Update Service Price
+- **Endpoint**: `PATCH /service/:id/price`
+- **Payload**:
+  ```json
+  {
+    "newPrice": "3.0",
+    "agency_private_key": "0x..."
+  }
+  ```
 
-### Register Bin (Admin)
-Allows a bin to update product recycling statuses.
-- **Endpoint**: `POST /registry/bins`
-- **Payload**: `{ "binAddress": "0x..." }`
+---
+
+## 4. Service Discovery
+
+### Get All Services for Agency
+- **Endpoint**: `GET /service/agency/:agencyId`
+
+### Check Availability
+- **Endpoint**: `GET /service/available/:id`
+- **Response**: Returns true if the service is active and has remaining supply.

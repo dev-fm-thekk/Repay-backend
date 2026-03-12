@@ -1,52 +1,59 @@
-# Smart Bin & Rewards API
+# Rewards API (RWDR Token)
 
-Interface for `SmartBin.sol` and `EcoToken.sol`. Orchestrates the recycling flow.
+Interface for `RewardToken.sol`. Manages the RWDR ERC20 incentive tokens.
 
-## Bin Management
+## 1. Token Information
 
-### Register Smart Bin (Admin)
-- **Endpoint**: `POST /bins`
+### Get Token Info
+- **Endpoint**: `GET /reward/info`
+- **Response**: Token metadata like name, symbol, and decimals.
+
+### Get User Balance
+- **Endpoint**: `GET /reward/balance/:address`
+- **Response**: The current RWDR balance of the wallet (in human-readable format).
+
+---
+
+## 2. Reward History
+
+### Get All Reward Records
+- **Endpoint**: `GET /reward/records/:address`
+- **Auth Required**: `ADMIN` or the owner of the address.
+- **Response**: Detailed history of all minting events for the user.
+
+### Get Record Count
+- **Endpoint**: `GET /reward/records/:address/count`
+- **Response**: Total number of reward events recorded on-chain for the wallet.
+
+---
+
+## 3. Administrative Operations
+
+### Mint Tokens
+Used by the system to issue rewards for verified activities.
+- **Endpoint**: `POST /reward/mint`
+- **Auth Required**: `ADMIN`
 - **Payload**:
   ```json
   {
-    "binAddress": "0x...",
-    "location": "Central Park South",
-    "operator": "0x..."
-  }
-  ```
-
-### Get Bin Status
-- **Endpoint**: `GET /bins/:address`
-
-## Recycling Flow
-
-### Process Drop (Oracle/IoT)
-This endpoint is typically called by the AI Oracle after identifying a product drop.
-- **Endpoint**: `POST /bins/:address/drop`
-- **Auth**: AI Oracle Role
-- **Payload**:
-  ```json
-  {
-    "productId": 101,
-    "userWallet": "0x...",
+    "to": "0x...",
+    "amount": "100.5", // Human readable amount
+    "classification": 1, // 0=PLASTIC, 1=EWASTE, 2=PAPER
+    "confidenceScore": 95,
+    "wasteType": "Battery",
     "weight": 500,
-    "classification": "plastic-PET",
-    "confidenceScore": 98,
     "proofHash": "0x..."
   }
   ```
 
-### Get User Reward History
-- **Endpoint**: `GET /rewards/history/:userAddress`
-
-## ECO Token
-
-### Get Balance
-- **Endpoint**: `GET /tokens/eco/balance/:address`
-
-### Get Reward Rates
-- **Endpoint**: `GET /tokens/eco/rates`
-
-### Calculate Expected Reward
-- **Endpoint**: `GET /tokens/eco/calculate`
-- **Query Params**: `weight=500&material=glass&confidence=100`
+### Update Minting Rates
+Allows the administrator to adjust the token value per gram of waste.
+- **Endpoint**: `POST /reward/rates`
+- **Auth Required**: `ADMIN`
+- **Payload**:
+  ```json
+  {
+    "classification": 0,
+    "newRate": 1500 // Rate per gram (in 18 decimals internally)
+  }
+  ```

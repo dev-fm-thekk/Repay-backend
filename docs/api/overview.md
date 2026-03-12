@@ -1,38 +1,35 @@
 # Repay API Design Overview
 
-This document outlines the REST API design for interacting with the Repay smart contracts. The API acts as a gateway between frontend/IoT clients and the Ethereum-compatible blockchain.
+This document outlines the REST API design for interacting with the Repay transport and governance ecosystem. The API acts as a secure bridge between client applications and the smart contracts.
 
 ## Base URL
-`https://api.repay.network/v1`
+`http://localhost:8000` (Development)
 
 ## Authentication
-The platform uses **Sign-In with Ethereum (SIWE)** to authenticate wallets.
-- **Flow**: Nonce -> Signature -> JWT
+The platform uses **Sign-In with Ethereum (SIWE)** to authenticate wallets and issue stateless JWT sessions.
+- **Flow**: Nonce -> Signature Verification -> JWT
 - **Full Guide**: [Authentication Documentation](./auth.md)
-- **Headers**:
-  - `Authorization: Bearer <jwt_token>`
-  - `X-API-Key: <optional_iot_key>`
+- **Header**: `Authorization: Bearer <jwt_token>`
 
 ## API Modules
 
-1.  **[Product Registry](./registry.md)**: Manage company identities and product lifecycle.
-2.  **[Smart Bin & Rewards](./rewards.md)**: Handle material drops, AI classification, and ECO token distribution.
-3.  **[Marketplace](./marketplace.md)**: Trade ECO tokens for ETH or redeem them for government services.
-4.  **[Material Auction](./auction.md)**: Government-led auctions for recycled material batches.
-5.  **[Transit Tickets](./tickets.md)**: Purchase and validate NFT-based transit tickets using ECO tokens.
+1.  **[Authentication](./auth.md)**: Wallet-based login and session management.
+2.  **[Agency Registry](./registry.md)**: Admin-only registration of government transport agencies.
+3.  **[Service Registry](./registry.md)**: Management of transit services by registered agencies.
+4.  **[Transit Tickets](./tickets.md)**: Purchasing and validating NFT-based tickets using RWDR.
+5.  **[Rewards](./rewards.md)**: RWDR token balance tracking and incentive history.
 
 ## Common Response Codes
 - `200 OK`: Request succeeded.
-- `201 Created`: Resource (e.g., product, listing) created.
-- `400 Bad Request`: Validation error.
-- `401 Unauthorized`: Missing or invalid authentication.
-- `403 Forbidden`: Wallet does not have the required role (e.g., Admin, Minter).
-- `500 Internal Server Error`: Blockchain transaction failed or server error.
+- `201 Created`: Resource (e.g., service, agency) created.
+- `400 Bad Request`: Validation error (e.g., missing fields).
+- `401 Unauthorized`: Missing or invalid JWT token.
+- `403 Forbidden`: Wallet does not have the required role (Admin or Agency) for the operation.
+- `500 Internal Server Error`: Blockchain transaction reverted or server-side failure.
 
 ## Transaction Handling
-For write operations, the API can either:
-1.  **Direct Execution**: The server sends the transaction (requires server-side private key with roles).
-2.  **Gasless / Relayer**: User signs a permit/request, and the API relays it.
-3.  **Transaction Preparation**: API returns the encoded data for the frontend to sign and broadcast.
+The API supports secure blockchain interactions through:
+1.  **Server-Side Execution**: The API server executes the transaction using an authorized wallet (for Admin/Governance tasks).
+2.  **User-Scoped Execution**: For operations involving user funds (like buying a ticket), the user must provide their `private_key`. The API validates that this key matches the authenticated session before proceeding with the transaction on their behalf.
 
-*Default recommendation: API handles transactions for IoT (Smart Bins) and Administrative tasks, while users sign via wallet for Marketplace/Tickets.*
+*All blockchain responses include the `transactionHash` for client-side verification.*

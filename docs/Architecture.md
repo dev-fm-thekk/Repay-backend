@@ -1,76 +1,75 @@
-# Waste Supply Chain — Smart Contract Design
+# Repay Transport Ecosystem — Technical Architecture
+
+A blockchain-based infrastructure for managing government transport agencies, multi-modal transit services, and reward-based ticketing.
+
+---
 
 ## System Overview
 
-A blockchain-based waste tracking and incentive system that follows products from manufacture through recycling, rewarding users with EcoTokens and enabling exchange for government services and transit.
+The Repay platform enables a circular economy for transport:
+1.  **Users** earn `RWDR` (Reward Tokens) through verified eco-friendly actions.
+2.  **Agencies** (METRO, BUS, TRAIN) are registered by a central platform administrator.
+3.  **Services** are defined by agencies, mapping routes to fixed `RWDR` prices.
+4.  **Tickets** are purchased as non-transferable NFTs, which are then validated (burned/used) at transit gates.
 
 ---
 
 ## Contract Architecture
 
-```
-┌─────────────────────────────────────────────────────────────┐
-│                    ProductRegistry.sol                       │
-│          (product lifecycle + recycle status)                │
-└──────────────────────┬──────────────────────────────────────┘
-                       │ verifyProduct / updateRecycleStatus
-                       ▼
-┌─────────────────────────────────────────────────────────────┐
-│                     SmartBin.sol                             │
-│       (AI oracle bridge + weight + token trigger)            │
-└───────────┬─────────────────────────────┬───────────────────┘
-            │ mintProofOfRecycle           │ notifyGovt
-            ▼                             ▼
-┌───────────────────────┐    ┌────────────────────────────────┐
-│    EcoToken.sol        │    │      MaterialAuction.sol        │
-│    (ERC20 rewards)     │    │  (ETH bidding + receipt NFT)    │
-└───────────┬───────────┘    └────────────────────────────────┘
-            │ spend ECO
-     ┌──────┴──────┐
-     ▼             ▼
-┌──────────────┐  ┌──────────────────────────────────────────┐
-│ TicketNFT    │  │           NFTMarketplace.sol              │
-│ (transit)    │  │   (ECO ↔ ETH + govt service vouchers)    │
-└──────────────┘  └──────────────────────────────────────────┘
+```mermaid
+graph TD
+    Admin[Platform Admin] --> |Registers| AR[AgencyRegistry]
+    AR --> |Governs| SR[ServiceRegistry]
+    
+    Agency[Transport Agency] --> |Creates Services| SR
+    SR --> |Defines Price/Supply| TN[TicketNFT]
+    
+    User[Citizen] --> |Earns/Hold| RT[RewardToken - RWDR]
+    RT --> |Pays for| TN
+    
+    TN --> |Issue NFT| User
+    User --> |Presents at gate| Validator[Agency Operator]
+    Validator --> |Validates| TN
 ```
 
 ---
 
-## Contracts
+## Key Smart Contracts
 
-| # | Contract | File | Purpose |
-|---|----------|------|---------|
-| 1 | ProductRegistry | `01_ProductRegistry.md` | Register companies & products, track recycle status |
-| 2 | EcoToken (ERC20) | `02_EcoToken.md` | Mint/burn reward tokens, calculate rewards |
-| 3 | SmartBin | `03_SmartBin.md` | Bridge physical recycling to blockchain via AI oracle |
-| 4 | MaterialAuction | `04_MaterialAuction.md` | Auction raw materials to recyclers, ETH ↔ receipt NFT |
-| 5 | NFTMarketplace | `05_NFTMarketplace.md` | Trade ECO ↔ ETH or redeem for govt service vouchers |
-| 6 | TicketNFT (ERC721) | `06_TicketNFT.md` | Issue time-bound transit tickets paid in ECO |
+| Contract | Purpose | Governance |
+|----------|---------|------------|
+| **RewardToken (RWDR)** | ERC20 token used as the platform's primary currency. | Admin-controlled minting. |
+| **AgencyRegistry** | Centralized directory of authorized government agencies. | Admin-only registration. |
+| **ServiceRegistry**| Mapping of transit routes, pricing (in RWDR), and capacity. | Agency-controlled service mgmt. |
+| **TicketNFT** | ERC721 system for issuing and validating non-transferable tickets. | Public purchase / Agency validation. |
 
 ---
 
-## Token Flow
+## Security & Access Design
 
-```
-Recycle Waste → ECO Minted → User Wallet
-                                  │
-               ┌──────────────────┼──────────────────┐
-               ▼                  ▼                   ▼
-          Sell for ETH    Redeem for Govt       Buy Transit
-         (Marketplace)      Services           Ticket (NFT)
-                            (Voucher NFT)     (burned on use)
-```
+### 1. Proof of Identity (SIWE)
+Authentication is strictly Web3. Users sign off-chain messages to prove wallet ownership, which establishes a JWT session.
+
+### 2. Multi-Tier RBAC
+- **ADMIN**: Can register agencies and mint RWDR tokens. Wallet address defined in server environment.
+- **AGENCY**: Can create services for their own agency and validate tickets. Logic verified on-chain via `AgencyRegistry`.
+- **USER**: Default role. Can view balances and purchase tickets.
+
+### 3. Execution Guards
+Critical state changes on the blockchain (like purchasing a ticket) are protected by a "Private Key Validation" pattern. The API ensures that any private key used for a transaction corresponds to the wallet address in the active, authenticated session.
+
+### 4. Non-Transferable Tickets
+To prevent black-market ticket reselling, transit NFTs are "soul-bound" — they cannot be transferred between wallets after purchase.
 
 ---
 
-## Key Design Decisions
+## Data Flow: Ticket Purchase
 
-**EcoTokens are burned (not transferred) on redemption** — ensures tokens represent real-world recycling activity and prevents double-spending.
-
-**Tickets are time-bound ERC721s** — they expire automatically via `validUntil` timestamp. Used tickets remain in wallet as collectibles/travel history.
-
-**AI oracle is trusted off-chain** — SmartBin uses a signed oracle for classification. Signature verification on-chain prevents manipulation.
-
-**Government wallet is the central authority** — controls company verification, auction creation, service pricing, and platform fee collection.
-
-**Proof of recycle is non-fungible** — each product can only be recycled once (`isRecycled` flag), preventing double-reward attacks.
+1.  **Discovery**: User queries `/service/available/:id`.
+2.  **Approval**: User approves `TicketNFT` contract to spend `RWDR` via the token contract.
+3.  **Purchase**: User calls `/ticket/purchase` with the `serviceId`.
+4.  **Exchange**:
+    - `ServiceRegistry` verifies availability.
+    - `RewardToken` transfers funds from user to agency wallet.
+    - `TicketNFT` mints a `VALID` NFT to the user.
+5.  **Validation**: In-person, an agency operator calls `/ticket/:tokenId/validate`, marking the NFT as `USED`.
