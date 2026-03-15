@@ -34,7 +34,7 @@ router.post('/login', async (req, res) => {
         
         // Verify nonce
         if (!nonces.has(siweMessage.nonce)) {
-            res.status(400).json({ error: 'Invalid or expired nonce' });
+            res.status(400).send({ error: 'Invalid or expired nonce' });
             return;
         }
 
@@ -63,6 +63,19 @@ router.post('/login', async (req, res) => {
     } catch (err: any) {
         res.status(500).json({ error: err.message });
     }
+});
+
+import { authenticate, AuthRequest } from '../middlewares/auth.js';
+
+/**
+ * @route GET /auth/me
+ * @description Get current user info and role
+ */
+router.get('/me', authenticate, (req: AuthRequest, res) => {
+    res.json({
+        address: req.user?.address,
+        role: req.user?.role
+    });
 });
 
 export default router;

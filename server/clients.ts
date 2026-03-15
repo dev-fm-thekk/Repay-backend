@@ -10,18 +10,18 @@ import { sepolia, hardhat } from 'viem/chains';
 import dotenv from 'dotenv';
 dotenv.config({ path: '.env.app' });
 
-export const chain = process.env.NODE_ENV === 'production' ? sepolia : hardhat;
-export const account = privateKeyToAccount(process.env.ADMIN_PRIVATE_KEY as Hex);
+export const chain = sepolia;
+export const account = privateKeyToAccount((process.env.SEPOLIA_PRIVATE_KEY || process.env.ADMIN_PRIVATE_KEY) as Hex);
 
 export const publicClient = createPublicClient({
     chain,
-    transport: http(process.env.RPC_URL)
+    transport: http(process.env.SEPOLIA_RPC_URL)
 });
 
 export const walletClient = createWalletClient({
     account,
     chain,
-    transport: http(process.env.RPC_URL)
+    transport: http(process.env.SEPOLIA_RPC_URL)
 });
 
 export const contractAddresses = {
