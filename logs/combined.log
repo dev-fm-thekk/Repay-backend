@@ -1,0 +1,160 @@
+2026-03-15 22:46:07 [info]: Server running at http://localhost:8000
+2026-03-15 22:46:14 [info]: Server running at http://localhost:8000
+2026-03-15 22:46:22 [info]: Server running at http://localhost:8000
+2026-03-15 22:46:32 [info]: Server running at http://localhost:8000
+2026-03-15 22:47:20 [info]: Server running at http://localhost:8000
+2026-03-15 22:47:31 [info]: GET /auth/nonce
+2026-03-15 22:47:37 [info]: POST /auth/login
+2026-03-15 22:47:37 [error]: Login error: undefined
+2026-03-15 22:49:22 [info]: GET /auth/nonce
+2026-03-15 22:49:28 [info]: POST /auth/login
+2026-03-15 22:49:28 [error]: Login error: undefined
+2026-03-15 22:50:13 [info]: POST /auth/login
+2026-03-15 22:50:13 [error]: Login error: undefined
+2026-03-15 22:51:18 [info]: Server running at http://localhost:8000
+2026-03-15 22:51:18 [info]: Server running at http://localhost:8000
+2026-03-15 22:51:23 [info]: GET /auth/nonce
+2026-03-15 22:51:29 [info]: POST /auth/login
+2026-03-15 22:51:29 [error]: Login error: undefined
+2026-03-15 22:53:03 [info]: Server running at http://localhost:8000
+2026-03-15 22:53:03 [info]: Server running at http://localhost:8000
+2026-03-15 22:53:06 [info]: GET /auth/nonce
+2026-03-15 22:53:11 [info]: POST /auth/login
+2026-03-15 22:53:11 [error]: Login error: [object Object]
+2026-03-15 22:53:41 [info]: Server running at http://localhost:8000
+2026-03-15 22:53:41 [info]: Server running at http://localhost:8000
+2026-03-15 22:53:45 [info]: GET /auth/nonce
+2026-03-15 22:53:49 [info]: POST /auth/login
+2026-03-15 22:53:50 [error]: Login error: [object Object]
+2026-03-15 22:54:42 [info]: GET /auth/nonce
+2026-03-15 22:54:46 [info]: POST /auth/login
+2026-03-15 22:54:46 [error]: Login error: [object Object]
+2026-03-15 22:56:48 [info]: GET /auth/nonce
+2026-03-15 22:56:53 [info]: POST /auth/login
+2026-03-15 22:56:53 [info]: Successful login for address: 0xA87fd5C0EE110cEAA1939C01C1D8623ac4417A2f
+2026-03-15 22:58:08 [info]: GET /auth/nonce
+2026-03-15 22:58:12 [info]: POST /auth/login
+2026-03-15 22:58:13 [info]: Successful login for address: 0xA87fd5C0EE110cEAA1939C01C1D8623ac4417A2f
+2026-03-15 22:58:28 [info]: GET /auth/nonce
+2026-03-15 22:58:33 [info]: POST /auth/login
+2026-03-15 22:58:33 [info]: Successful login for address: 0xA87fd5C0EE110cEAA1939C01C1D8623ac4417A2f
+2026-03-15 22:59:06 [info]: POST /reward/mint
+2026-03-15 23:00:08 [info]: POST /reward/mint
+2026-03-15 23:00:57 [info]: Server running at http://localhost:8000
+2026-03-15 23:00:57 [info]: Server running at http://localhost:8000
+2026-03-15 23:01:06 [info]: GET /auth/nonce
+2026-03-15 23:01:14 [info]: POST /auth/login
+2026-03-15 23:01:14 [info]: Successful login for address: 0xA87fd5C0EE110cEAA1939C01C1D8623ac4417A2f
+2026-03-15 23:01:57 [info]: GET /auth/nonce
+2026-03-15 23:02:02 [info]: POST /auth/login
+2026-03-15 23:02:02 [info]: Successful login for address: 0xA87fd5C0EE110cEAA1939C01C1D8623ac4417A2f
+2026-03-15 23:02:34 [info]: POST /reward/mint
+2026-03-15 23:02:35 [error]: SyntaxError: Failed to parse String to BigInt
+    at <parse> (:0)
+    at BigInt (unknown)
+    at numberToHex (C:\Users\abhir\Documents\GitHub\Repay-backend\node_modules\viem\_esm\utils\encoding\toHex.js:124:19)
+    at encodeNumber (C:\Users\abhir\Documents\GitHub\Repay-backend\node_modules\viem\_esm\utils\abi\encodeAbiParameters.js:217:18)
+    at prepareParams (C:\Users\abhir\Documents\GitHub\Repay-backend\node_modules\viem\_esm\utils\abi\encodeAbiParameters.js:66:29)
+    at encodeAbiParameters (C:\Users\abhir\Documents\GitHub\Repay-backend\node_modules\viem\_esm\utils\abi\encodeAbiParameters.js:54:28)
+    at encodeFunctionData (C:\Users\abhir\Documents\GitHub\Repay-backend\node_modules\viem\_esm\utils\abi\encodeFunctionData.js:15:11)
+    at simulateContract (C:\Users\abhir\Documents\GitHub\Repay-backend\node_modules\viem\_esm\actions\public\simulateContract.js:45:22)
+    at simulateContract (C:\Users\abhir\Documents\GitHub\Repay-backend\node_modules\viem\_esm\actions\public\simulateContract.js:38:40)
+    at <anonymous> (C:\Users\abhir\Documents\GitHub\Repay-backend\server\routes\reward.ts:181:48)
+    at <anonymous> (C:\Users\abhir\Documents\GitHub\Repay-backend\server\routes\reward.ts:177:44)
+    at handleRequest (C:\Users\abhir\Documents\GitHub\Repay-backend\node_modules\router\lib\layer.js:152:17)
+    at next (C:\Users\abhir\Documents\GitHub\Repay-backend\node_modules\router\lib\route.js:157:13)
+    at <anonymous> (C:\Users\abhir\Documents\GitHub\Repay-backend\server\middlewares\auth.ts:54:9)
+    at processTicksAndRejections (native:7:39)
+2026-03-15 23:03:20 [info]: POST /reward/mint
+2026-03-15 23:03:20 [error]: SyntaxError: Failed to parse String to BigInt
+    at <parse> (:0)
+    at BigInt (unknown)
+    at numberToHex (C:\Users\abhir\Documents\GitHub\Repay-backend\node_modules\viem\_esm\utils\encoding\toHex.js:124:19)
+    at encodeNumber (C:\Users\abhir\Documents\GitHub\Repay-backend\node_modules\viem\_esm\utils\abi\encodeAbiParameters.js:217:18)
+    at prepareParams (C:\Users\abhir\Documents\GitHub\Repay-backend\node_modules\viem\_esm\utils\abi\encodeAbiParameters.js:66:29)
+    at encodeAbiParameters (C:\Users\abhir\Documents\GitHub\Repay-backend\node_modules\viem\_esm\utils\abi\encodeAbiParameters.js:54:28)
+    at encodeFunctionData (C:\Users\abhir\Documents\GitHub\Repay-backend\node_modules\viem\_esm\utils\abi\encodeFunctionData.js:15:11)
+    at simulateContract (C:\Users\abhir\Documents\GitHub\Repay-backend\node_modules\viem\_esm\actions\public\simulateContract.js:45:22)
+    at simulateContract (C:\Users\abhir\Documents\GitHub\Repay-backend\node_modules\viem\_esm\actions\public\simulateContract.js:38:40)
+    at <anonymous> (C:\Users\abhir\Documents\GitHub\Repay-backend\server\routes\reward.ts:181:48)
+    at <anonymous> (C:\Users\abhir\Documents\GitHub\Repay-backend\server\routes\reward.ts:177:44)
+    at handleRequest (C:\Users\abhir\Documents\GitHub\Repay-backend\node_modules\router\lib\layer.js:152:17)
+    at next (C:\Users\abhir\Documents\GitHub\Repay-backend\node_modules\router\lib\route.js:157:13)
+    at <anonymous> (C:\Users\abhir\Documents\GitHub\Repay-backend\server\middlewares\auth.ts:54:9)
+    at processTicksAndRejections (native:7:39)
+2026-03-15 23:04:16 [info]: Server running at http://localhost:8000
+2026-03-15 23:04:16 [info]: Server running at http://localhost:8000
+2026-03-15 23:04:23 [info]: GET /auth/nonce
+2026-03-15 23:04:29 [info]: POST /auth/login
+2026-03-15 23:04:29 [info]: Successful login for address: 0xA87fd5C0EE110cEAA1939C01C1D8623ac4417A2f
+2026-03-15 23:04:36 [info]: POST /reward/mint
+2026-03-15 23:04:37 [error]: SyntaxError: Failed to parse String to BigInt
+    at <parse> (:0)
+    at BigInt (unknown)
+    at numberToHex (C:\Users\abhir\Documents\GitHub\Repay-backend\node_modules\viem\_esm\utils\encoding\toHex.js:124:19)
+    at encodeNumber (C:\Users\abhir\Documents\GitHub\Repay-backend\node_modules\viem\_esm\utils\abi\encodeAbiParameters.js:217:18)
+    at prepareParams (C:\Users\abhir\Documents\GitHub\Repay-backend\node_modules\viem\_esm\utils\abi\encodeAbiParameters.js:66:29)
+    at encodeAbiParameters (C:\Users\abhir\Documents\GitHub\Repay-backend\node_modules\viem\_esm\utils\abi\encodeAbiParameters.js:54:28)
+    at encodeFunctionData (C:\Users\abhir\Documents\GitHub\Repay-backend\node_modules\viem\_esm\utils\abi\encodeFunctionData.js:15:11)
+    at simulateContract (C:\Users\abhir\Documents\GitHub\Repay-backend\node_modules\viem\_esm\actions\public\simulateContract.js:45:22)
+    at simulateContract (C:\Users\abhir\Documents\GitHub\Repay-backend\node_modules\viem\_esm\actions\public\simulateContract.js:38:40)
+    at <anonymous> (C:\Users\abhir\Documents\GitHub\Repay-backend\server\routes\reward.ts:181:48)
+    at <anonymous> (C:\Users\abhir\Documents\GitHub\Repay-backend\server\routes\reward.ts:177:44)
+    at handleRequest (C:\Users\abhir\Documents\GitHub\Repay-backend\node_modules\router\lib\layer.js:152:17)
+    at next (C:\Users\abhir\Documents\GitHub\Repay-backend\node_modules\router\lib\route.js:157:13)
+    at <anonymous> (C:\Users\abhir\Documents\GitHub\Repay-backend\server\middlewares\auth.ts:54:9)
+    at processTicksAndRejections (native:7:39)
+2026-03-15 23:04:53 [info]: POST /reward/mint
+2026-03-15 23:04:53 [error]: SyntaxError: Failed to parse String to BigInt
+    at <parse> (:0)
+    at BigInt (unknown)
+    at numberToHex (C:\Users\abhir\Documents\GitHub\Repay-backend\node_modules\viem\_esm\utils\encoding\toHex.js:124:19)
+    at encodeNumber (C:\Users\abhir\Documents\GitHub\Repay-backend\node_modules\viem\_esm\utils\abi\encodeAbiParameters.js:217:18)
+    at prepareParams (C:\Users\abhir\Documents\GitHub\Repay-backend\node_modules\viem\_esm\utils\abi\encodeAbiParameters.js:66:29)
+    at encodeAbiParameters (C:\Users\abhir\Documents\GitHub\Repay-backend\node_modules\viem\_esm\utils\abi\encodeAbiParameters.js:54:28)
+    at encodeFunctionData (C:\Users\abhir\Documents\GitHub\Repay-backend\node_modules\viem\_esm\utils\abi\encodeFunctionData.js:15:11)
+    at simulateContract (C:\Users\abhir\Documents\GitHub\Repay-backend\node_modules\viem\_esm\actions\public\simulateContract.js:45:22)
+    at simulateContract (C:\Users\abhir\Documents\GitHub\Repay-backend\node_modules\viem\_esm\actions\public\simulateContract.js:38:40)
+    at <anonymous> (C:\Users\abhir\Documents\GitHub\Repay-backend\server\routes\reward.ts:181:48)
+    at <anonymous> (C:\Users\abhir\Documents\GitHub\Repay-backend\server\routes\reward.ts:177:44)
+    at handleRequest (C:\Users\abhir\Documents\GitHub\Repay-backend\node_modules\router\lib\layer.js:152:17)
+    at next (C:\Users\abhir\Documents\GitHub\Repay-backend\node_modules\router\lib\route.js:157:13)
+    at <anonymous> (C:\Users\abhir\Documents\GitHub\Repay-backend\server\middlewares\auth.ts:54:9)
+    at processTicksAndRejections (native:7:39)
+2026-03-15 23:06:38 [info]: Server running at http://localhost:8000
+2026-03-15 23:06:38 [info]: Server running at http://localhost:8000
+2026-03-15 23:07:06 [info]: GET /auth/nonce
+2026-03-15 23:07:13 [info]: POST /auth/login
+2026-03-15 23:07:13 [info]: Successful login for address: 0xA87fd5C0EE110cEAA1939C01C1D8623ac4417A2f
+2026-03-15 23:07:20 [info]: POST /reward/mint
+2026-03-15 23:07:21 [error]: AbiEncodingBytesSizeMismatchError: Size of bytes "0x82d1c562081f36841e96f60affffb42c84eac423" (bytes20) does not match expected size (bytes32).
+
+Version: viem@2.46.3
+    at encodeBytes (C:\Users\abhir\Documents\GitHub\Repay-backend\node_modules\viem\_esm\utils\abi\encodeAbiParameters.js:191:19)
+    at prepareParams (C:\Users\abhir\Documents\GitHub\Repay-backend\node_modules\viem\_esm\utils\abi\encodeAbiParameters.js:66:29)
+    at encodeAbiParameters (C:\Users\abhir\Documents\GitHub\Repay-backend\node_modules\viem\_esm\utils\abi\encodeAbiParameters.js:54:28)
+    at encodeFunctionData (C:\Users\abhir\Documents\GitHub\Repay-backend\node_modules\viem\_esm\utils\abi\encodeFunctionData.js:15:11)
+    at simulateContract (C:\Users\abhir\Documents\GitHub\Repay-backend\node_modules\viem\_esm\actions\public\simulateContract.js:45:22)
+    at simulateContract (C:\Users\abhir\Documents\GitHub\Repay-backend\node_modules\viem\_esm\actions\public\simulateContract.js:38:40)
+    at <anonymous> (C:\Users\abhir\Documents\GitHub\Repay-backend\server\routes\reward.ts:181:48)
+    at <anonymous> (C:\Users\abhir\Documents\GitHub\Repay-backend\server\routes\reward.ts:177:44)
+    at handleRequest (C:\Users\abhir\Documents\GitHub\Repay-backend\node_modules\router\lib\layer.js:152:17)
+    at next (C:\Users\abhir\Documents\GitHub\Repay-backend\node_modules\router\lib\route.js:157:13)
+    at <anonymous> (C:\Users\abhir\Documents\GitHub\Repay-backend\server\middlewares\auth.ts:54:9)
+    at processTicksAndRejections (native:7:39)
+2026-03-15 23:09:34 [info]: GET /auth/nonce
+2026-03-15 23:09:41 [info]: POST /auth/login
+2026-03-15 23:09:41 [info]: Successful login for address: 0xA87fd5C0EE110cEAA1939C01C1D8623ac4417A2f
+2026-03-15 23:10:11 [info]: POST /reward/mint
+2026-03-15 23:10:25 [info]: Tokens minted successfully. To: 0xA87fd5C0EE110cEAA1939C01C1D8623ac4417A2f, Amount: 540, TX: 0x4bbb9faf4370e5fc6869914d30cbaaedc5fb44186ce140b9e5e2d92a688e7a46
+2026-03-16 12:34:04 [info]: Server running at http://localhost:8000
+2026-03-16 12:36:51 [info]: GET /auth/nonce
+2026-03-16 12:36:55 [info]: POST /auth/login
+2026-03-16 12:36:55 [info]: Successful login for address: 0x18422192C052F4b70D1303FA4E5E3d84B9805556
+2026-03-16 12:37:22 [info]: POST /reward/mint
+2026-03-16 12:37:38 [info]: Tokens minted successfully. To: 0x18422192C052F4b70D1303FA4E5E3d84B9805556, Amount: 177, TX: 0xc13f3ecf13fc7e83662f20cf6923164ff0b27255651b87c691f85973f9dbb717
+2026-03-16 12:39:56 [info]: GET /auth/nonce
+2026-03-16 12:40:45 [info]: POST /auth/login
+2026-03-16 12:40:45 [info]: Successful login for address: 0x18422192C052F4b70D1303FA4E5E3d84B9805556
+2026-03-16 12:41:22 [info]: POST /reward/mint
+2026-03-16 12:41:41 [info]: Tokens minted successfully. To: 0x18422192C052F4b70D1303FA4E5E3d84B9805556, Amount: 340, TX: 0x0c565fdd44f6b98622bf48795f2e6d9a3c5c087472b2000605b30449aeca0d64

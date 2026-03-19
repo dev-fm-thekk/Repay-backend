@@ -2,6 +2,7 @@ import { Router, Request, Response } from 'express';
 import { SiweMessage, generateNonce } from 'siwe';
 import jwt from 'jsonwebtoken';
 import { Address } from 'viem';
+import logger from '../utils/logger.js';
 
 const router = Router();
 const JWT_SECRET = process.env.JWT_SECRET || 'fallback-secret';
@@ -16,10 +17,10 @@ const nonces = new Set<string>();
 router.get('/nonce', (req, res) => {
     const nonce = generateNonce();
     nonces.add(nonce);
-    
+
     // Clear nonce after 5 minutes
     setTimeout(() => nonces.delete(nonce), 5 * 60 * 1000);
-    
+
     res.json({ nonce });
 });
 
@@ -31,7 +32,7 @@ router.post('/login', async (req, res) => {
     try {
         const { message, signature } = req.body;
         const siweMessage = new SiweMessage(message);
-        
+
         // Verify nonce
         if (!nonces.has(siweMessage.nonce)) {
             res.status(400).send({ error: 'Invalid or expired nonce' });
@@ -49,19 +50,22 @@ router.post('/login', async (req, res) => {
         nonces.delete(siweMessage.nonce);
 
         const address = data.address as Address;
-        
+
         // Generate JWT
         const token = jwt.sign({ address }, JWT_SECRET, { expiresIn: '24h' });
 
-        res.json({ 
-            success: true, 
-            token, 
+        logger.info(`Successful login for address: ${address}`);
+
+        res.json({
+            success: true,
+            token,
             address,
             message: 'Logged in successfully'
         });
 
     } catch (err: any) {
-        res.status(500).json({ error: err.message });
+        logger.error(`Login error: ${err}`, { stack: err.stack });
+        res.status(500).send({ error: err });
     }
 });
 

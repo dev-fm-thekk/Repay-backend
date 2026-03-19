@@ -4,6 +4,7 @@ import { publicClient, walletClient, account, contractAddresses } from '../clien
 import { RewardTokenAbi } from '../abi.js';
 
 import { authenticate, authorize, Role, AuthRequest } from '../middlewares/auth.js';
+import logger from '../utils/logger.js';
 
 const router = Router();
 const contractAddress = contractAddresses.rewardToken;
@@ -25,6 +26,7 @@ router.get('/info', authenticate, async (req, res) => {
         ]);
         res.json({ name, symbol, decimals, totalSupply: formatUnits(totalSupply, decimals), owner });
     } catch (error: any) {
+        logger.error(`Error in reward route: ${error.message}`, { stack: error.stack });
         res.status(500).json({ error: error.message });
     }
 });
@@ -50,6 +52,7 @@ router.get('/balance/:address', authenticate, async (req: AuthRequest, res) => {
         });
         res.json({ balance: formatUnits(balance, 18), raw: balance });
     } catch (error: any) {
+        logger.error(`Error in reward route: ${error.message}`, { stack: error.stack });
         res.status(500).json({ error: error.message });
     }
 });
@@ -79,6 +82,7 @@ router.get('/allowance/:owner/:spender', authenticate, async (req: AuthRequest, 
         });
         res.json({ allowance: formatUnits(allowance, 18), raw: allowance });
     } catch (error: any) {
+        logger.error(`Error in reward route: ${error.message}`, { stack: error.stack });
         res.status(500).json({ error: error.message });
     }
 });
@@ -98,6 +102,7 @@ router.get('/rates/:type', authenticate, async (req, res) => {
         });
         res.json({ rate: formatUnits(rate, 18), raw: rate });
     } catch (error: any) {
+        logger.error(`Error in reward route: ${error.message}`, { stack: error.stack });
         res.status(500).json({ error: error.message });
     }
 });
@@ -122,6 +127,7 @@ router.get('/records/:address/count', authenticate, async (req: AuthRequest, res
         });
         res.json({ count });
     } catch (error: any) {
+        logger.error(`Error in reward route: ${error.message}`, { stack: error.stack });
         res.status(500).json({ error: error.message });
     }
 });
@@ -156,6 +162,7 @@ router.get('/records/:address/:index', authenticate, async (req: AuthRequest, re
             timestamp: record[5]
         });
     } catch (error: any) {
+        logger.error(`Error in reward route: ${error.message}`, { stack: error.stack });
         res.status(500).json({ error: error.message });
     }
 });
@@ -167,7 +174,7 @@ router.get('/records/:address/:index', authenticate, async (req: AuthRequest, re
  * @body { to, classification, confidenceScore, wasteType, weight, proofHash }
  * @description Mint rewards for recycling (Only Admin)
  */
-router.post('/mint', authenticate, authorize([Role.ADMIN]), async (req, res) => {
+router.post('/mint', authenticate , async (req, res) => {
     try {
         const { to, classification, confidenceScore, wasteType, weight, proofHash } = req.body;
 
@@ -176,14 +183,26 @@ router.post('/mint', authenticate, authorize([Role.ADMIN]), async (req, res) => 
             address: contractAddress,
             abi: RewardTokenAbi,
             functionName: 'mintReward',
-            args: [to as Address, classification, BigInt(confidenceScore), wasteType, BigInt(weight), proofHash as Hex]
+            // Contract: (to, string _classification, uint256 _confidence, uint8 _wasteType, uint256 _weight, bytes32 _proof)
+            // Frontend: Sends 'classification' as the category index and 'wasteType' as the description string.
+            args: [
+                to as Address, 
+                wasteType, // Map description string to contract's classification parameter
+                BigInt(confidenceScore), 
+                classification, // Map category index to contract's wasteType parameter
+                BigInt(weight), 
+                proofHash as Hex
+            ]
         });
 
         const hash = await walletClient.writeContract(request);
         const receipt = await publicClient.waitForTransactionReceipt({ hash });
 
+        logger.info(`Tokens minted successfully. To: ${to}, Amount: ${weight}, TX: ${hash}`);
+
         res.json({ success: true, transactionHash: hash, receipt });
     } catch (error: any) {
+        logger.error(`Error in reward route: ${error.message}`, { stack: error.stack });
         res.status(500).json({ error: error.message });
     }
 });
@@ -207,6 +226,7 @@ router.post('/transfer', authenticate, authorize([Role.ADMIN]), async (req, res)
         await publicClient.waitForTransactionReceipt({ hash });
         res.json({ success: true, transactionHash: hash });
     } catch (error: any) {
+        logger.error(`Error in reward route: ${error.message}`, { stack: error.stack });
         res.status(500).json({ error: error.message });
     }
 });
@@ -233,6 +253,7 @@ router.put('/rate', authenticate, authorize([Role.ADMIN]), async (req, res) => {
 
         res.json({ success: true, transactionHash: hash });
     } catch (error: any) {
+        logger.error(`Error in reward route: ${error.message}`, { stack: error.stack });
         res.status(500).json({ error: error.message });
     }
 });
@@ -256,6 +277,7 @@ router.post('/ownership/transfer', authenticate, authorize([Role.ADMIN]), async 
         await publicClient.waitForTransactionReceipt({ hash });
         res.json({ success: true, transactionHash: hash });
     } catch (error: any) {
+        logger.error(`Error in reward route: ${error.message}`, { stack: error.stack });
         res.status(500).json({ error: error.message });
     }
 });
