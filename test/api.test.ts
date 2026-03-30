@@ -8,8 +8,8 @@ dotenv.config({ path: ".env.app" });
 const API_ROOT = `http://localhost:${process.env.PORT || 8000}`;
 
 // Use the recovered keys
-const ADMIN_KEY = process.env.ADMIN_PRIVATE_KEY as `0x${string}`;
-const USER_KEY = process.env.SEPOLIA_PRIVATE_KEY as `0x${string}`;
+const ADMIN_KEY = (process.env.SEPOLIA_PRIVATE_KEY || process.env.ADMIN_PRIVATE_KEY) as `0x${string}`;
+const USER_KEY = process.env.ADMIN_PRIVATE_KEY as `0x${string}`;
 
 const adminAccount = privateKeyToAccount(ADMIN_KEY);
 const userAccount = privateKeyToAccount(USER_KEY);
@@ -34,7 +34,7 @@ async function login(account: any, privateKey: `0x${string}`) {
         statement: "Sign in with Ethereum to Repay",
         uri: origin,
         version: "1",
-        chainId: 31337, // Hardhat default
+        chainId: 11155111, // Sepolia
         nonce: nonce,
     });
 

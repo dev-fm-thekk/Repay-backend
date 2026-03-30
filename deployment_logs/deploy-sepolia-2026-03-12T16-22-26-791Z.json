@@ -1,0 +1,23 @@
+{
+  "network": "sepolia",
+  "deployedAt": "2026-03-12T16:22:26.792Z",
+  "deployer": "0x18422192C052F4b70D1303FA4E5E3d84B9805556",
+  "contracts": [
+    {
+      "name": "RewardToken",
+      "address": "0x8e4d0ace04780a67d96f9216067cfc770b89a8d3"
+    },
+    {
+      "name": "AgencyRegistry",
+      "address": "0x5109f3ab570ed49f81d160b8d20aac1ccd7e28c1"
+    },
+    {
+      "name": "ServiceRegistry",
+      "address": "0xc8177988a609fc4ab0efb9ce08f74437066ead0c"
+    },
+    {
+      "name": "TicketNFT",
+      "address": "0x56c53b08ef0b48e6d6abc1a3e3f34a0f5e059a0d"
+    }
+  ]
+}

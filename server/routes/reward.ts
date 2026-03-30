@@ -1,9 +1,11 @@
 import { Router } from 'express';
-import { parseUnits, formatUnits, Hex, Address } from 'viem';
-import { publicClient, walletClient, account, contractAddresses } from '../clients.js';
+import { parseUnits, formatUnits, Hex, Address, createWalletClient, http } from 'viem';
+import { privateKeyToAccount } from 'viem/accounts';
+import { publicClient, walletClient, account, chain, contractAddresses } from '../clients.js';
 import { RewardTokenAbi } from '../abi.js';
 
 import { authenticate, authorize, Role, AuthRequest } from '../middlewares/auth.js';
+import logger from '../utils/logger.js';
 
 const router = Router();
 const contractAddress = contractAddresses.rewardToken;
@@ -25,6 +27,7 @@ router.get('/info', authenticate, async (req, res) => {
         ]);
         res.json({ name, symbol, decimals, totalSupply: formatUnits(totalSupply, decimals), owner });
     } catch (error: any) {
+        logger.error(`Error in reward route: ${error.message}`, { stack: error.stack });
         res.status(500).json({ error: error.message });
     }
 });
@@ -50,6 +53,7 @@ router.get('/balance/:address', authenticate, async (req: AuthRequest, res) => {
         });
         res.json({ balance: formatUnits(balance, 18), raw: balance });
     } catch (error: any) {
+        logger.error(`Error in reward route: ${error.message}`, { stack: error.stack });
         res.status(500).json({ error: error.message });
     }
 });
@@ -79,6 +83,7 @@ router.get('/allowance/:owner/:spender', authenticate, async (req: AuthRequest, 
         });
         res.json({ allowance: formatUnits(allowance, 18), raw: allowance });
     } catch (error: any) {
+        logger.error(`Error in reward route: ${error.message}`, { stack: error.stack });
         res.status(500).json({ error: error.message });
     }
 });
@@ -98,6 +103,7 @@ router.get('/rates/:type', authenticate, async (req, res) => {
         });
         res.json({ rate: formatUnits(rate, 18), raw: rate });
     } catch (error: any) {
+        logger.error(`Error in reward route: ${error.message}`, { stack: error.stack });
         res.status(500).json({ error: error.message });
     }
 });
@@ -122,6 +128,7 @@ router.get('/records/:address/count', authenticate, async (req: AuthRequest, res
         });
         res.json({ count });
     } catch (error: any) {
+        logger.error(`Error in reward route: ${error.message}`, { stack: error.stack });
         res.status(500).json({ error: error.message });
     }
 });
@@ -156,6 +163,7 @@ router.get('/records/:address/:index', authenticate, async (req: AuthRequest, re
             timestamp: record[5]
         });
     } catch (error: any) {
+        logger.error(`Error in reward route: ${error.message}`, { stack: error.stack });
         res.status(500).json({ error: error.message });
     }
 });
@@ -167,8 +175,9 @@ router.get('/records/:address/:index', authenticate, async (req: AuthRequest, re
  * @body { to, classification, confidenceScore, wasteType, weight, proofHash }
  * @description Mint rewards for recycling (Only Admin)
  */
-router.post('/mint', authenticate, authorize([Role.ADMIN]), async (req, res) => {
+router.post('/mint' , async (req, res) => {
     try {
+        console.log(req.body)
         const { to, classification, confidenceScore, wasteType, weight, proofHash } = req.body;
 
         const { request } = await publicClient.simulateContract({
@@ -176,14 +185,25 @@ router.post('/mint', authenticate, authorize([Role.ADMIN]), async (req, res) => 
             address: contractAddress,
             abi: RewardTokenAbi,
             functionName: 'mintReward',
-            args: [to as Address, classification, BigInt(confidenceScore), wasteType, BigInt(weight), proofHash as Hex]
+            // Contract: (to, string _classification, uint256 _confidence, uint8 _wasteType, uint256 _weight, bytes32 _proof)
+            args: [
+                to as Address, 
+                classification, 
+                BigInt(confidenceScore), 
+                Number(wasteType), 
+                BigInt(weight), 
+                proofHash as Hex
+            ]
         });
 
         const hash = await walletClient.writeContract(request);
         const receipt = await publicClient.waitForTransactionReceipt({ hash });
 
+        logger.info(`Tokens minted successfully. To: ${to}, Amount: ${weight}, TX: ${hash}`);
+
         res.json({ success: true, transactionHash: hash, receipt });
     } catch (error: any) {
+        logger.error(`Error in reward route: ${error.message}`, { stack: error.stack });
         res.status(500).json({ error: error.message });
     }
 });
@@ -207,6 +227,7 @@ router.post('/transfer', authenticate, authorize([Role.ADMIN]), async (req, res)
         await publicClient.waitForTransactionReceipt({ hash });
         res.json({ success: true, transactionHash: hash });
     } catch (error: any) {
+        logger.error(`Error in reward route: ${error.message}`, { stack: error.stack });
         res.status(500).json({ error: error.message });
     }
 });
@@ -233,6 +254,7 @@ router.put('/rate', authenticate, authorize([Role.ADMIN]), async (req, res) => {
 
         res.json({ success: true, transactionHash: hash });
     } catch (error: any) {
+        logger.error(`Error in reward route: ${error.message}`, { stack: error.stack });
         res.status(500).json({ error: error.message });
     }
 });
@@ -256,6 +278,50 @@ router.post('/ownership/transfer', authenticate, authorize([Role.ADMIN]), async 
         await publicClient.waitForTransactionReceipt({ hash });
         res.json({ success: true, transactionHash: hash });
     } catch (error: any) {
+        logger.error(`Error in reward route: ${error.message}`, { stack: error.stack });
+        res.status(500).json({ error: error.message });
+    }
+});
+
+/**
+ * @route POST /reward/approve
+ * @body { spender, amount, private_key }
+ * @description Approve a spender to use your RWDR tokens
+ */
+router.post('/approve', authenticate, async (req: AuthRequest, res) => {
+    try {
+        const { spender, amount, private_key } = req.body;
+        if (!private_key) {
+            res.status(400).json({ error: 'private_key is required' });
+            return;
+        }
+
+        const userAccount = privateKeyToAccount(private_key as Hex);
+        if (userAccount.address.toLowerCase() !== req.user?.address.toLowerCase()) {
+            res.status(403).json({ error: 'Forbidden: Private key does not match authenticated address' });
+            return;
+        }
+
+        const userWalletClient = createWalletClient({
+            account: userAccount,
+            chain,
+            transport: http(process.env.SEPOLIA_RPC_URL)
+        });
+
+        const { request } = await publicClient.simulateContract({
+            account: userAccount,
+            address: contractAddress,
+            abi: RewardTokenAbi,
+            functionName: 'approve',
+            args: [spender as Address, parseUnits(amount.toString(), 18)]
+        });
+
+        const hash = await userWalletClient.writeContract(request);
+        await publicClient.waitForTransactionReceipt({ hash });
+
+        res.json({ success: true, transactionHash: hash });
+    } catch (error: any) {
+        logger.error(`Error in reward route: ${error.message}`, { stack: error.stack });
         res.status(500).json({ error: error.message });
     }
 });

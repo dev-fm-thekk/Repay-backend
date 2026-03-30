@@ -48,11 +48,10 @@ bun run server
 
 ## API Documentation
 
-- **[Overview](./docs/api/overview.md)**: Design principles and base configurations.
-- **[Authentication](./docs/api/auth.md)**: SIWE flow and role mapping.
-- **[Agencies & Services](./docs/api/registry.md)**: Registration and service management.
-- **[Transit Tickets](./docs/api/tickets.md)**: Purchase and validation flow.
-- **[Rewards](./docs/api/rewards.md)**: Token balance and history.
+The Repay API is a RESTful gateway to the blockchain ecosystem.
+
+- **[Full API Reference](./docs/API_REFERENCE.md)**: Comprehensive guide for all endpoints and frontend integration.
+- **[Architecture Overview](./docs/Architecture.md)**: System design and smart contract interactions.
 
 ## Testing
 

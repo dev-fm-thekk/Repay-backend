@@ -15,7 +15,7 @@ const contractAddress = contractAddresses.serviceRegistry;
  * @route GET /service/total
  * @description Get total number of registered services
  */
-router.get('/total', authenticate, async (req, res) => {
+router.get('/total', async (req, res) => {
     try {
         const total = await publicClient.readContract({
             address: contractAddress,
@@ -32,7 +32,7 @@ router.get('/total', authenticate, async (req, res) => {
  * @route GET /service/:id
  * @description Get full service details by ID
  */
-router.get('/:id', authenticate, async (req, res) => {
+router.get('/:id', async (req, res) => {
     try {
         const id = req.params.id as string;
         const service = await publicClient.readContract({
@@ -136,7 +136,7 @@ router.post('/create', authenticate, authorize([Role.AGENCY, Role.ADMIN]), async
         const agencyWalletClient = createWalletClient({
             account: agencyAccount,
             chain,
-            transport: http(process.env.RPC_URL)
+            transport: http(process.env.SEPOLIA_RPC_URL)
         });
 
         const { request } = await publicClient.simulateContract({
@@ -213,7 +213,7 @@ router.put('/:id/price', authenticate, authorize([Role.AGENCY, Role.ADMIN]), asy
         const agencyWalletClient = createWalletClient({
             account: agencyAccount,
             chain,
-            transport: http(process.env.RPC_URL)
+            transport: http(process.env.SEPOLIA_RPC_URL)
         });
 
         const { request } = await publicClient.simulateContract({
@@ -253,7 +253,7 @@ router.put('/:id/supply', authenticate, authorize([Role.AGENCY, Role.ADMIN]), as
         const agencyWalletClient = createWalletClient({
             account: agencyAccount,
             chain,
-            transport: http(process.env.RPC_URL)
+            transport: http(process.env.SEPOLIA_RPC_URL)
         });
 
         const { request } = await publicClient.simulateContract({

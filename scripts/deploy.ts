@@ -4,7 +4,7 @@ import path from "path";
 import dotenv from "dotenv";
 import { privateKeyToAccount } from "viem/accounts";
 import { Hex, http, createWalletClient, createPublicClient } from "viem";
-import { hardhat, localhost } from "viem/chains";
+import { hardhat, sepolia } from "viem/chains";
 
 import RewardTokenArtifact from "../artifacts/contracts/reward.sol/RewardToken.json";
 import AgencyRegistryArtifact from "../artifacts/contracts/agency.sol/AgencyRegistry.json";
@@ -20,6 +20,7 @@ async function deployContract(
   publicClient: ReturnType<typeof createPublicClient>,
   account: ReturnType<typeof privateKeyToAccount>,
   artifact: { abi: any; bytecode: string },
+  chain: any,
   args: unknown[] = []
 ): Promise<string> {
   console.log(`\n📦 Deploying ${label}...`);
@@ -29,7 +30,7 @@ async function deployContract(
     bytecode: artifact.bytecode as Hex,
     account,
     args,
-    chain: hardhat,
+    chain,
   });
 
   console.log(`⏳ Waiting for ${label} confirmation...`);
@@ -68,10 +69,10 @@ async function main() {
   console.log(`\n🚀 Starting deployment on network: ${networkName}`);
   console.log(`--------------------------------------------------`);
 
-  const privateKey =
-    networkName === "sepolia"
-      ? process.env.SEPOLIA_PRIVATE_KEY
-      : process.env.ADMIN_PRIVATE_KEY;
+  const isSepolia = networkName === "sepolia";
+  const chain = isSepolia ? sepolia : hardhat;
+  const rpcUrl = isSepolia ? process.env.SEPOLIA_RPC_URL : (process.env.RPC_URL ?? "http://127.0.0.1:8545/");
+  const privateKey = isSepolia ? process.env.SEPOLIA_PRIVATE_KEY : process.env.ADMIN_PRIVATE_KEY;
 
   if (!privateKey) {
     throw new Error(`❌ No private key found for network: ${networkName}`);
@@ -82,13 +83,13 @@ async function main() {
 
   const walletClient = createWalletClient({
     account,
-    chain: hardhat,
-    transport: http("http://127.0.0.1:8545/"),
+    chain,
+    transport: http(rpcUrl),
   });
 
   const publicClient = createPublicClient({
-    chain: localhost,
-    transport: http(process.env.RPC_URL ?? "http://127.0.0.1:8545/"),
+    chain,
+    transport: http(rpcUrl),
   });
 
   const deployedContracts: { name: string; address: string; abi: any }[] = [];
@@ -99,7 +100,8 @@ async function main() {
     walletClient,
     publicClient,
     account,
-    RewardTokenArtifact
+    RewardTokenArtifact,
+    chain
   );
   deployedContracts.push({
     name: "RewardToken",
@@ -113,7 +115,8 @@ async function main() {
     walletClient,
     publicClient,
     account,
-    AgencyRegistryArtifact
+    AgencyRegistryArtifact,
+    chain
   );
   deployedContracts.push({
     name: "AgencyRegistry",
@@ -128,6 +131,7 @@ async function main() {
     publicClient,
     account,
     ServiceRegistryArtifact,
+    chain,
     [agencyRegistryAddress]
   );
   deployedContracts.push({
@@ -143,6 +147,7 @@ async function main() {
     publicClient,
     account,
     TicketNFTArtifact,
+    chain,
     [rewardTokenAddress, agencyRegistryAddress, serviceRegistryAddress]
   );
 
@@ -161,7 +166,7 @@ async function main() {
     functionName: "setTicketContract",
     args: [ticketNFTAddress],
     account,
-    chain: hardhat,
+    chain,
   });
 
   console.log("⏳ Waiting for confirmation...");
