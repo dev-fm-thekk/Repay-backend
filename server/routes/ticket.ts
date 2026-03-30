@@ -2,7 +2,7 @@ import { Router } from 'express';
 import { Address, formatUnits, createWalletClient, http, Hex, decodeEventLog } from 'viem';
 import { privateKeyToAccount } from 'viem/accounts';
 import { publicClient, walletClient, account, chain, contractAddresses } from '../clients.js';
-import { TicketNFTAbi } from '../abi.js';
+import { TicketNFTAbi, RewardTokenAbi, ServiceRegistryAbi } from '../abi.js';
 
 import { authenticate, authorize, Role, AuthRequest } from '../middlewares/auth.js';
 
@@ -122,7 +122,7 @@ router.get('/validity-period', authenticate, async (req, res) => {
  */
 router.post('/purchase', authenticate, async (req: AuthRequest, res) => {
     try {
-        const { serviceId, metadataURI, private_key } = req.body;
+        const { serviceId, metadataURI = "ipfs://default-ticket", private_key } = req.body;
         if (!private_key) {
             res.status(400).json({ error: 'private_key is required' });
             return;
@@ -141,9 +141,52 @@ router.post('/purchase', authenticate, async (req: AuthRequest, res) => {
         const buyerWalletClient = createWalletClient({
             account: buyerAccount,
             chain,
-            transport: http(process.env.RPC_URL)
+            transport: http(process.env.SEPOLIA_RPC_URL)
         });
 
+        // ── 1. Fetch token price & check balance ──
+        const tokenPrice = await publicClient.readContract({
+            address: contractAddresses.serviceRegistry,
+            abi: ServiceRegistryAbi,
+            functionName: 'getPrice',
+            args: [BigInt(serviceId)]
+        });
+
+        const balance = await publicClient.readContract({
+            address: contractAddresses.rewardToken,
+            abi: RewardTokenAbi,
+            functionName: 'balanceOf',
+            args: [buyerAccount.address]
+        });
+
+        if (balance < tokenPrice) {
+            res.status(400).json({ 
+                error: `Insufficient RWDR balance. Required: ${formatUnits(tokenPrice, 18)}, Available: ${formatUnits(balance, 18)}` 
+            });
+            return;
+        }
+
+        // ── 2. Check & Auto-Approve allowance if needed ──
+        const currentAllowance = await publicClient.readContract({
+            address: contractAddresses.rewardToken,
+            abi: RewardTokenAbi,
+            functionName: 'allowance',
+            args: [buyerAccount.address, contractAddress]
+        });
+
+        if (currentAllowance < tokenPrice) {
+            const { request: approveRequest } = await publicClient.simulateContract({
+                account: buyerAccount,
+                address: contractAddresses.rewardToken,
+                abi: RewardTokenAbi,
+                functionName: 'approve',
+                args: [contractAddress, tokenPrice]
+            });
+            const approveHash = await buyerWalletClient.writeContract(approveRequest);
+            await publicClient.waitForTransactionReceipt({ hash: approveHash });
+        }
+
+        // ── 3. Proceed with Purchase ──
         const { request } = await publicClient.simulateContract({
             account: buyerAccount,
             address: contractAddress,
@@ -225,7 +268,7 @@ router.post('/:tokenId/validate', authenticate, authorize([Role.AGENCY, Role.ADM
         const operatorWalletClient = createWalletClient({
             account: operatorAccount,
             chain,
-            transport: http(process.env.RPC_URL)
+            transport: http(process.env.SEPOLIA_RPC_URL)
         });
 
         const hash = await operatorWalletClient.writeContract(request);

@@ -31,7 +31,34 @@ router.get('/nonce', (req, res) => {
 router.post('/login', async (req, res) => {
     try {
         const { message, signature } = req.body;
-        const siweMessage = new SiweMessage(message);
+        let siweMessage: SiweMessage;
+        try {
+            // If message is a JSON string, parse it first
+            const prospectiveMessage = typeof message === 'string' && message.trim().startsWith('{')
+                ? JSON.parse(message)
+                : message;
+
+            siweMessage = new SiweMessage(prospectiveMessage);
+        } catch (e: any) {
+            let errorDetail = 'Invalid SIWE message format';
+            if (typeof message === 'string') {
+                if (message.includes('would like you to sign in')) {
+                    errorDetail = 'SIWE message must use the exact phrase "wants you to sign in with your Ethereum account:" (EIP-4361)';
+                } else if (!message.includes('\n') && message.length > 50) {
+                    errorDetail = 'SIWE message is missing required newlines (EIP-4361)';
+                } else if (message.length < 50) {
+                    errorDetail = 'SIWE message is too short or incomplete';
+                }
+            }
+            logger.error(`SIWE Message Construction Error: ${e.message}`, { message, error: e });
+            res.status(400).json({ 
+                error: errorDetail,
+                message: 'Sign-in with Ethereum (SIWE) requires a specific message format (EIP-4361).',
+                validExample: `localhost wants you to sign in with your Ethereum account:\n0xYourAddress\n\nSign in to access the RePay transport ecosystem.\n\nURI: http://localhost\nVersion: 1\nChain ID: 11155111\nNonce: [Get from /auth/nonce]\nIssued At: ${new Date().toISOString()}`,
+                rawError: e.message 
+            });
+            return;
+        }
 
         // Verify nonce
         if (!nonces.has(siweMessage.nonce)) {
@@ -39,7 +66,18 @@ router.post('/login', async (req, res) => {
             return;
         }
 
-        const { data, success, error } = await siweMessage.verify({ signature });
+        let verifyResult;
+        try {
+            verifyResult = await siweMessage.verify({ signature });
+        } catch (verifyErr: any) {
+            // SIWE might throw on verification failure in some versions/cases
+            const errDetail = verifyErr.error || verifyErr;
+            logger.error(`SIWE Verification Exception: ${errDetail.type || JSON.stringify(errDetail)}`, { verifyErr });
+            res.status(400).json({ error: errDetail.type || 'Signature verification failed' });
+            return;
+        }
+
+        const { data, success, error } = verifyResult;
 
         if (!success) {
             res.status(400).json({ error: error?.toString() || 'Signature verification failed' });
@@ -64,8 +102,9 @@ router.post('/login', async (req, res) => {
         });
 
     } catch (err: any) {
-        logger.error(`Login error: ${err}`, { stack: err.stack });
-        res.status(500).send({ error: err });
+        const errorMsg = err.message || JSON.stringify(err);
+        logger.error(`Login error: ${errorMsg}`, { stack: err.stack, fullError: err });
+        res.status(500).send({ error: errorMsg, details: err });
     }
 });
 

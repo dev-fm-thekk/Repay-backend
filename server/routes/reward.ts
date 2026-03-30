@@ -1,6 +1,7 @@
 import { Router } from 'express';
-import { parseUnits, formatUnits, Hex, Address } from 'viem';
-import { publicClient, walletClient, account, contractAddresses } from '../clients.js';
+import { parseUnits, formatUnits, Hex, Address, createWalletClient, http } from 'viem';
+import { privateKeyToAccount } from 'viem/accounts';
+import { publicClient, walletClient, account, chain, contractAddresses } from '../clients.js';
 import { RewardTokenAbi } from '../abi.js';
 
 import { authenticate, authorize, Role, AuthRequest } from '../middlewares/auth.js';
@@ -174,8 +175,9 @@ router.get('/records/:address/:index', authenticate, async (req: AuthRequest, re
  * @body { to, classification, confidenceScore, wasteType, weight, proofHash }
  * @description Mint rewards for recycling (Only Admin)
  */
-router.post('/mint', authenticate , async (req, res) => {
+router.post('/mint' , async (req, res) => {
     try {
+        console.log(req.body)
         const { to, classification, confidenceScore, wasteType, weight, proofHash } = req.body;
 
         const { request } = await publicClient.simulateContract({
@@ -184,12 +186,11 @@ router.post('/mint', authenticate , async (req, res) => {
             abi: RewardTokenAbi,
             functionName: 'mintReward',
             // Contract: (to, string _classification, uint256 _confidence, uint8 _wasteType, uint256 _weight, bytes32 _proof)
-            // Frontend: Sends 'classification' as the category index and 'wasteType' as the description string.
             args: [
                 to as Address, 
-                wasteType, // Map description string to contract's classification parameter
+                classification, 
                 BigInt(confidenceScore), 
-                classification, // Map category index to contract's wasteType parameter
+                Number(wasteType), 
                 BigInt(weight), 
                 proofHash as Hex
             ]
@@ -275,6 +276,49 @@ router.post('/ownership/transfer', authenticate, authorize([Role.ADMIN]), async 
         });
         const hash = await walletClient.writeContract(request);
         await publicClient.waitForTransactionReceipt({ hash });
+        res.json({ success: true, transactionHash: hash });
+    } catch (error: any) {
+        logger.error(`Error in reward route: ${error.message}`, { stack: error.stack });
+        res.status(500).json({ error: error.message });
+    }
+});
+
+/**
+ * @route POST /reward/approve
+ * @body { spender, amount, private_key }
+ * @description Approve a spender to use your RWDR tokens
+ */
+router.post('/approve', authenticate, async (req: AuthRequest, res) => {
+    try {
+        const { spender, amount, private_key } = req.body;
+        if (!private_key) {
+            res.status(400).json({ error: 'private_key is required' });
+            return;
+        }
+
+        const userAccount = privateKeyToAccount(private_key as Hex);
+        if (userAccount.address.toLowerCase() !== req.user?.address.toLowerCase()) {
+            res.status(403).json({ error: 'Forbidden: Private key does not match authenticated address' });
+            return;
+        }
+
+        const userWalletClient = createWalletClient({
+            account: userAccount,
+            chain,
+            transport: http(process.env.SEPOLIA_RPC_URL)
+        });
+
+        const { request } = await publicClient.simulateContract({
+            account: userAccount,
+            address: contractAddress,
+            abi: RewardTokenAbi,
+            functionName: 'approve',
+            args: [spender as Address, parseUnits(amount.toString(), 18)]
+        });
+
+        const hash = await userWalletClient.writeContract(request);
+        await publicClient.waitForTransactionReceipt({ hash });
+
         res.json({ success: true, transactionHash: hash });
     } catch (error: any) {
         logger.error(`Error in reward route: ${error.message}`, { stack: error.stack });
