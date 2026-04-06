@@ -14,7 +14,7 @@ const contractAddress = contractAddresses.agencyRegistry;
  * @route GET /agency/total
  * @description Get total number of registered agencies
  */
-router.get('/total', authenticate, async (req, res) => {
+router.get('/total', async (req, res) => {
     try {
         const total = await publicClient.readContract({
             address: contractAddress,
@@ -31,7 +31,7 @@ router.get('/total', authenticate, async (req, res) => {
  * @route GET /agency/:id
  * @description Get full agency details by ID
  */
-router.get('/:id', authenticate, async (req, res) => {
+router.get('/:id', async (req, res) => {
     try {
         const id = req.params.id as string;
         const agency = await publicClient.readContract({

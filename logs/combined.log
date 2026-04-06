@@ -1631,3 +1631,683 @@ Version: viem@2.46.3
 2026-03-30 08:00:04 [info]: GET /reward/balance/0xA87fd5C0EE110cEAA1939C01C1D8623ac4417A2f
 2026-03-30 08:00:22 [info]: GET /reward/balance/0xA87fd5C0EE110cEAA1939C01C1D8623ac4417A2f
 2026-03-30 08:00:22 [info]: GET /ticket/holder/0xA87fd5C0EE110cEAA1939C01C1D8623ac4417A2f
+2026-03-30 08:41:48 [info]: GET /auth/nonce
+2026-03-30 08:41:48 [info]: GET /auth/nonce
+2026-03-30 08:41:49 [info]: POST /auth/login
+2026-03-30 08:41:49 [error]: SIWE Verification Exception: Signature does not match address of the message.
+2026-03-30 08:41:49 [info]: POST /auth/login
+2026-03-30 08:41:49 [error]: SIWE Verification Exception: Signature does not match address of the message.
+2026-03-30 08:42:01 [info]: GET /auth/nonce
+2026-03-30 08:42:01 [info]: GET /auth/nonce
+2026-03-30 08:42:02 [info]: POST /auth/login
+2026-03-30 08:42:02 [error]: SIWE Verification Exception: Signature does not match address of the message.
+2026-03-30 08:42:03 [info]: POST /auth/login
+2026-03-30 08:42:03 [error]: SIWE Verification Exception: Signature does not match address of the message.
+2026-03-30 08:42:04 [info]: GET /auth/nonce
+2026-03-30 08:42:05 [info]: POST /auth/login
+2026-03-30 08:42:05 [error]: SIWE Verification Exception: Signature does not match address of the message.
+2026-03-30 08:42:35 [info]: GET /auth/nonce
+2026-03-30 08:42:36 [info]: POST /auth/login
+2026-03-30 08:42:36 [error]: SIWE Verification Exception: Signature does not match address of the message.
+2026-03-30 08:43:08 [info]: GET /auth/nonce
+2026-03-30 08:43:09 [info]: POST /auth/login
+2026-03-30 08:43:09 [error]: SIWE Verification Exception: Signature does not match address of the message.
+2026-03-30 08:44:07 [info]: GET /auth/nonce
+2026-03-30 08:44:08 [info]: POST /auth/login
+2026-03-30 08:44:08 [error]: SIWE Verification Exception: Signature does not match address of the message.
+2026-03-30 08:44:40 [info]: GET /auth/nonce
+2026-03-30 08:44:41 [info]: POST /auth/login
+2026-03-30 08:44:41 [error]: SIWE Verification Exception: Signature does not match address of the message.
+2026-03-30 08:45:21 [info]: GET /
+2026-03-30 10:17:43 [info]: Server running at http://localhost:8000
+2026-03-30 10:22:26 [info]: GET /
+2026-03-30 10:35:20 [info]: GET /auth/nonce
+2026-03-30 10:36:13 [info]: POST /auth/login
+2026-03-30 10:36:13 [info]: Successful login for address: 0xA87fd5C0EE110cEAA1939C01C1D8623ac4417A2f
+2026-03-30 10:36:18 [info]: GET /reward/balance/0xA87fd5C0EE110cEAA1939C01C1D8623ac4417A2f
+2026-03-30 10:36:18 [info]: GET /ticket/holder/0xA87fd5C0EE110cEAA1939C01C1D8623ac4417A2f
+2026-03-30 10:41:42 [info]: GET /auth/nonce
+2026-03-30 10:41:59 [info]: POST /auth/login
+2026-03-30 10:41:59 [info]: Successful login for address: 0xA87fd5C0EE110cEAA1939C01C1D8623ac4417A2f
+2026-03-30 10:42:01 [info]: GET /ticket/holder/0xA87fd5C0EE110cEAA1939C01C1D8623ac4417A2f
+2026-03-30 10:42:04 [info]: GET /reward/balance/0xA87fd5C0EE110cEAA1939C01C1D8623ac4417A2f
+2026-03-30 11:26:18 [info]: GET /auth/nonce
+2026-03-30 11:26:19 [info]: GET /auth/nonce
+2026-03-30 11:26:49 [info]: POST /auth/login
+2026-03-30 11:26:50 [info]: Successful login for address: 0xA87fd5C0EE110cEAA1939C01C1D8623ac4417A2f
+2026-03-30 11:26:51 [info]: GET /ticket/holder/0xA87fd5C0EE110cEAA1939C01C1D8623ac4417A2f
+2026-03-30 11:26:52 [info]: GET /reward/balance/0xA87fd5C0EE110cEAA1939C01C1D8623ac4417A2f
+2026-03-30 11:43:31 [info]: GET /auth/nonce
+2026-03-30 11:44:05 [info]: POST /auth/login
+2026-03-30 11:44:05 [info]: Successful login for address: 0xA87fd5C0EE110cEAA1939C01C1D8623ac4417A2f
+2026-03-30 11:44:08 [info]: GET /ticket/holder/0xA87fd5C0EE110cEAA1939C01C1D8623ac4417A2f
+2026-03-30 11:44:08 [info]: GET /reward/balance/0xA87fd5C0EE110cEAA1939C01C1D8623ac4417A2f
+2026-03-30 11:44:40 [info]: GET /auth/nonce
+2026-03-30 11:45:26 [info]: POST /auth/login
+2026-03-30 11:45:26 [info]: Successful login for address: 0xA87fd5C0EE110cEAA1939C01C1D8623ac4417A2f
+2026-03-30 11:45:27 [info]: GET /ticket/holder/0xA87fd5C0EE110cEAA1939C01C1D8623ac4417A2f
+2026-03-30 11:45:28 [info]: GET /reward/balance/0xA87fd5C0EE110cEAA1939C01C1D8623ac4417A2f
+2026-03-30 11:50:53 [info]: GET /ticket/holder/0xA87fd5C0EE110cEAA1939C01C1D8623ac4417A2f
+2026-03-30 11:50:53 [info]: GET /reward/balance/0xA87fd5C0EE110cEAA1939C01C1D8623ac4417A2f
+2026-03-30 11:55:33 [info]: GET /
+2026-03-30 12:10:10 [info]: GET /auth/nonce
+2026-03-30 12:10:59 [info]: POST /auth/login
+2026-03-30 12:11:00 [info]: Successful login for address: 0xA87fd5C0EE110cEAA1939C01C1D8623ac4417A2f
+2026-03-30 12:11:01 [info]: GET /reward/balance/0xA87fd5C0EE110cEAA1939C01C1D8623ac4417A2f
+2026-03-30 12:11:02 [info]: GET /ticket/holder/0xA87fd5C0EE110cEAA1939C01C1D8623ac4417A2f
+2026-03-30 12:12:00 [info]: POST /reward/mint
+2026-03-30 12:12:26 [info]: Tokens minted successfully. To: 0xA87fd5C0EE110cEAA1939C01C1D8623ac4417A2f, Amount: 464, TX: 0xd30aaf3f4488d89305543c8a24f3801b85b34ffab0deb5cd5954f1621c10e73b
+2026-03-30 12:16:17 [info]: POST /reward/mint
+2026-03-30 12:16:26 [info]: Tokens minted successfully. To: 0xA87fd5C0EE110cEAA1939C01C1D8623ac4417A2f, Amount: 118, TX: 0x7357c6120ab04531cca1b6be1c11e9dd1d9d82dc488625110e9fd3f5f6c679c3
+2026-03-30 12:16:41 [info]: GET /ticket/holder/0xA87fd5C0EE110cEAA1939C01C1D8623ac4417A2f
+2026-03-30 12:16:41 [info]: GET /reward/balance/0xA87fd5C0EE110cEAA1939C01C1D8623ac4417A2f
+2026-03-30 12:17:50 [info]: GET /service
+2026-03-30 12:17:51 [info]: GET /reward/balance/0xA87fd5C0EE110cEAA1939C01C1D8623ac4417A2f
+2026-03-30 12:20:21 [info]: POST /ticket/purchase
+2026-03-30 12:20:37 [info]: POST /ticket/purchase
+2026-03-30 12:20:58 [info]: GET /reward/balance/0xA87fd5C0EE110cEAA1939C01C1D8623ac4417A2f
+2026-03-30 12:20:58 [info]: GET /service
+2026-03-30 12:21:35 [info]: POST /ticket/purchase
+2026-03-30 12:22:00 [info]: POST /ticket/purchase
+2026-03-30 12:22:27 [info]: POST /ticket/purchase
+2026-03-30 12:22:51 [info]: GET /reward/balance/0xA87fd5C0EE110cEAA1939C01C1D8623ac4417A2f
+2026-03-30 12:22:52 [info]: GET /service
+2026-03-30 12:23:02 [info]: GET /ticket/holder/0xA87fd5C0EE110cEAA1939C01C1D8623ac4417A2f
+2026-03-30 12:23:02 [info]: GET /reward/balance/0xA87fd5C0EE110cEAA1939C01C1D8623ac4417A2f
+2026-03-30 12:23:13 [info]: GET /reward/balance/0xA87fd5C0EE110cEAA1939C01C1D8623ac4417A2f
+2026-03-30 12:23:13 [info]: GET /ticket/holder/0xA87fd5C0EE110cEAA1939C01C1D8623ac4417A2f
+2026-03-30 12:23:14 [info]: GET /reward/balance/0xA87fd5C0EE110cEAA1939C01C1D8623ac4417A2f
+2026-03-30 12:23:14 [info]: GET /ticket/holder/0xA87fd5C0EE110cEAA1939C01C1D8623ac4417A2f
+2026-03-30 12:23:14 [info]: GET /reward/balance/0xA87fd5C0EE110cEAA1939C01C1D8623ac4417A2f
+2026-03-30 12:23:15 [info]: GET /ticket/holder/0xA87fd5C0EE110cEAA1939C01C1D8623ac4417A2f
+2026-03-30 12:27:17 [info]: GET /auth/nonce
+2026-03-30 12:28:00 [info]: POST /auth/login
+2026-03-30 12:28:00 [info]: Successful login for address: 0xA87fd5C0EE110cEAA1939C01C1D8623ac4417A2f
+2026-03-30 12:28:03 [info]: GET /ticket/holder/0xA87fd5C0EE110cEAA1939C01C1D8623ac4417A2f
+2026-03-30 12:28:04 [info]: GET /reward/balance/0xA87fd5C0EE110cEAA1939C01C1D8623ac4417A2f
+2026-03-30 12:28:31 [info]: GET /reward/balance/0xA87fd5C0EE110cEAA1939C01C1D8623ac4417A2f
+2026-03-30 12:28:32 [info]: GET /ticket/holder/0xA87fd5C0EE110cEAA1939C01C1D8623ac4417A2f
+2026-03-30 12:28:33 [info]: GET /reward/balance/0xA87fd5C0EE110cEAA1939C01C1D8623ac4417A2f
+2026-03-30 12:56:20 [info]: GET /auth/nonce
+2026-03-30 12:57:49 [info]: POST /auth/login
+2026-03-30 12:57:49 [info]: Successful login for address: 0xA87fd5C0EE110cEAA1939C01C1D8623ac4417A2f
+2026-03-30 12:57:52 [info]: GET /reward/balance/0xA87fd5C0EE110cEAA1939C01C1D8623ac4417A2f
+2026-03-30 12:58:04 [info]: GET /ticket/holder/0xA87fd5C0EE110cEAA1939C01C1D8623ac4417A2f
+2026-03-30 13:02:08 [info]: GET /reward/balance/0xA87fd5C0EE110cEAA1939C01C1D8623ac4417A2f
+2026-03-30 13:02:13 [info]: GET /ticket/holder/0xA87fd5C0EE110cEAA1939C01C1D8623ac4417A2f
+2026-03-30 13:02:13 [info]: GET /reward/balance/0xA87fd5C0EE110cEAA1939C01C1D8623ac4417A2f
+2026-03-30 13:02:16 [info]: GET /ticket/holder/0xA87fd5C0EE110cEAA1939C01C1D8623ac4417A2f
+2026-03-30 13:19:53 [info]: GET /auth/nonce
+2026-03-30 13:20:31 [info]: POST /auth/login
+2026-03-30 13:20:32 [info]: Successful login for address: 0xA87fd5C0EE110cEAA1939C01C1D8623ac4417A2f
+2026-03-30 13:20:36 [info]: GET /reward/balance/0xA87fd5C0EE110cEAA1939C01C1D8623ac4417A2f
+2026-03-30 13:20:37 [info]: GET /ticket/holder/0xA87fd5C0EE110cEAA1939C01C1D8623ac4417A2f
+2026-03-30 13:27:00 [info]: GET /
+2026-03-30 13:27:46 [info]: GET /auth/nonce
+2026-03-30 13:29:04 [info]: GET /auth/nonce
+2026-03-30 13:31:02 [info]: GET /auth/nonce
+2026-03-30 13:32:00 [info]: GET /auth/nonce
+2026-03-30 13:34:40 [info]: GET /auth/nonce
+2026-03-30 13:35:32 [info]: POST /auth/login
+2026-03-30 13:35:33 [info]: Successful login for address: 0xA87fd5C0EE110cEAA1939C01C1D8623ac4417A2f
+2026-03-30 13:35:35 [info]: GET /reward/balance/0xA87fd5C0EE110cEAA1939C01C1D8623ac4417A2f
+2026-03-30 13:35:35 [info]: GET /ticket/holder/0xA87fd5C0EE110cEAA1939C01C1D8623ac4417A2f
+2026-03-31 22:37:09 [info]: Server running at http://localhost:8000
+2026-03-31 22:59:23 [info]: Server running at http://localhost:8000
+2026-03-31 22:59:57 [info]: GET /favicon.ico
+2026-03-31 23:00:04 [info]: GET /
+2026-03-31 23:02:42 [info]: GET /auth/nonce
+2026-03-31 23:03:14 [info]: POST /auth/login
+2026-03-31 23:03:14 [info]: Successful login for address: 0xA87fd5C0EE110cEAA1939C01C1D8623ac4417A2f
+2026-03-31 23:03:15 [info]: GET /ticket/holder/0xA87fd5C0EE110cEAA1939C01C1D8623ac4417A2f
+2026-03-31 23:03:15 [info]: GET /reward/balance/0xA87fd5C0EE110cEAA1939C01C1D8623ac4417A2f
+2026-03-31 23:13:16 [info]: GET /auth/nonce
+2026-03-31 23:14:09 [info]: POST /auth/login
+2026-03-31 23:14:09 [info]: Successful login for address: 0xA87fd5C0EE110cEAA1939C01C1D8623ac4417A2f
+2026-03-31 23:14:10 [info]: GET /ticket/holder/0xA87fd5C0EE110cEAA1939C01C1D8623ac4417A2f
+2026-03-31 23:14:10 [info]: GET /reward/balance/0xA87fd5C0EE110cEAA1939C01C1D8623ac4417A2f
+2026-03-31 23:15:53 [info]: GET /ticket/holder/0xA87fd5C0EE110cEAA1939C01C1D8623ac4417A2f
+2026-03-31 23:15:53 [info]: GET /ticket/holder/0xA87fd5C0EE110cEAA1939C01C1D8623ac4417A2f
+2026-03-31 23:15:53 [info]: GET /reward/balance/0xA87fd5C0EE110cEAA1939C01C1D8623ac4417A2f
+2026-03-31 23:15:54 [info]: GET /reward/balance/0xA87fd5C0EE110cEAA1939C01C1D8623ac4417A2f
+2026-03-31 23:16:05 [info]: GET /reward/balance/0xA87fd5C0EE110cEAA1939C01C1D8623ac4417A2f
+2026-03-31 23:16:05 [info]: GET /service
+2026-03-31 23:17:30 [info]: POST /ticket/purchase
+2026-03-31 23:17:56 [info]: GET /reward/balance/0xA87fd5C0EE110cEAA1939C01C1D8623ac4417A2f
+2026-03-31 23:17:57 [info]: GET /ticket/holder/0xA87fd5C0EE110cEAA1939C01C1D8623ac4417A2f
+2026-03-31 23:23:08 [info]: GET /auth/nonce
+2026-03-31 23:23:31 [info]: POST /auth/login
+2026-03-31 23:23:32 [info]: Successful login for address: 0xA87fd5C0EE110cEAA1939C01C1D8623ac4417A2f
+2026-03-31 23:23:33 [info]: GET /ticket/holder/0xA87fd5C0EE110cEAA1939C01C1D8623ac4417A2f
+2026-03-31 23:23:33 [info]: GET /reward/balance/0xA87fd5C0EE110cEAA1939C01C1D8623ac4417A2f
+2026-03-31 23:23:49 [info]: GET /reward/balance/0xA87fd5C0EE110cEAA1939C01C1D8623ac4417A2f
+2026-03-31 23:23:57 [info]: GET /ticket/holder/0xA87fd5C0EE110cEAA1939C01C1D8623ac4417A2f
+2026-03-31 23:23:57 [info]: GET /ticket/1
+2026-03-31 23:23:57 [info]: GET /ticket/2
+2026-03-31 23:23:57 [info]: GET /ticket/3
+2026-03-31 23:23:58 [info]: GET /ticket/1/status
+2026-03-31 23:23:58 [info]: GET /ticket/2/status
+2026-03-31 23:23:58 [info]: GET /ticket/3/status
+2026-03-31 23:24:01 [info]: GET /reward/balance/0xA87fd5C0EE110cEAA1939C01C1D8623ac4417A2f
+2026-03-31 23:24:02 [info]: GET /service
+2026-03-31 23:24:02 [info]: GET /service
+2026-03-31 23:24:40 [info]: POST /ticket/purchase
+2026-03-31 23:25:03 [info]: GET /service
+2026-03-31 23:25:03 [info]: GET /reward/balance/0xA87fd5C0EE110cEAA1939C01C1D8623ac4417A2f
+2026-03-31 23:25:09 [info]: GET /ticket/holder/0xA87fd5C0EE110cEAA1939C01C1D8623ac4417A2f
+2026-03-31 23:25:09 [info]: GET /ticket/2
+2026-03-31 23:25:10 [info]: GET /ticket/4
+2026-03-31 23:25:10 [info]: GET /ticket/1
+2026-03-31 23:25:10 [info]: GET /ticket/3
+2026-03-31 23:25:20 [info]: GET /ticket/3/status
+2026-03-31 23:25:20 [info]: GET /ticket/2/status
+2026-03-31 23:25:20 [info]: GET /ticket/4/status
+2026-03-31 23:25:20 [info]: GET /ticket/1/status
+2026-03-31 23:30:45 [info]: GET /auth/nonce
+2026-03-31 23:31:06 [info]: POST /auth/login
+2026-03-31 23:31:09 [info]: Successful login for address: 0x4575d5E3e84B5677b4Ef533852c0E2cdfD83f045
+2026-03-31 23:31:11 [info]: GET /ticket/holder/0x4575d5E3e84B5677b4Ef533852c0E2cdfD83f045
+2026-03-31 23:31:11 [info]: GET /reward/balance/0x4575d5E3e84B5677b4Ef533852c0E2cdfD83f045
+2026-03-31 23:31:42 [info]: GET /auth/nonce
+2026-03-31 23:31:54 [info]: POST /auth/login
+2026-03-31 23:31:55 [info]: Successful login for address: 0x4575d5E3e84B5677b4Ef533852c0E2cdfD83f045
+2026-03-31 23:31:55 [info]: GET /ticket/holder/0x4575d5E3e84B5677b4Ef533852c0E2cdfD83f045
+2026-03-31 23:31:55 [info]: GET /reward/balance/0x4575d5E3e84B5677b4Ef533852c0E2cdfD83f045
+2026-03-31 23:34:26 [info]: GET /agency/total
+2026-03-31 23:34:54 [info]: Server running at http://localhost:8000
+2026-03-31 23:35:06 [info]: GET /agency/total
+2026-03-31 23:35:38 [info]: Server running at http://localhost:8000
+2026-03-31 23:35:48 [info]: GET /agency/1
+2026-03-31 23:38:26 [info]: GET /auth/nonce
+2026-03-31 23:38:52 [info]: POST /auth/login
+2026-03-31 23:38:52 [info]: Successful login for address: 0xA87fd5C0EE110cEAA1939C01C1D8623ac4417A2f
+2026-03-31 23:38:53 [info]: GET /ticket/holder/0xA87fd5C0EE110cEAA1939C01C1D8623ac4417A2f
+2026-03-31 23:38:53 [info]: GET /reward/balance/0xA87fd5C0EE110cEAA1939C01C1D8623ac4417A2f
+2026-04-01 12:43:51 [info]: Server running at http://localhost:8000
+2026-04-01 12:46:37 [info]: GET /
+2026-04-01 12:58:44 [info]: GET /auth/nonce
+2026-04-01 12:59:19 [info]: POST /auth/login
+2026-04-01 12:59:19 [info]: Successful login for address: 0xA87fd5C0EE110cEAA1939C01C1D8623ac4417A2f
+2026-04-01 12:59:20 [info]: GET /reward/balance/0xA87fd5C0EE110cEAA1939C01C1D8623ac4417A2f
+2026-04-01 12:59:20 [info]: GET /ticket/holder/0xA87fd5C0EE110cEAA1939C01C1D8623ac4417A2f
+2026-04-01 13:00:05 [info]: POST /reward/mint
+2026-04-01 13:00:14 [info]: Tokens minted successfully. To: 0xA87fd5C0EE110cEAA1939C01C1D8623ac4417A2f, Amount: 136, TX: 0x2187c01264a0f2bf46ac66176a25cbffdb67e4a91274b1193f36470059af39aa
+2026-04-01 13:00:24 [info]: GET /reward/balance/0xA87fd5C0EE110cEAA1939C01C1D8623ac4417A2f
+2026-04-01 13:00:25 [info]: GET /service
+2026-04-01 13:00:58 [info]: POST /ticket/purchase
+2026-04-01 13:01:40 [info]: GET /service
+2026-04-01 13:01:40 [info]: GET /reward/balance/0xA87fd5C0EE110cEAA1939C01C1D8623ac4417A2f
+2026-04-01 13:01:46 [info]: GET /ticket/holder/0xA87fd5C0EE110cEAA1939C01C1D8623ac4417A2f
+2026-04-01 13:01:47 [info]: GET /ticket/1
+2026-04-01 13:01:47 [info]: GET /ticket/2
+2026-04-01 13:01:47 [info]: GET /ticket/5
+2026-04-01 13:01:47 [info]: GET /ticket/3
+2026-04-01 13:01:48 [info]: GET /ticket/4
+2026-04-01 13:01:48 [info]: GET /ticket/2/status
+2026-04-01 13:01:48 [info]: GET /ticket/4/status
+2026-04-01 13:01:48 [info]: GET /ticket/3/status
+2026-04-01 13:01:48 [info]: GET /ticket/1/status
+2026-04-01 13:01:49 [info]: GET /ticket/5/status
+2026-04-01 13:04:15 [info]: GET /auth/nonce
+2026-04-01 13:04:29 [info]: POST /auth/login
+2026-04-01 13:04:30 [info]: Successful login for address: 0xA87fd5C0EE110cEAA1939C01C1D8623ac4417A2f
+2026-04-01 13:04:30 [info]: GET /reward/balance/0xA87fd5C0EE110cEAA1939C01C1D8623ac4417A2f
+2026-04-01 13:04:30 [info]: GET /ticket/holder/0xA87fd5C0EE110cEAA1939C01C1D8623ac4417A2f
+2026-04-01 13:04:38 [info]: GET /ticket/holder/0xA87fd5C0EE110cEAA1939C01C1D8623ac4417A2f
+2026-04-01 13:04:39 [info]: GET /ticket/4
+2026-04-01 13:04:39 [info]: GET /ticket/3
+2026-04-01 13:04:39 [info]: GET /ticket/5
+2026-04-01 13:04:39 [info]: GET /ticket/2
+2026-04-01 13:04:39 [info]: GET /ticket/1
+2026-04-01 13:04:40 [info]: GET /ticket/5/status
+2026-04-01 13:04:40 [info]: GET /ticket/2/status
+2026-04-01 13:04:40 [info]: GET /ticket/3/status
+2026-04-01 13:04:40 [info]: GET /ticket/1/status
+2026-04-01 13:04:40 [info]: GET /ticket/4/status
+2026-04-01 13:05:00 [info]: POST /ticket/0xc05d10288faf6/validate
+2026-04-01 13:05:26 [info]: GET /agency
+2026-04-01 13:05:40 [info]: GET /service
+2026-04-01 13:05:44 [info]: GET /agency
+2026-04-01 13:05:56 [info]: GET /agency
+2026-04-01 13:05:58 [info]: GET /service
+2026-04-01 13:05:59 [info]: GET /agency
+2026-04-01 13:06:02 [info]: GET /ticket/holder/0xA87fd5C0EE110cEAA1939C01C1D8623ac4417A2f
+2026-04-01 13:06:02 [info]: GET /service
+2026-04-01 13:06:03 [info]: GET /reward/balance/0xA87fd5C0EE110cEAA1939C01C1D8623ac4417A2f
+2026-04-01 13:06:03 [info]: GET /ticket/3
+2026-04-01 13:06:03 [info]: GET /ticket/5
+2026-04-01 13:06:03 [info]: GET /ticket/4
+2026-04-01 13:06:03 [info]: GET /ticket/2
+2026-04-01 13:06:03 [info]: GET /ticket/1
+2026-04-01 13:06:03 [info]: GET /ticket/holder/0xA87fd5C0EE110cEAA1939C01C1D8623ac4417A2f
+2026-04-01 13:06:03 [info]: GET /reward/balance/0xA87fd5C0EE110cEAA1939C01C1D8623ac4417A2f
+2026-04-01 13:06:04 [info]: GET /ticket/1/status
+2026-04-01 13:06:04 [info]: GET /ticket/3/status
+2026-04-01 13:06:04 [info]: GET /ticket/2/status
+2026-04-01 13:06:04 [info]: GET /ticket/5/status
+2026-04-01 13:06:04 [info]: GET /ticket/4/status
+2026-04-01 13:06:04 [info]: GET /reward/balance/0xA87fd5C0EE110cEAA1939C01C1D8623ac4417A2f
+2026-04-01 13:06:04 [info]: GET /ticket/holder/0xA87fd5C0EE110cEAA1939C01C1D8623ac4417A2f
+2026-04-06 09:59:57 [info]: Server running at http://localhost:8000
+2026-04-06 10:01:07 [info]: GET /favicon.ico
+2026-04-06 10:01:16 [info]: GET /
+2026-04-06 10:33:30 [info]: GET /auth/nonce
+2026-04-06 10:34:22 [info]: POST /auth/login
+2026-04-06 10:34:23 [info]: Successful login for address: 0xA87fd5C0EE110cEAA1939C01C1D8623ac4417A2f
+2026-04-06 10:34:46 [info]: GET /reward/balance/0xA87fd5C0EE110cEAA1939C01C1D8623ac4417A2f
+2026-04-06 10:34:46 [info]: GET /ticket/holder/0xA87fd5C0EE110cEAA1939C01C1D8623ac4417A2f
+2026-04-06 10:35:46 [info]: GET /auth/nonce
+2026-04-06 10:36:14 [info]: POST /auth/login
+2026-04-06 10:36:14 [info]: Successful login for address: 0xA87fd5C0EE110cEAA1939C01C1D8623ac4417A2f
+2026-04-06 10:36:17 [info]: GET /ticket/holder/0xA87fd5C0EE110cEAA1939C01C1D8623ac4417A2f
+2026-04-06 10:36:17 [info]: GET /reward/balance/0xA87fd5C0EE110cEAA1939C01C1D8623ac4417A2f
+2026-04-06 10:39:05 [info]: GET /reward/balance/0xA87fd5C0EE110cEAA1939C01C1D8623ac4417A2f
+2026-04-06 10:39:07 [info]: GET /ticket/holder/0xA87fd5C0EE110cEAA1939C01C1D8623ac4417A2f
+2026-04-06 10:43:57 [info]: GET /auth/nonce
+2026-04-06 10:45:05 [info]: POST /auth/login
+2026-04-06 10:45:06 [info]: Successful login for address: 0xA87fd5C0EE110cEAA1939C01C1D8623ac4417A2f
+2026-04-06 10:45:07 [info]: GET /reward/balance/0xA87fd5C0EE110cEAA1939C01C1D8623ac4417A2f
+2026-04-06 10:45:09 [info]: GET /ticket/holder/0xA87fd5C0EE110cEAA1939C01C1D8623ac4417A2f
+2026-04-06 10:46:26 [info]: GET /ticket/holder/0xA87fd5C0EE110cEAA1939C01C1D8623ac4417A2f
+2026-04-06 10:46:28 [info]: GET /reward/balance/0xA87fd5C0EE110cEAA1939C01C1D8623ac4417A2f
+2026-04-06 10:49:23 [info]: GET /reward/balance/0xA87fd5C0EE110cEAA1939C01C1D8623ac4417A2f
+2026-04-06 10:49:24 [info]: GET /ticket/holder/0xA87fd5C0EE110cEAA1939C01C1D8623ac4417A2f
+2026-04-06 10:52:46 [info]: GET /reward/balance/0xA87fd5C0EE110cEAA1939C01C1D8623ac4417A2f
+2026-04-06 10:52:46 [info]: GET /ticket/holder/0xA87fd5C0EE110cEAA1939C01C1D8623ac4417A2f
+2026-04-06 10:52:53 [info]: GET /auth/nonce
+2026-04-06 10:54:29 [info]: GET /auth/nonce
+2026-04-06 10:54:58 [info]: POST /auth/login
+2026-04-06 10:54:58 [info]: Successful login for address: 0xA87fd5C0EE110cEAA1939C01C1D8623ac4417A2f
+2026-04-06 10:54:59 [info]: GET /reward/balance/0xA87fd5C0EE110cEAA1939C01C1D8623ac4417A2f
+2026-04-06 10:54:59 [info]: GET /ticket/holder/0xA87fd5C0EE110cEAA1939C01C1D8623ac4417A2f
+2026-04-06 11:00:58 [info]: GET /auth/nonce
+2026-04-06 11:01:31 [info]: POST /auth/login
+2026-04-06 11:01:31 [info]: Successful login for address: 0xA87fd5C0EE110cEAA1939C01C1D8623ac4417A2f
+2026-04-06 11:01:32 [info]: GET /reward/balance/0xA87fd5C0EE110cEAA1939C01C1D8623ac4417A2f
+2026-04-06 11:01:33 [info]: GET /ticket/holder/0xA87fd5C0EE110cEAA1939C01C1D8623ac4417A2f
+2026-04-06 11:03:20 [info]: GET /ticket/holder/0xA87fd5C0EE110cEAA1939C01C1D8623ac4417A2f
+2026-04-06 11:03:20 [info]: GET /service
+2026-04-06 11:03:20 [info]: GET /ticket/holder/0xA87fd5C0EE110cEAA1939C01C1D8623ac4417A2f
+2026-04-06 11:03:20 [info]: GET /reward/balance/0xA87fd5C0EE110cEAA1939C01C1D8623ac4417A2f
+2026-04-06 11:03:21 [info]: GET /ticket/holder/0xA87fd5C0EE110cEAA1939C01C1D8623ac4417A2f
+2026-04-06 11:03:21 [info]: GET /reward/balance/0xA87fd5C0EE110cEAA1939C01C1D8623ac4417A2f
+2026-04-06 11:03:21 [info]: GET /reward/balance/0xA87fd5C0EE110cEAA1939C01C1D8623ac4417A2f
+2026-04-06 11:03:22 [info]: GET /reward/balance/0xA87fd5C0EE110cEAA1939C01C1D8623ac4417A2f
+2026-04-06 11:03:38 [info]: GET /auth/nonce
+2026-04-06 11:04:10 [info]: POST /auth/login
+2026-04-06 11:04:10 [info]: Successful login for address: 0xA87fd5C0EE110cEAA1939C01C1D8623ac4417A2f
+2026-04-06 11:04:10 [info]: GET /ticket/holder/0xA87fd5C0EE110cEAA1939C01C1D8623ac4417A2f
+2026-04-06 11:04:10 [info]: GET /reward/balance/0xA87fd5C0EE110cEAA1939C01C1D8623ac4417A2f
+2026-04-06 11:08:12 [info]: GET /auth/nonce
+2026-04-06 11:08:26 [info]: POST /auth/login
+2026-04-06 11:08:26 [info]: Successful login for address: 0xA996d3D5d5fB75bE2E43c7c0392Da89d84C2ca32
+2026-04-06 11:08:27 [info]: GET /reward/balance/0xA996d3D5d5fB75bE2E43c7c0392Da89d84C2ca32
+2026-04-06 11:08:27 [info]: GET /ticket/holder/0xA996d3D5d5fB75bE2E43c7c0392Da89d84C2ca32
+2026-04-06 11:09:20 [info]: GET /reward/balance/0xA996d3D5d5fB75bE2E43c7c0392Da89d84C2ca32
+2026-04-06 11:09:20 [info]: GET /ticket/holder/0xA996d3D5d5fB75bE2E43c7c0392Da89d84C2ca32
+2026-04-06 11:09:43 [info]: POST /reward/mint
+2026-04-06 11:09:52 [info]: Tokens minted successfully. To: 0xA996d3D5d5fB75bE2E43c7c0392Da89d84C2ca32, Amount: 499, TX: 0x3f1b04d4bded9e8682c387f151176f09e0d41485b1b945a54c8a36d5b5f5ee36
+2026-04-06 11:10:08 [info]: GET /reward/balance/0xA996d3D5d5fB75bE2E43c7c0392Da89d84C2ca32
+2026-04-06 11:10:09 [info]: GET /ticket/holder/0xA996d3D5d5fB75bE2E43c7c0392Da89d84C2ca32
+2026-04-06 11:10:18 [info]: GET /reward/balance/0xA996d3D5d5fB75bE2E43c7c0392Da89d84C2ca32
+2026-04-06 11:10:19 [info]: GET /service
+2026-04-06 11:11:07 [info]: POST /reward/mint
+2026-04-06 11:11:29 [info]: Tokens minted successfully. To: 0xA996d3D5d5fB75bE2E43c7c0392Da89d84C2ca32, Amount: 126, TX: 0xab4e74d17a8974c8efb695794f3a274b6ba9f6857299eedbc5c6dc3e2ed7ad23
+2026-04-06 11:11:49 [info]: POST /reward/mint
+2026-04-06 11:11:49 [error]: RangeError: Not an integer
+    at BigInt (unknown)
+    at numberToHex (C:\Users\USER\Documents\GitHub\Repay-backend\node_modules\viem\_esm\utils\encoding\toHex.js:124:19)
+    at encodeNumber (C:\Users\USER\Documents\GitHub\Repay-backend\node_modules\viem\_esm\utils\abi\encodeAbiParameters.js:217:18)
+    at prepareParams (C:\Users\USER\Documents\GitHub\Repay-backend\node_modules\viem\_esm\utils\abi\encodeAbiParameters.js:66:29)
+    at encodeAbiParameters (C:\Users\USER\Documents\GitHub\Repay-backend\node_modules\viem\_esm\utils\abi\encodeAbiParameters.js:54:28)
+    at encodeFunctionData (C:\Users\USER\Documents\GitHub\Repay-backend\node_modules\viem\_esm\utils\abi\encodeFunctionData.js:15:11)
+    at simulateContract (C:\Users\USER\Documents\GitHub\Repay-backend\node_modules\viem\_esm\actions\public\simulateContract.js:45:22)
+    at <anonymous> (C:\Users\USER\Documents\GitHub\Repay-backend\server\routes\reward.ts:183:48)
+    at handleRequest (C:\Users\USER\Documents\GitHub\Repay-backend\node_modules\router\lib\layer.js:152:17)
+    at next (C:\Users\USER\Documents\GitHub\Repay-backend\node_modules\router\lib\route.js:157:13)
+    at dispatch (C:\Users\USER\Documents\GitHub\Repay-backend\node_modules\router\lib\route.js:117:3)
+    at handle (C:\Users\USER\Documents\GitHub\Repay-backend\node_modules\router\index.js:435:11)
+    at handleRequest (C:\Users\USER\Documents\GitHub\Repay-backend\node_modules\router\lib\layer.js:152:17)
+    at <anonymous> (C:\Users\USER\Documents\GitHub\Repay-backend\node_modules\router\index.js:295:15)
+    at next (C:\Users\USER\Documents\GitHub\Repay-backend\node_modules\router\index.js:291:5)
+    at handle (C:\Users\USER\Documents\GitHub\Repay-backend\node_modules\router\index.js:186:3)
+    at router (C:\Users\USER\Documents\GitHub\Repay-backend\node_modules\router\index.js:60:12)
+    at handleRequest (C:\Users\USER\Documents\GitHub\Repay-backend\node_modules\router\lib\layer.js:152:17)
+    at trimPrefix (C:\Users\USER\Documents\GitHub\Repay-backend\node_modules\router\index.js:342:13)
+    at <anonymous> (C:\Users\USER\Documents\GitHub\Repay-backend\node_modules\router\index.js:297:9)
+    at next (C:\Users\USER\Documents\GitHub\Repay-backend\node_modules\router\index.js:291:5)
+    at <anonymous> (C:\Users\USER\Documents\GitHub\Repay-backend\server\app.ts:24:5)
+    at handleRequest (C:\Users\USER\Documents\GitHub\Repay-backend\node_modules\router\lib\layer.js:152:17)
+    at trimPrefix (C:\Users\USER\Documents\GitHub\Repay-backend\node_modules\router\index.js:342:13)
+    at <anonymous> (C:\Users\USER\Documents\GitHub\Repay-backend\node_modules\router\index.js:297:9)
+    at next (C:\Users\USER\Documents\GitHub\Repay-backend\node_modules\router\index.js:291:5)
+    at <anonymous> (C:\Users\USER\Documents\GitHub\Repay-backend\node_modules\body-parser\lib\read.js:171:5)
+    at runInAsyncScope (node:async_hooks:137:23)
+    at invokeCallback (C:\Users\USER\Documents\GitHub\Repay-backend\node_modules\raw-body\index.js:238:16)
+    at done (C:\Users\USER\Documents\GitHub\Repay-backend\node_modules\raw-body\index.js:227:7)
+    at onEnd (C:\Users\USER\Documents\GitHub\Repay-backend\node_modules\raw-body\index.js:287:7)
+    at emit (node:events:92:22)
+    at endReadableNT (internal:streams/readable:861:50)
+    at processTicksAndRejections (native:7:39)
+2026-04-06 11:11:53 [info]: POST /reward/mint
+2026-04-06 11:11:53 [error]: RangeError: Not an integer
+    at BigInt (unknown)
+    at numberToHex (C:\Users\USER\Documents\GitHub\Repay-backend\node_modules\viem\_esm\utils\encoding\toHex.js:124:19)
+    at encodeNumber (C:\Users\USER\Documents\GitHub\Repay-backend\node_modules\viem\_esm\utils\abi\encodeAbiParameters.js:217:18)
+    at prepareParams (C:\Users\USER\Documents\GitHub\Repay-backend\node_modules\viem\_esm\utils\abi\encodeAbiParameters.js:66:29)
+    at encodeAbiParameters (C:\Users\USER\Documents\GitHub\Repay-backend\node_modules\viem\_esm\utils\abi\encodeAbiParameters.js:54:28)
+    at encodeFunctionData (C:\Users\USER\Documents\GitHub\Repay-backend\node_modules\viem\_esm\utils\abi\encodeFunctionData.js:15:11)
+    at simulateContract (C:\Users\USER\Documents\GitHub\Repay-backend\node_modules\viem\_esm\actions\public\simulateContract.js:45:22)
+    at <anonymous> (C:\Users\USER\Documents\GitHub\Repay-backend\server\routes\reward.ts:183:48)
+    at handleRequest (C:\Users\USER\Documents\GitHub\Repay-backend\node_modules\router\lib\layer.js:152:17)
+    at next (C:\Users\USER\Documents\GitHub\Repay-backend\node_modules\router\lib\route.js:157:13)
+    at dispatch (C:\Users\USER\Documents\GitHub\Repay-backend\node_modules\router\lib\route.js:117:3)
+    at handle (C:\Users\USER\Documents\GitHub\Repay-backend\node_modules\router\index.js:435:11)
+    at handleRequest (C:\Users\USER\Documents\GitHub\Repay-backend\node_modules\router\lib\layer.js:152:17)
+    at <anonymous> (C:\Users\USER\Documents\GitHub\Repay-backend\node_modules\router\index.js:295:15)
+    at next (C:\Users\USER\Documents\GitHub\Repay-backend\node_modules\router\index.js:291:5)
+    at handle (C:\Users\USER\Documents\GitHub\Repay-backend\node_modules\router\index.js:186:3)
+    at router (C:\Users\USER\Documents\GitHub\Repay-backend\node_modules\router\index.js:60:12)
+    at handleRequest (C:\Users\USER\Documents\GitHub\Repay-backend\node_modules\router\lib\layer.js:152:17)
+    at trimPrefix (C:\Users\USER\Documents\GitHub\Repay-backend\node_modules\router\index.js:342:13)
+    at <anonymous> (C:\Users\USER\Documents\GitHub\Repay-backend\node_modules\router\index.js:297:9)
+    at next (C:\Users\USER\Documents\GitHub\Repay-backend\node_modules\router\index.js:291:5)
+    at <anonymous> (C:\Users\USER\Documents\GitHub\Repay-backend\server\app.ts:24:5)
+    at handleRequest (C:\Users\USER\Documents\GitHub\Repay-backend\node_modules\router\lib\layer.js:152:17)
+    at trimPrefix (C:\Users\USER\Documents\GitHub\Repay-backend\node_modules\router\index.js:342:13)
+    at <anonymous> (C:\Users\USER\Documents\GitHub\Repay-backend\node_modules\router\index.js:297:9)
+    at next (C:\Users\USER\Documents\GitHub\Repay-backend\node_modules\router\index.js:291:5)
+    at <anonymous> (C:\Users\USER\Documents\GitHub\Repay-backend\node_modules\body-parser\lib\read.js:171:5)
+    at runInAsyncScope (node:async_hooks:137:23)
+    at invokeCallback (C:\Users\USER\Documents\GitHub\Repay-backend\node_modules\raw-body\index.js:238:16)
+    at done (C:\Users\USER\Documents\GitHub\Repay-backend\node_modules\raw-body\index.js:227:7)
+    at onEnd (C:\Users\USER\Documents\GitHub\Repay-backend\node_modules\raw-body\index.js:287:7)
+    at emit (node:events:92:22)
+    at endReadableNT (internal:streams/readable:861:50)
+    at processTicksAndRejections (native:7:39)
+2026-04-06 11:11:55 [info]: POST /reward/mint
+2026-04-06 11:11:55 [error]: RangeError: Not an integer
+    at BigInt (unknown)
+    at numberToHex (C:\Users\USER\Documents\GitHub\Repay-backend\node_modules\viem\_esm\utils\encoding\toHex.js:124:19)
+    at encodeNumber (C:\Users\USER\Documents\GitHub\Repay-backend\node_modules\viem\_esm\utils\abi\encodeAbiParameters.js:217:18)
+    at prepareParams (C:\Users\USER\Documents\GitHub\Repay-backend\node_modules\viem\_esm\utils\abi\encodeAbiParameters.js:66:29)
+    at encodeAbiParameters (C:\Users\USER\Documents\GitHub\Repay-backend\node_modules\viem\_esm\utils\abi\encodeAbiParameters.js:54:28)
+    at encodeFunctionData (C:\Users\USER\Documents\GitHub\Repay-backend\node_modules\viem\_esm\utils\abi\encodeFunctionData.js:15:11)
+    at simulateContract (C:\Users\USER\Documents\GitHub\Repay-backend\node_modules\viem\_esm\actions\public\simulateContract.js:45:22)
+    at <anonymous> (C:\Users\USER\Documents\GitHub\Repay-backend\server\routes\reward.ts:183:48)
+    at handleRequest (C:\Users\USER\Documents\GitHub\Repay-backend\node_modules\router\lib\layer.js:152:17)
+    at next (C:\Users\USER\Documents\GitHub\Repay-backend\node_modules\router\lib\route.js:157:13)
+    at dispatch (C:\Users\USER\Documents\GitHub\Repay-backend\node_modules\router\lib\route.js:117:3)
+    at handle (C:\Users\USER\Documents\GitHub\Repay-backend\node_modules\router\index.js:435:11)
+    at handleRequest (C:\Users\USER\Documents\GitHub\Repay-backend\node_modules\router\lib\layer.js:152:17)
+    at <anonymous> (C:\Users\USER\Documents\GitHub\Repay-backend\node_modules\router\index.js:295:15)
+    at next (C:\Users\USER\Documents\GitHub\Repay-backend\node_modules\router\index.js:291:5)
+    at handle (C:\Users\USER\Documents\GitHub\Repay-backend\node_modules\router\index.js:186:3)
+    at router (C:\Users\USER\Documents\GitHub\Repay-backend\node_modules\router\index.js:60:12)
+    at handleRequest (C:\Users\USER\Documents\GitHub\Repay-backend\node_modules\router\lib\layer.js:152:17)
+    at trimPrefix (C:\Users\USER\Documents\GitHub\Repay-backend\node_modules\router\index.js:342:13)
+    at <anonymous> (C:\Users\USER\Documents\GitHub\Repay-backend\node_modules\router\index.js:297:9)
+    at next (C:\Users\USER\Documents\GitHub\Repay-backend\node_modules\router\index.js:291:5)
+    at <anonymous> (C:\Users\USER\Documents\GitHub\Repay-backend\server\app.ts:24:5)
+    at handleRequest (C:\Users\USER\Documents\GitHub\Repay-backend\node_modules\router\lib\layer.js:152:17)
+    at trimPrefix (C:\Users\USER\Documents\GitHub\Repay-backend\node_modules\router\index.js:342:13)
+    at <anonymous> (C:\Users\USER\Documents\GitHub\Repay-backend\node_modules\router\index.js:297:9)
+    at next (C:\Users\USER\Documents\GitHub\Repay-backend\node_modules\router\index.js:291:5)
+    at <anonymous> (C:\Users\USER\Documents\GitHub\Repay-backend\node_modules\body-parser\lib\read.js:171:5)
+    at runInAsyncScope (node:async_hooks:137:23)
+    at invokeCallback (C:\Users\USER\Documents\GitHub\Repay-backend\node_modules\raw-body\index.js:238:16)
+    at done (C:\Users\USER\Documents\GitHub\Repay-backend\node_modules\raw-body\index.js:227:7)
+    at onEnd (C:\Users\USER\Documents\GitHub\Repay-backend\node_modules\raw-body\index.js:287:7)
+    at emit (node:events:92:22)
+    at endReadableNT (internal:streams/readable:861:50)
+    at processTicksAndRejections (native:7:39)
+2026-04-06 11:11:57 [info]: GET /service
+2026-04-06 11:11:57 [info]: GET /reward/balance/0xA996d3D5d5fB75bE2E43c7c0392Da89d84C2ca32
+2026-04-06 11:12:17 [info]: POST /reward/mint
+2026-04-06 11:12:17 [error]: RangeError: Not an integer
+    at BigInt (unknown)
+    at numberToHex (C:\Users\USER\Documents\GitHub\Repay-backend\node_modules\viem\_esm\utils\encoding\toHex.js:124:19)
+    at encodeNumber (C:\Users\USER\Documents\GitHub\Repay-backend\node_modules\viem\_esm\utils\abi\encodeAbiParameters.js:217:18)
+    at prepareParams (C:\Users\USER\Documents\GitHub\Repay-backend\node_modules\viem\_esm\utils\abi\encodeAbiParameters.js:66:29)
+    at encodeAbiParameters (C:\Users\USER\Documents\GitHub\Repay-backend\node_modules\viem\_esm\utils\abi\encodeAbiParameters.js:54:28)
+    at encodeFunctionData (C:\Users\USER\Documents\GitHub\Repay-backend\node_modules\viem\_esm\utils\abi\encodeFunctionData.js:15:11)
+    at simulateContract (C:\Users\USER\Documents\GitHub\Repay-backend\node_modules\viem\_esm\actions\public\simulateContract.js:45:22)
+    at <anonymous> (C:\Users\USER\Documents\GitHub\Repay-backend\server\routes\reward.ts:183:48)
+    at handleRequest (C:\Users\USER\Documents\GitHub\Repay-backend\node_modules\router\lib\layer.js:152:17)
+    at next (C:\Users\USER\Documents\GitHub\Repay-backend\node_modules\router\lib\route.js:157:13)
+    at dispatch (C:\Users\USER\Documents\GitHub\Repay-backend\node_modules\router\lib\route.js:117:3)
+    at handle (C:\Users\USER\Documents\GitHub\Repay-backend\node_modules\router\index.js:435:11)
+    at handleRequest (C:\Users\USER\Documents\GitHub\Repay-backend\node_modules\router\lib\layer.js:152:17)
+    at <anonymous> (C:\Users\USER\Documents\GitHub\Repay-backend\node_modules\router\index.js:295:15)
+    at next (C:\Users\USER\Documents\GitHub\Repay-backend\node_modules\router\index.js:291:5)
+    at handle (C:\Users\USER\Documents\GitHub\Repay-backend\node_modules\router\index.js:186:3)
+    at router (C:\Users\USER\Documents\GitHub\Repay-backend\node_modules\router\index.js:60:12)
+    at handleRequest (C:\Users\USER\Documents\GitHub\Repay-backend\node_modules\router\lib\layer.js:152:17)
+    at trimPrefix (C:\Users\USER\Documents\GitHub\Repay-backend\node_modules\router\index.js:342:13)
+    at <anonymous> (C:\Users\USER\Documents\GitHub\Repay-backend\node_modules\router\index.js:297:9)
+    at next (C:\Users\USER\Documents\GitHub\Repay-backend\node_modules\router\index.js:291:5)
+    at <anonymous> (C:\Users\USER\Documents\GitHub\Repay-backend\server\app.ts:24:5)
+    at handleRequest (C:\Users\USER\Documents\GitHub\Repay-backend\node_modules\router\lib\layer.js:152:17)
+    at trimPrefix (C:\Users\USER\Documents\GitHub\Repay-backend\node_modules\router\index.js:342:13)
+    at <anonymous> (C:\Users\USER\Documents\GitHub\Repay-backend\node_modules\router\index.js:297:9)
+    at next (C:\Users\USER\Documents\GitHub\Repay-backend\node_modules\router\index.js:291:5)
+    at <anonymous> (C:\Users\USER\Documents\GitHub\Repay-backend\node_modules\body-parser\lib\read.js:171:5)
+    at runInAsyncScope (node:async_hooks:137:23)
+    at invokeCallback (C:\Users\USER\Documents\GitHub\Repay-backend\node_modules\raw-body\index.js:238:16)
+    at done (C:\Users\USER\Documents\GitHub\Repay-backend\node_modules\raw-body\index.js:227:7)
+    at onEnd (C:\Users\USER\Documents\GitHub\Repay-backend\node_modules\raw-body\index.js:287:7)
+    at emit (node:events:92:22)
+    at endReadableNT (internal:streams/readable:861:50)
+    at processTicksAndRejections (native:7:39)
+2026-04-06 11:12:19 [info]: GET /reward/balance/0xA996d3D5d5fB75bE2E43c7c0392Da89d84C2ca32
+2026-04-06 11:12:20 [info]: GET /service
+2026-04-06 11:16:11 [info]: GET /auth/nonce
+2026-04-06 11:16:26 [info]: POST /auth/login
+2026-04-06 11:16:27 [info]: Successful login for address: 0xA996d3D5d5fB75bE2E43c7c0392Da89d84C2ca32
+2026-04-06 11:18:48 [info]: POST /reward/mint
+2026-04-06 11:18:48 [error]: RangeError: Not an integer
+    at BigInt (unknown)
+    at numberToHex (C:\Users\USER\Documents\GitHub\Repay-backend\node_modules\viem\_esm\utils\encoding\toHex.js:124:19)
+    at encodeNumber (C:\Users\USER\Documents\GitHub\Repay-backend\node_modules\viem\_esm\utils\abi\encodeAbiParameters.js:217:18)
+    at prepareParams (C:\Users\USER\Documents\GitHub\Repay-backend\node_modules\viem\_esm\utils\abi\encodeAbiParameters.js:66:29)
+    at encodeAbiParameters (C:\Users\USER\Documents\GitHub\Repay-backend\node_modules\viem\_esm\utils\abi\encodeAbiParameters.js:54:28)
+    at encodeFunctionData (C:\Users\USER\Documents\GitHub\Repay-backend\node_modules\viem\_esm\utils\abi\encodeFunctionData.js:15:11)
+    at simulateContract (C:\Users\USER\Documents\GitHub\Repay-backend\node_modules\viem\_esm\actions\public\simulateContract.js:45:22)
+    at <anonymous> (C:\Users\USER\Documents\GitHub\Repay-backend\server\routes\reward.ts:183:48)
+    at handleRequest (C:\Users\USER\Documents\GitHub\Repay-backend\node_modules\router\lib\layer.js:152:17)
+    at next (C:\Users\USER\Documents\GitHub\Repay-backend\node_modules\router\lib\route.js:157:13)
+    at dispatch (C:\Users\USER\Documents\GitHub\Repay-backend\node_modules\router\lib\route.js:117:3)
+    at handle (C:\Users\USER\Documents\GitHub\Repay-backend\node_modules\router\index.js:435:11)
+    at handleRequest (C:\Users\USER\Documents\GitHub\Repay-backend\node_modules\router\lib\layer.js:152:17)
+    at <anonymous> (C:\Users\USER\Documents\GitHub\Repay-backend\node_modules\router\index.js:295:15)
+    at next (C:\Users\USER\Documents\GitHub\Repay-backend\node_modules\router\index.js:291:5)
+    at handle (C:\Users\USER\Documents\GitHub\Repay-backend\node_modules\router\index.js:186:3)
+    at router (C:\Users\USER\Documents\GitHub\Repay-backend\node_modules\router\index.js:60:12)
+    at handleRequest (C:\Users\USER\Documents\GitHub\Repay-backend\node_modules\router\lib\layer.js:152:17)
+    at trimPrefix (C:\Users\USER\Documents\GitHub\Repay-backend\node_modules\router\index.js:342:13)
+    at <anonymous> (C:\Users\USER\Documents\GitHub\Repay-backend\node_modules\router\index.js:297:9)
+    at next (C:\Users\USER\Documents\GitHub\Repay-backend\node_modules\router\index.js:291:5)
+    at <anonymous> (C:\Users\USER\Documents\GitHub\Repay-backend\server\app.ts:24:5)
+    at handleRequest (C:\Users\USER\Documents\GitHub\Repay-backend\node_modules\router\lib\layer.js:152:17)
+    at trimPrefix (C:\Users\USER\Documents\GitHub\Repay-backend\node_modules\router\index.js:342:13)
+    at <anonymous> (C:\Users\USER\Documents\GitHub\Repay-backend\node_modules\router\index.js:297:9)
+    at next (C:\Users\USER\Documents\GitHub\Repay-backend\node_modules\router\index.js:291:5)
+    at <anonymous> (C:\Users\USER\Documents\GitHub\Repay-backend\node_modules\body-parser\lib\read.js:171:5)
+    at runInAsyncScope (node:async_hooks:137:23)
+    at invokeCallback (C:\Users\USER\Documents\GitHub\Repay-backend\node_modules\raw-body\index.js:238:16)
+    at done (C:\Users\USER\Documents\GitHub\Repay-backend\node_modules\raw-body\index.js:227:7)
+    at onEnd (C:\Users\USER\Documents\GitHub\Repay-backend\node_modules\raw-body\index.js:287:7)
+    at emit (node:events:92:22)
+    at endReadableNT (internal:streams/readable:861:50)
+    at processTicksAndRejections (native:7:39)
+2026-04-06 11:19:01 [info]: GET /ticket/holder/0xA996d3D5d5fB75bE2E43c7c0392Da89d84C2ca32
+2026-04-06 11:19:01 [info]: GET /reward/balance/0xA996d3D5d5fB75bE2E43c7c0392Da89d84C2ca32
+2026-04-06 11:19:04 [info]: GET /ticket/holder/0xA996d3D5d5fB75bE2E43c7c0392Da89d84C2ca32
+2026-04-06 11:19:05 [info]: GET /reward/balance/0xA996d3D5d5fB75bE2E43c7c0392Da89d84C2ca32
+2026-04-06 12:03:12 [info]: Server running at http://localhost:8000
+2026-04-06 12:12:34 [info]: GET /auth/nonce
+2026-04-06 12:13:19 [info]: POST /auth/login
+2026-04-06 12:13:19 [info]: Successful login for address: 0xA87fd5C0EE110cEAA1939C01C1D8623ac4417A2f
+2026-04-06 12:13:22 [info]: GET /ticket/holder/0xA87fd5C0EE110cEAA1939C01C1D8623ac4417A2f
+2026-04-06 12:13:22 [info]: GET /reward/balance/0xA87fd5C0EE110cEAA1939C01C1D8623ac4417A2f
+2026-04-06 12:13:42 [info]: GET /auth/nonce
+2026-04-06 12:13:50 [info]: POST /auth/login
+2026-04-06 12:13:50 [info]: Successful login for address: 0xA87fd5C0EE110cEAA1939C01C1D8623ac4417A2f
+2026-04-06 12:13:52 [info]: GET /ticket/holder/0xA87fd5C0EE110cEAA1939C01C1D8623ac4417A2f
+2026-04-06 12:13:52 [info]: GET /reward/balance/0xA87fd5C0EE110cEAA1939C01C1D8623ac4417A2f
+2026-04-06 12:22:19 [info]: GET /auth/nonce
+2026-04-06 12:22:58 [info]: POST /auth/login
+2026-04-06 12:22:58 [info]: Successful login for address: 0xA87fd5C0EE110cEAA1939C01C1D8623ac4417A2f
+2026-04-06 12:23:00 [info]: GET /reward/balance/0xA87fd5C0EE110cEAA1939C01C1D8623ac4417A2f
+2026-04-06 12:23:03 [info]: GET /ticket/holder/0xA87fd5C0EE110cEAA1939C01C1D8623ac4417A2f
+2026-04-06 12:33:37 [info]: GET /auth/nonce
+2026-04-06 12:34:04 [info]: POST /auth/login
+2026-04-06 12:34:05 [info]: Successful login for address: 0xA87fd5C0EE110cEAA1939C01C1D8623ac4417A2f
+2026-04-06 12:34:06 [info]: GET /reward/balance/0xA87fd5C0EE110cEAA1939C01C1D8623ac4417A2f
+2026-04-06 12:34:06 [info]: GET /ticket/holder/0xA87fd5C0EE110cEAA1939C01C1D8623ac4417A2f
+2026-04-06 12:34:52 [info]: GET /reward/balance/0xA87fd5C0EE110cEAA1939C01C1D8623ac4417A2f
+2026-04-06 12:34:52 [info]: GET /ticket/holder/0xA87fd5C0EE110cEAA1939C01C1D8623ac4417A2f
+2026-04-06 12:42:38 [info]: GET /auth/nonce
+2026-04-06 12:43:29 [info]: POST /auth/login
+2026-04-06 12:43:30 [info]: Successful login for address: 0xA87fd5C0EE110cEAA1939C01C1D8623ac4417A2f
+2026-04-06 12:44:05 [info]: GET /auth/nonce
+2026-04-06 12:46:09 [info]: GET /auth/nonce
+2026-04-06 12:50:05 [info]: GET /auth/nonce
+2026-04-06 12:50:38 [info]: POST /auth/login
+2026-04-06 12:50:39 [info]: Successful login for address: 0xA87fd5C0EE110cEAA1939C01C1D8623ac4417A2f
+2026-04-06 12:50:51 [info]: GET /ticket/holder/0xA87fd5C0EE110cEAA1939C01C1D8623ac4417A2f
+2026-04-06 12:50:54 [info]: GET /reward/balance/0xA87fd5C0EE110cEAA1939C01C1D8623ac4417A2f
+2026-04-06 13:42:08 [info]: GET /auth/nonce
+2026-04-06 13:42:57 [info]: POST /auth/login
+2026-04-06 13:42:57 [info]: Successful login for address: 0xA87fd5C0EE110cEAA1939C01C1D8623ac4417A2f
+2026-04-06 13:42:58 [info]: GET /ticket/holder/0xA87fd5C0EE110cEAA1939C01C1D8623ac4417A2f
+2026-04-06 13:42:59 [info]: GET /reward/balance/0xA87fd5C0EE110cEAA1939C01C1D8623ac4417A2f
+2026-04-06 13:43:53 [info]: POST /reward/mint
+2026-04-06 13:44:04 [info]: Tokens minted successfully. To: 0xA87fd5C0EE110cEAA1939C01C1D8623ac4417A2f, Amount: 210, TX: 0x78d470b02163a6805e5edf97519ee2c4a0842ff98e439655ec06062a3897782c
+2026-04-06 13:46:01 [info]: GET /auth/nonce
+2026-04-06 13:46:29 [info]: POST /auth/login
+2026-04-06 13:46:30 [info]: Successful login for address: 0xA996d3D5d5fB75bE2E43c7c0392Da89d84C2ca32
+2026-04-06 13:46:33 [info]: GET /ticket/holder/0xA996d3D5d5fB75bE2E43c7c0392Da89d84C2ca32
+2026-04-06 13:46:36 [info]: GET /reward/balance/0xA996d3D5d5fB75bE2E43c7c0392Da89d84C2ca32
+2026-04-06 13:47:16 [info]: POST /reward/mint
+2026-04-06 13:47:26 [info]: Tokens minted successfully. To: 0xA996d3D5d5fB75bE2E43c7c0392Da89d84C2ca32, Amount: 380, TX: 0x25129f2c2fe1358b88d109c46a2f40a596a0f33a903c71a39614c2b51f7ac330
+2026-04-06 13:47:42 [info]: GET /reward/balance/0xA996d3D5d5fB75bE2E43c7c0392Da89d84C2ca32
+2026-04-06 13:47:45 [info]: GET /service
+2026-04-06 13:49:04 [info]: POST /reward/mint
+2026-04-06 13:49:16 [info]: Tokens minted successfully. To: 0xA996d3D5d5fB75bE2E43c7c0392Da89d84C2ca32, Amount: 146, TX: 0xe2d7e0192376e02c30c136c58e900a829544d00a7c9ef5d3baf1b26df4bf4abf
+2026-04-06 13:49:40 [info]: POST /reward/mint
+2026-04-06 13:49:54 [info]: Tokens minted successfully. To: 0xA996d3D5d5fB75bE2E43c7c0392Da89d84C2ca32, Amount: 384, TX: 0x8d9a332528d4cd2cda3103c3482df81a9fd7bb92db0c54dc64016b6cb9ea49ea
+2026-04-06 13:50:25 [info]: POST /reward/mint
+2026-04-06 13:50:40 [info]: Tokens minted successfully. To: 0xA996d3D5d5fB75bE2E43c7c0392Da89d84C2ca32, Amount: 515, TX: 0xa6343079bff0bda9fda11242e39d7b7cfe0604b4efbf282ed33075bc07d88ada
+2026-04-06 13:50:45 [info]: GET /service
+2026-04-06 13:50:45 [info]: GET /reward/balance/0xA996d3D5d5fB75bE2E43c7c0392Da89d84C2ca32
+2026-04-06 13:51:32 [info]: POST /ticket/purchase
+2026-04-06 13:51:50 [info]: GET /service
+2026-04-06 13:51:50 [info]: GET /reward/balance/0xA996d3D5d5fB75bE2E43c7c0392Da89d84C2ca32
+2026-04-06 13:51:57 [info]: GET /ticket/holder/0xA996d3D5d5fB75bE2E43c7c0392Da89d84C2ca32
+2026-04-06 13:51:59 [info]: GET /ticket/6
+2026-04-06 13:52:00 [info]: GET /ticket/6/status
+2026-04-06 13:52:07 [info]: GET /reward/balance/0xA996d3D5d5fB75bE2E43c7c0392Da89d84C2ca32
+2026-04-06 13:52:07 [info]: GET /ticket/holder/0xA996d3D5d5fB75bE2E43c7c0392Da89d84C2ca32
+2026-04-06 13:54:31 [info]: GET /auth/nonce
+2026-04-06 13:54:54 [info]: GET /auth/nonce
+2026-04-06 13:55:25 [info]: POST /auth/login
+2026-04-06 13:55:26 [info]: Successful login for address: 0xA996d3D5d5fB75bE2E43c7c0392Da89d84C2ca32
+2026-04-06 13:55:28 [info]: GET /reward/balance/0xA996d3D5d5fB75bE2E43c7c0392Da89d84C2ca32
+2026-04-06 13:55:28 [info]: GET /ticket/holder/0xA996d3D5d5fB75bE2E43c7c0392Da89d84C2ca32
+2026-04-06 13:55:53 [info]: POST /reward/mint
+2026-04-06 13:56:03 [info]: Tokens minted successfully. To: 0xA996d3D5d5fB75bE2E43c7c0392Da89d84C2ca32, Amount: 390, TX: 0x6b360c7e7c651980151ebf9c6b6c0b6479b878a6e8a9d6fe1bef0d3735b1bd42
+2026-04-06 14:18:12 [info]: GET /auth/nonce
+2026-04-06 14:18:40 [info]: POST /auth/login
+2026-04-06 14:18:40 [info]: Successful login for address: 0xA996d3D5d5fB75bE2E43c7c0392Da89d84C2ca32
+2026-04-06 14:18:43 [info]: GET /reward/balance/0xA996d3D5d5fB75bE2E43c7c0392Da89d84C2ca32
+2026-04-06 14:18:43 [info]: GET /ticket/holder/0xA996d3D5d5fB75bE2E43c7c0392Da89d84C2ca32
+2026-04-06 14:19:17 [info]: POST /reward/mint
+2026-04-06 14:19:27 [info]: Tokens minted successfully. To: 0xA996d3D5d5fB75bE2E43c7c0392Da89d84C2ca32, Amount: 557, TX: 0xd1a0c802a2f6f03de32e2f0beeaf61eb48d70124d12d59eea3b7b12128b84c02
+2026-04-06 14:19:43 [info]: GET /ticket/holder/0xA996d3D5d5fB75bE2E43c7c0392Da89d84C2ca32
+2026-04-06 14:19:43 [info]: GET /reward/balance/0xA996d3D5d5fB75bE2E43c7c0392Da89d84C2ca32
+2026-04-06 14:26:41 [info]: GET /auth/nonce
+2026-04-06 14:26:47 [info]: POST /auth/login
+2026-04-06 14:26:48 [info]: Successful login for address: 0xA996d3D5d5fB75bE2E43c7c0392Da89d84C2ca32
+2026-04-06 14:27:40 [info]: POST /reward/mint
+2026-04-06 14:27:50 [info]: Tokens minted successfully. To: 0xA996d3D5d5fB75bE2E43c7c0392Da89d84C2ca32, Amount: 226, TX: 0x5a67be91d4ccc1b0cf87cd70353f98b6f33b35f306d6725f346bb98a99132044
+2026-04-06 14:27:59 [info]: GET /service
+2026-04-06 14:28:00 [info]: GET /reward/balance/0xA996d3D5d5fB75bE2E43c7c0392Da89d84C2ca32
+2026-04-06 14:28:38 [info]: POST /ticket/purchase
+2026-04-06 14:28:42 [info]: POST /ticket/purchase
+2026-04-06 14:28:59 [info]: POST /ticket/purchase
+2026-04-06 14:29:15 [info]: POST /ticket/purchase
+2026-04-06 14:30:16 [info]: GET /auth/nonce
+2026-04-06 14:30:33 [info]: GET /auth/nonce
+2026-04-06 14:31:00 [info]: POST /auth/login
+2026-04-06 14:31:01 [info]: Successful login for address: 0xA996d3D5d5fB75bE2E43c7c0392Da89d84C2ca32
+2026-04-06 14:31:01 [info]: GET /reward/balance/0xA996d3D5d5fB75bE2E43c7c0392Da89d84C2ca32
+2026-04-06 14:31:02 [info]: GET /ticket/holder/0xA996d3D5d5fB75bE2E43c7c0392Da89d84C2ca32
+2026-04-06 14:31:06 [info]: GET /reward/balance/0xA996d3D5d5fB75bE2E43c7c0392Da89d84C2ca32
+2026-04-06 14:31:06 [info]: GET /service
+2026-04-06 14:31:31 [info]: POST /ticket/purchase
+2026-04-06 14:31:45 [info]: POST /ticket/purchase
+2026-04-06 14:31:48 [info]: POST /ticket/purchase
+2026-04-06 14:31:58 [info]: GET /ticket/holder/0xA996d3D5d5fB75bE2E43c7c0392Da89d84C2ca32
+2026-04-06 14:32:12 [info]: GET /ticket/6
+2026-04-06 14:32:16 [info]: GET /ticket/6/status
+2026-04-06 14:32:22 [info]: GET /service
+2026-04-06 14:32:22 [info]: GET /reward/balance/0xA996d3D5d5fB75bE2E43c7c0392Da89d84C2ca32
+2026-04-06 14:32:29 [info]: POST /ticket/purchase
+2026-04-06 14:32:38 [info]: POST /ticket/purchase
+2026-04-06 14:32:53 [info]: GET /auth/nonce
+2026-04-06 14:33:29 [info]: GET /auth/nonce
+2026-04-06 14:33:42 [info]: POST /auth/login
+2026-04-06 14:33:42 [info]: Successful login for address: 0xA87fd5C0EE110cEAA1939C01C1D8623ac4417A2f
+2026-04-06 14:33:43 [info]: GET /ticket/holder/0xA87fd5C0EE110cEAA1939C01C1D8623ac4417A2f
+2026-04-06 14:33:43 [info]: GET /reward/balance/0xA87fd5C0EE110cEAA1939C01C1D8623ac4417A2f
+2026-04-06 14:33:49 [info]: GET /ticket/holder/0xA87fd5C0EE110cEAA1939C01C1D8623ac4417A2f
+2026-04-06 14:33:50 [info]: GET /ticket/4
+2026-04-06 14:33:50 [info]: GET /ticket/2
+2026-04-06 14:33:50 [info]: GET /ticket/3
+2026-04-06 14:33:50 [info]: GET /ticket/1
+2026-04-06 14:33:50 [info]: GET /ticket/5
+2026-04-06 14:33:51 [info]: GET /ticket/2/status
+2026-04-06 14:33:51 [info]: GET /ticket/1/status
+2026-04-06 14:33:51 [info]: GET /ticket/5/status
+2026-04-06 14:33:51 [info]: GET /ticket/4/status
+2026-04-06 14:33:51 [info]: GET /ticket/3/status
+2026-04-06 14:33:56 [info]: GET /service
+2026-04-06 14:33:56 [info]: GET /reward/balance/0xA87fd5C0EE110cEAA1939C01C1D8623ac4417A2f
+2026-04-06 14:34:59 [info]: GET /ticket/holder/0xA996d3D5d5fB75bE2E43c7c0392Da89d84C2ca32
+2026-04-06 14:35:00 [info]: GET /ticket/6
+2026-04-06 14:35:01 [info]: GET /ticket/6/status
+2026-04-06 14:35:06 [info]: POST /ticket/purchase
+2026-04-06 14:35:18 [info]: GET /reward/balance/0xA996d3D5d5fB75bE2E43c7c0392Da89d84C2ca32
+2026-04-06 14:35:19 [info]: GET /ticket/holder/0xA996d3D5d5fB75bE2E43c7c0392Da89d84C2ca32
+2026-04-06 14:35:44 [info]: GET /service
+2026-04-06 14:35:44 [info]: GET /reward/balance/0xA87fd5C0EE110cEAA1939C01C1D8623ac4417A2f
+2026-04-06 14:39:04 [info]: POST /reward/mint
+2026-04-06 14:39:16 [info]: Tokens minted successfully. To: 0xA996d3D5d5fB75bE2E43c7c0392Da89d84C2ca32, Amount: 328, TX: 0xdf19c90fc18d412f37a1bec1e5e41b809b1781b4460f267c6b5edab8c9bd84e9
+2026-04-06 14:39:24 [info]: GET /ticket/holder/0xA996d3D5d5fB75bE2E43c7c0392Da89d84C2ca32
+2026-04-06 14:39:26 [info]: GET /reward/balance/0xA996d3D5d5fB75bE2E43c7c0392Da89d84C2ca32
+2026-04-06 14:39:26 [info]: GET /ticket/6
+2026-04-06 14:39:26 [info]: GET /service
+2026-04-06 14:39:27 [info]: GET /ticket/6/status
+2026-04-06 14:39:37 [info]: POST /ticket/purchase
+2026-04-06 14:39:57 [info]: GET /auth/nonce
+2026-04-06 14:40:05 [info]: GET /reward/balance/0xA996d3D5d5fB75bE2E43c7c0392Da89d84C2ca32
+2026-04-06 14:40:06 [info]: GET /service
+2026-04-06 14:40:11 [info]: GET /ticket/holder/0xA996d3D5d5fB75bE2E43c7c0392Da89d84C2ca32
+2026-04-06 14:40:15 [info]: GET /ticket/6
+2026-04-06 14:40:15 [info]: GET /ticket/8
+2026-04-06 14:40:17 [info]: GET /ticket/8/status
+2026-04-06 14:40:17 [info]: GET /ticket/6/status
+2026-04-06 14:40:51 [info]: POST /auth/login
+2026-04-06 14:40:52 [info]: Successful login for address: 0xA87fd5C0EE110cEAA1939C01C1D8623ac4417A2f
+2026-04-06 14:41:03 [info]: GET /ticket/holder/0xA87fd5C0EE110cEAA1939C01C1D8623ac4417A2f
+2026-04-06 14:41:03 [info]: GET /reward/balance/0xA87fd5C0EE110cEAA1939C01C1D8623ac4417A2f
+2026-04-06 14:41:06 [info]: GET /service
+2026-04-06 14:41:10 [info]: GET /reward/balance/0xA87fd5C0EE110cEAA1939C01C1D8623ac4417A2f
+2026-04-06 14:41:54 [info]: POST /ticket/purchase
+2026-04-06 14:42:18 [info]: GET /service
+2026-04-06 14:42:18 [info]: GET /reward/balance/0xA87fd5C0EE110cEAA1939C01C1D8623ac4417A2f
+2026-04-06 14:43:45 [info]: Server running at http://localhost:8000
+2026-04-06 14:44:25 [info]: POST /ticket/purchase
+2026-04-06 14:44:53 [info]: GET /reward/balance/0xA87fd5C0EE110cEAA1939C01C1D8623ac4417A2f
+2026-04-06 14:44:55 [info]: GET /service

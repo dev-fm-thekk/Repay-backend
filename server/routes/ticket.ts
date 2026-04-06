@@ -216,7 +216,7 @@ router.post('/purchase', authenticate, async (req: AuthRequest, res) => {
             }
         }
 
-
+        console.log(hash)
 
         res.json({ 
             success: true, 

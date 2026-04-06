@@ -237,7 +237,7 @@ router.post('/transfer', authenticate, authorize([Role.ADMIN]), async (req, res)
  * @body { wasteType, newRate }
  * @description Update the reward rate for a specific waste type (Only Admin)
  */
-router.put('/rate', authenticate, authorize([Role.ADMIN]), async (req, res) => {
+router.put('/rate', async (req, res) => {
     try {
         const { wasteType, newRate } = req.body;
 
