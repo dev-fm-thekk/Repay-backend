@@ -1,57 +1,77 @@
-# Sample Hardhat 3 Beta Project (`node:test` and `viem`)
+# Repay Backend - Governance & Transport Ecosystem
 
-This project showcases a Hardhat 3 Beta project using the native Node.js test runner (`node:test`) and the `viem` library for Ethereum interactions.
+A blockchain-powered platform for government transport agencies, service management, and incentive-based rewards. The system utilizes ERC20 tokens for rewards and ERC721 NFTs for transit tickets, all secured by a Web3-first REST API.
 
-To learn more about the Hardhat 3 Beta, please visit the [Getting Started guide](https://hardhat.org/docs/getting-started#getting-started-with-hardhat-3). To share your feedback, join our [Hardhat 3 Beta](https://hardhat.org/hardhat3-beta-telegram-group) Telegram group or [open an issue](https://github.com/NomicFoundation/hardhat/issues/new) in our GitHub issue tracker.
+## Core Architecture
 
-## Project Overview
+The system is built on four primary smart contracts:
 
-This example project includes:
+1.  **RewardToken (RWDR)**: An ERC20 token used to incentivize eco-friendly behavior.
+2.  **AgencyRegistry**: A governance contract where the platform administrator registers government transport agencies (e.g., Metro, Bus Authorities).
+3.  **ServiceRegistry**: Allows registered agencies to define and manage transport services (routes, price in RWDR, supply).
+4.  **TicketNFT**: Handles the minting, purchasing, and validation of NFT-based transit tickets.
 
-- A simple Hardhat configuration file.
-- Foundry-compatible Solidity unit tests.
-- TypeScript integration tests using [`node:test`](nodejs.org/api/test.html), the new Node.js native test runner, and [`viem`](https://viem.sh/).
-- Examples demonstrating how to connect to different types of networks, including locally simulating OP mainnet.
+## Backend API
 
-## Usage
+The project includes a Node.js/Express server that serves as a bridge between the blockchain and frontend/mobile applications.
 
-### Running Tests
+### Key Features:
+- **SIWE Authentication**: Sign-In with Ethereum for secure, wallet-based logins.
+- **RBAC (Role-Based Access Control)**: Permission system (`ADMIN`, `AGENCY`, `USER`) determined by on-chain state.
+- **Contract Security**: Sensitive blockchain operations require a transient private key validation against the authenticated session.
+- **Viem Integration**: High-performance, type-safe blockchain interactions.
 
-To run all the tests in the project, execute the following command:
+## Technology Stack
 
-```shell
+- **Solidity ^0.8.28**
+- **Smarter Contracts**: OpenZeppelin v5.0
+- **Blockchain Environment**: Hardhat & Local Node
+- **Server**: Node.js, Express, Bun
+- **Authentication**: SIWE (Sign-In with Ethereum), JWT
+- **Blockchain Interface**: Viem
+
+## Installation & Setup
+
+```bash
+# Install dependencies
+bun install
+
+# Start local hardhat node
+npx hardhat node
+
+# Deploy contracts to local network
+npm run deploy-local
+
+# Start the API server
+bun run server
+```
+
+## API Documentation
+
+The Repay API is a RESTful gateway to the blockchain ecosystem.
+
+- **[Full API Reference](./docs/API_REFERENCE.md)**: Comprehensive guide for all endpoints and frontend integration.
+- **[Architecture Overview](./docs/Architecture.md)**: System design and smart contract interactions.
+
+## Testing
+
+The project uses a combination of Hardhat tests for contracts and Bun for API E2E testing.
+
+```bash
+# Run Contract Tests
 npx hardhat test
+
+# Run API E2E Tests
+bun test test/api.test.ts
 ```
 
-You can also selectively run the Solidity or `node:test` tests:
+## Security Design
 
-```shell
-npx hardhat test solidity
-npx hardhat test nodejs
-```
+1.  **Wallet-Only Identity**: No passwords or traditional accounts; identity is proven via cryptographic signatures.
+2.  **On-Chain Roles**: Roles are not stored in a database but fetched directly from the registry contracts.
+3.  **Private Key Enforcement**: Operations that move funds (like purchasing a ticket) require the user's private key to be passed to the API, where it is validated against the authenticated session before execution.
+4.  **Soul-Bound Tickets**: Transit NFTs are non-transferable to prevent secondary market abuse.
 
-### Make a deployment to Sepolia
+## License
 
-This project includes an example Ignition module to deploy the contract. You can deploy this module to a locally simulated chain or to Sepolia.
-
-To run the deployment to a local chain:
-
-```shell
-npx hardhat ignition deploy ignition/modules/Counter.ts
-```
-
-To run the deployment to Sepolia, you need an account with funds to send the transaction. The provided Hardhat configuration includes a Configuration Variable called `SEPOLIA_PRIVATE_KEY`, which you can use to set the private key of the account you want to use.
-
-You can set the `SEPOLIA_PRIVATE_KEY` variable using the `hardhat-keystore` plugin or by setting it as an environment variable.
-
-To set the `SEPOLIA_PRIVATE_KEY` config variable using `hardhat-keystore`:
-
-```shell
-npx hardhat keystore set SEPOLIA_PRIVATE_KEY
-```
-
-After setting the variable, you can run the deployment with the Sepolia network:
-
-```shell
-npx hardhat ignition deploy --network sepolia ignition/modules/Counter.ts
-```
+MIT

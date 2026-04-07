@@ -1,0 +1,23 @@
+{
+  "network": "localhost",
+  "deployedAt": "2026-03-12T02:46:48.559Z",
+  "deployer": "0xA87fd5C0EE110cEAA1939C01C1D8623ac4417A2f",
+  "contracts": [
+    {
+      "name": "RewardToken",
+      "address": "0x29f3c1f07d088d05c0423ffb6c55a15b9dbd97e6"
+    },
+    {
+      "name": "AgencyRegistry",
+      "address": "0xca176ff48a06d388da66a3e19deeadc599604dfa"
+    },
+    {
+      "name": "ServiceRegistry",
+      "address": "0xc05bb50c090a3f8255a28094301de787afe6e41f"
+    },
+    {
+      "name": "TicketNFT",
+      "address": "0x40bfa2e54fd6ae92bf5bb5110ad7eb9ab402372b"
+    }
+  ]
+}

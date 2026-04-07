@@ -1,5 +1,8 @@
 import hardhatToolboxViemPlugin from "@nomicfoundation/hardhat-toolbox-viem";
 import { configVariable, defineConfig } from "hardhat/config";
+import "@nomicfoundation/hardhat-toolbox-viem";
+import dotenv from "dotenv";
+dotenv.config({ path: ".env.app" });
 
 export default defineConfig({
   plugins: [hardhatToolboxViemPlugin],
@@ -7,6 +10,13 @@ export default defineConfig({
     profiles: {
       default: {
         version: "0.8.28",
+        settings: {
+          optimizer: {
+            enabled: true,
+            runs: 200,
+          },
+          viaIR: true,
+        },
       },
       production: {
         version: "0.8.28",
@@ -15,6 +25,7 @@ export default defineConfig({
             enabled: true,
             runs: 200,
           },
+          viaIR: true,
         },
       },
     },
@@ -31,8 +42,8 @@ export default defineConfig({
     sepolia: {
       type: "http",
       chainType: "l1",
-      url: configVariable("SEPOLIA_RPC_URL"),
-      accounts: [configVariable("SEPOLIA_PRIVATE_KEY")],
+      url: process.env.SEPOLIA_RPC_URL!,
+      accounts: [process.env.SEPOLIA_PRIVATE_KEY!],
     },
   },
 });

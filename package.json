@@ -2,13 +2,41 @@
   "name": "Repay-backend",
   "version": "1.0.0",
   "type": "module",
+  "dependencies": {
+    "@openzeppelin/contracts": "^5.6.1",
+    "@types/cookie-parser": "^1.4.10",
+    "@types/cors": "^2.8.19",
+    "@types/express": "^5.0.6",
+    "@types/jsonwebtoken": "^9.0.10",
+    "chai": "^6.2.2",
+    "cookie-parser": "^1.4.7",
+    "cors": "^2.8.6",
+    "dotenv": "^17.3.1",
+    "express": "^5.2.1",
+    "hardhat": "^3.1.12",
+    "jsonwebtoken": "^9.0.3",
+    "mocha": "^11.7.5",
+    "siwe": "^3.0.0",
+    "winston": "^3.19.0"
+  },
   "devDependencies": {
     "@nomicfoundation/hardhat-ignition": "^3.0.8",
-    "@nomicfoundation/hardhat-toolbox-viem": "^5.0.2",
+    "@nomicfoundation/hardhat-toolbox-viem": "^5.0.3",
+    "@types/chai": "^5.2.3",
+    "@types/mocha": "^10.0.10",
     "@types/node": "^22.8.5",
+    "ethers": "^6.16.0",
     "forge-std": "foundry-rs/forge-std#v1.9.4",
-    "hardhat": "^3.1.10",
     "typescript": "~5.8.0",
     "viem": "^2.43.0"
+  },
+  "scripts": {
+    "test": "bunx hardhat test --show-stack-traces",
+    "test:forge": "forge test",
+    "deploy-local": "bunx hardhat run scripts/deploy.ts --network localhost",
+    "deploy-sepolia": "bunx hardhat run scripts/deploy.ts --network sepolia",
+    "compile": "bunx hardhat compile",
+    "compile:forge": "forge build",
+    "server": "bun --watch server/app.ts"
   }
 }
